@@ -1,0 +1,16 @@
+{
+  "name": "mysuru-athletics-entry",
+  "version": "1.0.0",
+  "description": "Mysuru District Athletics Association - Athlete Entry Portal (NIDJAM 2026)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5"
+  },
+  "keywords": ["athletics", "nidjam", "mysuru", "registration-portal"],
+  "author": "Mysuru District Athletics Association",
+  "license": "ISC"
+}
