@@ -757,6 +757,119 @@
                 align-items: stretch
             }
         }
+
+        /* Circular 88 Dedicated Styling */
+        .circular-card {
+            background: #ffffff;
+            border: 1px solid #dceaf1;
+            border-radius: 22px;
+            padding: 26px;
+            box-shadow: 0 4px 18px rgba(35, 78, 107, 0.05);
+            margin-top: 14px;
+        }
+
+        .circular-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 16px;
+            border-bottom: 1px solid #eef4f8;
+            padding-bottom: 16px;
+            margin-bottom: 16px;
+        }
+
+        .circular-subject {
+            background: #f0f9ff;
+            border: 1px solid #bae6fd;
+            border-radius: 12px;
+            padding: 12px 16px;
+            font-size: 14px;
+            color: #0369a1;
+            margin-bottom: 20px;
+        }
+
+        .circular-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .circular-rule-box {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 18px;
+        }
+
+        .circular-rule-box h4 {
+            margin: 0 0 10px;
+            font: 800 14px Manrope, sans-serif;
+            color: #0f273d;
+        }
+
+        .circular-rule-box ul {
+            margin: 0;
+            padding-left: 18px;
+            font-size: 12.5px;
+            color: #475569;
+            line-height: 1.6;
+        }
+
+        .circular-rule-box li {
+            margin-bottom: 6px;
+        }
+
+        .circular-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 18px;
+        }
+
+        .circular-table th,
+        .circular-table td {
+            text-align: left;
+            padding: 11px 14px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .circular-table th {
+            background: #f1f5f9;
+            color: #475569;
+            font-size: 11px;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: .05em;
+        }
+
+        .circular-verbatim {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 20px;
+            font-family: 'DM Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            font-size: 12px;
+            line-height: 1.65;
+            color: #334155;
+            white-space: pre-wrap;
+            max-height: 520px;
+            overflow-y: auto;
+            margin: 0;
+        }
+
+        @media(max-width:850px) {
+            .circular-grid {
+                grid-template-columns: 1fr;
+            }
+            .circular-top {
+                flex-direction: column;
+            }
+        }
     </style>
 </head>
 
@@ -1007,14 +1120,284 @@
         <section id="circularView" class="panel hide">
             <div class="heading">
                 <div>
-                    <h2>AFI Circular No. 88/09-2026 Full Reference</h2>
-                    <p>Official notification issued by Athletics Federation of India on 09 September 2026.</p>
+                    <h2>AFI Circular No. 88/09-2026 — Official Rules &amp; Notification</h2>
+                    <p>Official communication from Athletics Federation of India (AFI) · 09 September 2026</p>
                 </div>
-                <button class="glass" onclick="switchView('athlete')">Back to Registration ↗</button>
+                <button class="primary" onclick="switchView('athlete')">Go to Registration Form ↗</button>
             </div>
-            <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:16px; padding:22px; font-family:monospace; font-size:13px; line-height:1.6; white-space:pre-wrap; max-height:600px; overflow-y:auto"
-                id="circularContent">
-                Loading circular text...
+
+            <div class="circular-card">
+                <!-- Circular Header / Meta -->
+                <div class="circular-top">
+                    <div>
+                        <span class="badge" style="background:#e0f2fe; color:#0369a1; font-size:12px; margin-bottom:8px">OFFICIAL AFI NOTIFICATION</span>
+                        <h3 style="margin:4px 0 6px; font:800 22px Manrope, sans-serif; color:#0f273d">Circular No. 88/09-2026</h3>
+                        <div style="font-size:13px; color:#537189">
+                            Date: <strong>09 September 2026</strong> · Issued by: <strong>Athletics Federation of India (AFI)</strong>
+                        </div>
+                        <div style="font-size:12px; color:#64748b; margin-top:3px">
+                            To: All Affiliated State Units &amp; All Affiliated District Units
+                        </div>
+                    </div>
+                    <div style="text-align:right">
+                        <div style="font-size:11px; text-transform:uppercase; color:#64748b; font-weight:700">Competition Dates</div>
+                        <div style="font-weight:800; font-size:16px; color:#0284c7; margin:2px 0">14 – 16 November 2026</div>
+                        <div style="font-size:12px; color:#475569">Woxsen University, Kamkole, Sadasivpet, Hyderabad</div>
+                        <div style="font-size:11px; color:#16a34a; font-weight:700; margin-top:4px">In collab. with Govt. of Telangana</div>
+                    </div>
+                </div>
+
+                <div class="circular-subject">
+                    <strong>Subject:</strong> 20th National Inter District Junior Athletics Meet 2026 (NIDJAM)
+                </div>
+
+                <!-- Structured Rules Breakdown -->
+                <div class="circular-grid">
+                    <div class="circular-rule-box">
+                        <h4>1. Age Brackets &amp; Cut-Off Dates (as on 16 Nov 2026)</h4>
+                        <ul>
+                            <li><strong>Under 14 Years (Boys &amp; Girls):</strong> Born between <strong>17/11/2012 &amp; 16/11/2014</strong>.</li>
+                            <li><strong>Minimum Age Limit:</strong> Minimum <strong>12 years and above</strong> as on 16 November 2026. Boys and girls under 12 years are strictly NOT eligible.</li>
+                            <li><strong>Under 16 Years (Boys &amp; Girls):</strong> Born between <strong>17/11/2010 &amp; 16/11/2012</strong>.</li>
+                            <li><strong>Mandatory Age Verification:</strong> 13 November 2026 at meet venue by AFI Age Verification Committee including Doctors.</li>
+                            <li><strong>Proof of Age:</strong> Birth Certificate issued by "Birth &amp; Death" Registration Office of Municipal Corporation / Nagar Palika / District Office, OR 10th Standard Examination Certificate.</li>
+                            <li><strong>Overage Penalty:</strong> Athletes found overage forfeit T.A., food, and accommodation.</li>
+                        </ul>
+                    </div>
+
+                    <div class="circular-rule-box">
+                        <h4>2. District Quotas &amp; Boarding Limits</h4>
+                        <ul>
+                            <li><strong>Boarding &amp; Lodging:</strong> AFI provides free boarding and lodging to a maximum of <strong>13 Athletes and 2 Officials</strong> per district.</li>
+                            <li><strong>Hospitality Window:</strong> Food provided from <strong>13 to 17 November 2026</strong>.</li>
+                            <li><strong>U-14 Category District Quota:</strong> Each district can send maximum <strong>4 athletes</strong> (boys and girls together).</li>
+                            <li><strong>U-16 Category Limit:</strong> Maximum <strong>2 athletes</strong> per event from the same district.</li>
+                        </ul>
+                    </div>
+
+                    <div class="circular-rule-box">
+                        <h4>3. Online Entry &amp; Mandatory AFI UID</h4>
+                        <ul>
+                            <li><strong>Online Entry Portal:</strong> Entries must be submitted online on AFI Website: <a href="https://www.indianathletics.in" target="_blank" rel="noopener">www.indianathletics.in</a>.</li>
+                            <li><strong>Mandatory AFI UID:</strong> Every athlete must register on the AFI Website to obtain an AFI UID via <a href="https://ors.indianathletics.in/#/login" target="_blank" rel="noopener">https://ors.indianathletics.in/#/login</a> with Photo, DOB proof &amp; Address proof.</li>
+                            <li><strong>Digital Certificates:</strong> Issued strictly as per the name registered in the online entry.</li>
+                            <li><strong>Entry Window:</strong> <strong>15th October 2026 to 30th October 2026</strong> (strict deadline). No WhatsApp or email entries accepted.</li>
+                        </ul>
+                    </div>
+
+                    <div class="circular-rule-box">
+                        <h4>4. Eligibility, Rail Fare &amp; Declarations</h4>
+                        <ul>
+                            <li><strong>District Meet Mandatory:</strong> Only districts that conducted their official District Athletics Meet are eligible.</li>
+                            <li><strong>Mandatory Documents:</strong> 1. Results of District Meet · 2. Press-cuttings · 3. Photographs of the Meet · 4. District Association PAN Number.</li>
+                            <li><strong>Rail Fare Reimbursement:</strong> Reimbursed on verification of original tickets &amp; actual participation. Paid ONLY to the bank account of the District Athletics Association (no personal accounts).</li>
+                            <li><strong>Parent / Guardian Undertaking:</strong> Written declaration from parents/guardians regarding safety and liability is mandatory for all selected athletes.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Event Tables -->
+                <div style="margin-top:20px">
+                    <h4 style="margin:0 0 10px; font:800 16px Manrope, sans-serif; color:#0f273d">Events Conducted in NIDJAM 2026</h4>
+
+                    <div style="margin-bottom:18px">
+                        <div style="font-weight:700; font-size:13.5px; color:#0284c7; margin-bottom:6px">UNDER 14 YEARS (BOYS / GIRLS)</div>
+                        <div style="font-size:12px; color:#537189; margin-bottom:10px">Rule: An athlete can choose any ONE Triathlon group. Kids Javelin Throw is mandatory for all U-14 athletes.</div>
+                        <table class="circular-table">
+                            <thead>
+                                <tr>
+                                    <th style="width:130px">Group</th>
+                                    <th>Event Description</th>
+                                    <th style="width:230px">Mandatory Event</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Triathlon (A)</strong></td>
+                                    <td>60m · Long Jump (5m approach) · High Jump (Scissor only)</td>
+                                    <td rowspan="3" style="vertical-align:middle; background:#f0fdf4; color:#166534; font-weight:700; border-left:1px solid #e2e8f0; font-size:12px">
+                                        Kids Javelin Throw (with 5-meter runway) — Mandatory for ALL U-14 athletes
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Triathlon (B)</strong></td>
+                                    <td>60m · Long Jump (5m approach) · Back Throw (1kg Shot Put)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Triathlon (C)</strong></td>
+                                    <td>60m · Long Jump (5m approach) · 600m</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div>
+                        <div style="font-weight:700; font-size:13.5px; color:#0284c7; margin-bottom:6px">UNDER 16 YEARS (BOYS / GIRLS)</div>
+                        <div style="font-size:12px; color:#537189; margin-bottom:10px">Rule: An athlete can participate in ONE event only. Maximum 2 athletes per event from the same district.</div>
+                        <table class="circular-table">
+                            <thead>
+                                <tr>
+                                    <th style="width:50px">S.No</th>
+                                    <th style="width:180px">Boys Specification</th>
+                                    <th>Event Name</th>
+                                    <th style="width:180px">Girls Specification</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Standard</td>
+                                    <td><strong>60M</strong></td>
+                                    <td>Standard</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>0.838m Hurdle Height</td>
+                                    <td><strong>80MH (80m Hurdles)</strong></td>
+                                    <td>0.762m Hurdle Height</td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>Standard</td>
+                                    <td><strong>600 M</strong></td>
+                                    <td>Standard</td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>Scissor technique only</td>
+                                    <td><strong>High Jump (Scissor Only)</strong></td>
+                                    <td>Scissor technique only</td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td>5-meter Approach Runway</td>
+                                    <td><strong>Long Jump (5m Approach)</strong></td>
+                                    <td>5-meter Approach Runway</td>
+                                </tr>
+                                <tr>
+                                    <td>6</td>
+                                    <td>4Kg Shot Put (Standing)</td>
+                                    <td><strong>Shot Put (Standing)</strong></td>
+                                    <td>3Kg Shot Put (Standing)</td>
+                                </tr>
+                                <tr>
+                                    <td>7</td>
+                                    <td>600gms (10m Runway)</td>
+                                    <td><strong>Javelin Throw (10m Runway)</strong></td>
+                                    <td>500gms (10m Runway)</td>
+                                </tr>
+                                <tr>
+                                    <td>8</td>
+                                    <td style="font-size:12px">60m · 80mH · LJ (5m) · SP (4Kg Standing) · 600m</td>
+                                    <td><strong>Pentathlon (5 Events)</strong></td>
+                                    <td style="font-size:12px">60m · 80mH · LJ (5m) · SP (3Kg Standing) · 600m</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Complete Original Verbatim Text -->
+                <div style="margin-top:24px">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px">
+                        <strong style="font-size:13.5px; color:#1e3a5f">Complete Original Circular Text (Verbatim):</strong>
+                        <button class="glass" style="font-size:11.5px; padding:6px 12px" onclick="copyCircularText()">Copy Verbatim Text 📋</button>
+                    </div>
+                    <pre class="circular-verbatim" id="circularVerbatim">Circular No. 88/09-2026
+09 September 2026
+
+To,
+All Affiliated State Units
+All District Units affiliated to State Units
+
+Subject: 20th National Inter District Junior Athletics Meet 2026 (NIDJAM)
+
+Dear Sir / Madam,
+
+I am now pleased to inform you that the 20th edition of National Inter District Junior Athletics Meet will be held at Woxsen University, Kamkole, Sadasivpet, Hyderabad, Telangana, in collaboration with Government of Telangana from 14 – 16 November 2026.
+
+Eligibility: Only those District Athletics Associations, which have conducted their District Athletics Meet, are eligible to participate. The districts units are required to send the following documents along with the online entry:
+1. Results of the District Meet
+2. Press-cuttings
+3. Photographs of the Meet
+4. Only the districts who has a valid PAN Number on the name of their respective District Athletics Association will be eligible to send entries.
+
+Issuance of Certificates: Digital certificates will be issued as per the name mentioned in online entry.
+
+Number of Events an Athlete can participate:
+In case of U-16 group an Athlete can participate in one event and in same event maximum of two athletes can be entered. In case of U-14 an athlete can choose any one of the triathlon groups and the Kids Javelin Throw will be mandatory for all the U-14 athletes.
+
+Events to be conducted in NIDJAM 2026 are as under:
+
+UNDER 14 YEARS (BOYS/GIRLS)
+S. No.   EVENTS           DESCRIPTION
+1.       Triathlon(A)     60m, Long Jump (5m approach), High Jump (Scissor)
+2.       Triathlon(B)     60m, Long Jump (5m approach), Back Throw (1kg Shot put)
+3.       Triathlon(C)     60m, Long Jump (5m approach), 600m
+4.       Kids Javelin Throw with five-meter runway will be mandatory for all the U-14 athletes
+
+UNDER 16 YEARS
+S. No.   BOYS             EVENTS                       GIRLS
+1.       -                60M                          -
+2.       0.838m           80MH                         0.762m
+3.       -                600 M                        -
+4.       -                High Jump (Scissor Only)     -
+5.       -                Long Jump (5m Approach)      -
+6.       4Kg              Shot Put (Standing)          3Kg
+7.       600gms           Javelin Throw (10m Runway)   500gms
+8.       Pentathlon       Pentathlon                   Pentathlon
+         (60m, 80mH, LJ 5m, Shotput 4Kg Standing, 600m) (60m, 80mH, LJ 5m, Shotput 3Kg Standing, 600m)
+
+Age Brackets:
+Boys & Girls U-14 years - Born between 17/11/2012 & 16/11/2014
+Boys & Girls U-16 years - Born between 17/11/2010 & 16/11/2012
+
+Minimum Age Limit for Participation:
+The minimum age limit for participation in age group of U-14 is 12 years and above as on 16 November 2026. Boys and Girls under 12 years are not eligible to participate.
+
+Procedure of Sending Entries:
+Entries are to be filled ONLINE on AFI Website www.indianathletics.in.
+For Online Entry, every athlete has to register on AFI Website and has to obtain AFI UID. To obtain AFI UID, athlete has to submit their clear Photo, Date of Birth Proof & Address Proof and other details. The AFI UID can be obtained through the following link: https://ors.indianathletics.in/#/login
+For ONLINE entry, each District Unit will be provided Login ID & Password and ONLINE entry will remain open from 15th October 2026 to 30th October 2026. The procedure to send the ONLINE ENTRY will be shared separately in due course.
+In U-14 category each district can send maximum 4 athletes (boys and girls together).
+Only Online Entries will be accepted. Entries will not be accepted on WhatsApp or Email or any other mode.
+
+Last Date of Entry:
+The last date of receipt of Entries “ONLINE” is 30th October 2026.
+
+For any enquiry, please contact:
+1. Mr. C.S. Rathi, Coordinator, Athletics Federation of India
+   Mobile Number: +91 9313167978
+
+Age Verification:
+AFI Age Verification Committee including Doctor(s) will be present to assess the age of athletes. It may please be noted that no athlete will be allowed to participate if he/she is not cleared by the Committee. It is therefore the responsibility of the Managers/Coaches to ensure that they present their athletes before the Committee immediately after arrival at the venue.
+It is mandatory to produce original proof of date of birth. Please note that Age Verification will be done on 13th November 2026.
+
+Proof of Age:
+The athletes are required to produce the Birth Certificate issued by “Birth & Death” Registration Office of Municipal Corporation/Nagar Palika/District/ 10th Standard Examination.
+
+Food and Accommodation:
+Food will be provided from 13 to 17 November 2026.
+
+Re-imbursement of Rail fare:
+Rail fare will be reimbursed on verification of original rail tickets & actual participation of athletes in the competition. A photocopy of the rail tickets is required to be submitted along with reimbursement form. The reimbursement of the rail fare will be only made in the bank account of the District Athletics Association. (No personal account details will be accepted).
+All those athletes found overage will not be entitled to get T.A/food/accommodation etc. No District Athletics Associations will be allowed the entry of its athletes, if District Meet has not been conducted as per the guidelines of AFI.
+AFI is providing free boarding and lodging to maximum of 13 Athletes and 2 Officials per district.
+
+It may please be noted that AFI will not be responsible for any mishap/incident during the period of stay of the athletes/officials at the venue of the Meet. The District Secretaries may, therefore, obtain written undertaking/declaration in this regard from the parents/guardians of athletes selected for participation in NIDJAM, 2026 and send the same to this office along-with entry.
+
+All State Units are requested to circulate this communication to their affiliated District Units at the earliest and ensure timely submission of entries to enable smooth conduct of the Championship.
+
+Regards,
+Bahadur Singh Sagoo
+President
+Athletics Federation of India
+
+CC:
+Shri Jayesh Ranjan
+Special Chief Secretary for Metropolitan Area & Urban Development, and
+Youth Advancement, Tourism & Culture, Government of Telangana</pre>
+                </div>
             </div>
         </section>
 
@@ -1529,20 +1912,26 @@
         });
 
         // ==========================================
-        // 7. LOAD CIRCULAR TEXT
+        // 7. CIRCULAR TEXT & COPY HELPER
         // ==========================================
-        async function loadCircularText() {
-            const container = document.querySelector('#circularContent');
-            try {
-                const res = await fetch('/rules.txt');
-                if (res.ok) {
-                    container.textContent = await res.text();
-                } else {
-                    container.textContent = 'Circular No. 88/09-2026 text could not be loaded.';
-                }
-            } catch (e) {
-                container.textContent = 'Failed to load circular: ' + e.message;
+        function copyCircularText() {
+            const verbatimEl = document.querySelector('#circularVerbatim');
+            if (!verbatimEl) return;
+            const text = verbatimEl.textContent;
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(() => {
+                    alert('Official AFI Circular No. 88/09-2026 text copied to clipboard.');
+                }).catch(() => {
+                    prompt('Copy the circular text below:', text);
+                });
+            } else {
+                prompt('Copy the circular text below:', text);
             }
+        }
+
+        async function loadCircularText() {
+            // Content is already pre-loaded into the DOM for instant, offline access.
+            // This function is kept for backward compatibility with switchView.
         }
 
         // ==========================================

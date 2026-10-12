@@ -47,7 +47,7 @@ This portal manages athlete entries from Mysuru District for the **20th National
 
 ---
 
-### Running the Application
+### Running Locally
 
 ```bash
 # Install dependencies
@@ -55,7 +55,7 @@ npm install
 
 # Start local server
 npm start
-# or for live reloading:
+# or with file watching:
 npm run dev
 ```
 
@@ -63,3 +63,43 @@ Visit [http://localhost:3000](http://localhost:3000) in your browser.
 
 - **Athlete View**: Form validation enforces age limits, AFI UID, quota tracking, single-event constraints, and parent undertakings.
 - **Admin View**: Sign in with `admin@mysuru-athletics.com` and passcode `mysuru2026`. View compliance checklist, entries table, and export AFI CSV.
+
+---
+
+### Deploying to Vercel
+
+The application is structured for instant zero-configuration deployment to Vercel:
+- **Frontend**: `index.html` and static assets served on Vercel's Edge CDN.
+- **API**: Serverless functions in `api/` (`api/config.js`, `api/stats.js`, `api/entries.js`).
+- **Routing**: `vercel.json` rewrites `/config.js` to `/api/config`.
+
+#### Method 1: Deploy using Vercel CLI (Fastest)
+
+```bash
+# In the project directory, run:
+npx vercel
+
+# Follow the interactive prompts:
+# - Set up and deploy? Yes
+# - Which scope? (Select your account)
+# - Link to existing project? No
+# - Project name? mysuru-athletics-entry
+# - Directory? ./
+# - Want to modify settings? No
+
+# Deploy to production:
+npx vercel --prod
+```
+
+#### Method 2: Deploy using GitHub & Vercel Dashboard
+
+1. Push your repository to GitHub.
+2. Go to [https://vercel.com/new](https://vercel.com/new) and import the repository.
+3. In **Environment Variables**, add the variables from `.env`:
+   - `SUPABASE_URL`
+   - `SUPABASE_ANON_KEY`
+   - `SUPABASE_SERVICE_ROLE_KEY`
+   - `ADMIN_EMAIL`
+   - `ENTRY_DEADLINE`
+   - `ENTRY_OPEN_DATE`
+4. Click **Deploy**.
