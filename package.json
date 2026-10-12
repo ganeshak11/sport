@@ -4,6 +4,7 @@
   "description": "Mysuru District Athletics Association - Athlete Entry Portal (NIDJAM 2026)",
   "main": "server.js",
   "scripts": {
+    "build": "mkdir -p public && cp index.html athletics-hero.png rules.txt public/ 2>/dev/null || true",
     "start": "node server.js",
     "dev": "node --watch server.js"
   },
