@@ -1144,8 +1144,17 @@ console.trace('[DEBUG] switchView called with:', view);
                     body: JSON.stringify(payload)
                 });
 
-                const result = await res.json();
-                if (!res.ok) { alert('Registration Error: ' + (result.error || 'Submission failed')); return; }
+                let result = {};
+                try {
+                    result = await res.json();
+                } catch (_) {
+                    result = { error: 'Server returned HTTP ' + res.status };
+                }
+
+                if (!res.ok) {
+                    alert('Registration Error (' + res.status + '): ' + (result.error || 'Submission rejected by server.'));
+                    return;
+                }
 
                 alert('✅ Success!\n\n' + result.message + '\n\nAthlete: ' + data.name + ' (' + data.afi_uid + ')\nCategory: ' + data.category + '\nEvents: ' + events.join(', '));
                 e.target.reset();
@@ -1155,7 +1164,7 @@ console.trace('[DEBUG] switchView called with:', view);
                 fetchStats();
             } catch (err) {
                 console.error('[Entry] Submission failed:', err);
-                alert('Network error while submitting entry. Please verify server connection.');
+                alert('Connection Error: ' + (err.message || 'Unable to reach registration server.'));
             } finally {
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = originalBtnText;
