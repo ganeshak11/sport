@@ -895,7 +895,7 @@ Youth Advancement, Tourism & Culture, Government of Telangana</pre>
         // ==========================================
         const VIEWS = ['athlete', 'circular', 'admin'];
 
-        function switchView(view) {
+        function switchView(view, options = {}) {
             if (VIEWS.indexOf(view) === -1) view = 'athlete';
 
             document.querySelectorAll('[data-view]').forEach(function (b) {
@@ -920,8 +920,9 @@ Youth Advancement, Tourism & Culture, Government of Telangana</pre>
 
             console.log('[Nav] view =', view);
 
-            if (view === 'admin') checkAdminSession();
-        }
+if (view === 'admin' && !options.skipSessionCheck) {
+    checkAdminSession();
+}
 
         window.switchView = switchView;
 
@@ -1231,10 +1232,13 @@ Youth Advancement, Tourism & Culture, Government of Telangana</pre>
 
                 console.log('[Auth] Sign-in success. Session:', !!data.session);
 
-                // FORCE the admin view + dashboard, regardless of current state
-                switchView('admin');
-                applyAdminPanels(data.session);
-                await loadAdminDashboard();
+                // Authentication has succeeded. Avoid starting a second
+// session check while switching to the admin dashboard.
+switchView('admin', { skipSessionCheck: true });
+
+applyAdminPanels(data.session);
+
+await loadAdminDashboard();
             } catch (err) {
                 console.error('[Auth] Login error:', err);
                 alert('Login error: ' + (err && err.message ? err.message : 'Unknown error'));
