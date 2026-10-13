@@ -747,7 +747,7 @@ Youth Advancement, Tourism & Culture, Government of Telangana</pre>
                     - Button is type="button" — handled by click, never by submit
                     - This guarantees no page reload on login
                 -->
-                <form id="loginForm" autocomplete="on" onsubmit="return false;">
+                <form id="loginForm" autocomplete="on" onsubmit="event.preventDefault(); window.handleLoginSubmit && window.handleLoginSubmit(event); return false;">
                     <div class="field" style="margin-bottom:14px">
                         <label for="adminEmail">Admin Email</label>
                         <input type="email" id="adminEmail" name="adminEmail" value="admin@mysuru-athletics.com" required>
@@ -756,7 +756,7 @@ Youth Advancement, Tourism & Culture, Government of Telangana</pre>
                         <label for="adminPass">Admin Passcode</label>
                         <input type="password" id="adminPass" name="adminPass" required placeholder="Enter passcode (mysuru2026)">
                     </div>
-                    <button type="button" id="loginSubmitBtn" class="primary" style="width:100%">Sign In to Dashboard &nbsp;↗</button>
+                    <button type="submit" id="loginSubmitBtn" class="primary" style="width:100%">Sign In to Dashboard &nbsp;↗</button>
                     <p class="hint" style="margin-top:10px; text-align:center">Authorized officials only · Passcode: <b>mysuru2026</b></p>
                 </form>
             </div>
@@ -921,9 +921,10 @@ console.trace('[DEBUG] switchView called with:', view);
 
             console.log('[Nav] view =', view);
 
-if (view === 'admin' && !options.skipSessionCheck) {
-    checkAdminSession();
-}
+            if (view === 'admin' && !options.skipSessionCheck) {
+                checkAdminSession();
+            }
+        }
 
         window.switchView = switchView;
 
@@ -1252,6 +1253,7 @@ await loadAdminDashboard();
                 if (submitBtn) { submitBtn.disabled = false; submitBtn.innerHTML = orig; }
             }
         }
+        window.handleLoginSubmit = handleLoginSubmit;
 
         async function handleSignOut() {
             if (supabase) { try { await supabase.auth.signOut(); } catch (e) { console.warn(e); } }
@@ -1367,21 +1369,17 @@ await loadAdminDashboard();
             safeOn('#gender', 'change', renderEvents);
             safeOn('#form', 'submit', handleFormSubmit);
 
-            // Admin login — click-driven (form submit is neutralized in HTML)
-           safeOn('#loginSubmitBtn', 'click', function (e) {
-    e.preventDefault();
-    console.log('[DEBUG] Login button clicked');
-    alert('Login click handler is running');
-    handleLoginSubmit(e);
-});
-            // Also, Enter key in password field triggers login
+            // Admin login
+            safeOn('#loginSubmitBtn', 'click', function (e) {
+                if (e && e.preventDefault) e.preventDefault();
+                handleLoginSubmit(e);
+            });
             const passEl = document.querySelector('#adminPass');
             if (passEl) {
                 passEl.addEventListener('keydown', function (ev) {
                     if (ev.key === 'Enter') { ev.preventDefault(); handleLoginSubmit(ev); }
                 });
             }
-            // Defensive: if the form somehow still fires submit, block it
             const loginForm = document.querySelector('#loginForm');
             if (loginForm) {
                 loginForm.addEventListener('submit', function (ev) {

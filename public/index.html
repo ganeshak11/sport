@@ -4,6 +4,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>Mysuru District Athletics Association — NIDJAM 2026 Entry Portal</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
@@ -26,9 +29,7 @@
             --shadow: 0 18px 45px rgba(23, 62, 94, 0.08)
         }
 
-        * {
-            box-sizing: border-box
-        }
+        * { box-sizing: border-box }
 
         body {
             margin: 0;
@@ -38,837 +39,229 @@
             min-height: 100vh
         }
 
-        button,
-        input,
-        select,
-        textarea {
-            font: inherit
-        }
+        button, input, select, textarea { font: inherit }
+        button { cursor: pointer }
 
-        button {
-            cursor: pointer
-        }
+        .shell { max-width: 1200px; margin: auto; padding: 24px 28px 64px }
 
-        .shell {
-            max-width: 1200px;
-            margin: auto;
-            padding: 24px 28px 64px
-        }
+        .top { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding-bottom: 8px }
 
-        .top {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 18px;
-            padding-bottom: 8px
-        }
+        .brand { display: flex; gap: 14px; align-items: center; font-family: Manrope, sans-serif; font-weight: 800; letter-spacing: -.4px }
 
-        .brand {
-            display: flex;
-            gap: 14px;
-            align-items: center;
-            font-family: Manrope, sans-serif;
-            font-weight: 800;
-            letter-spacing: -.4px
-        }
+        .brand-title { font-size: 17px; line-height: 1.2 }
 
-        .brand-title {
-            font-size: 17px;
-            line-height: 1.2
-        }
+        .brand-subtitle { font-size: 11px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .06em }
 
-        .brand-subtitle {
-            font-size: 11px;
-            color: var(--muted);
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: .06em
-        }
+        .mark { width: 46px; height: 46px; border-radius: 16px; background: linear-gradient(145deg, #7dd3fc, #86efac); display: grid; place-items: center; font-size: 24px; box-shadow: 0 6px 16px rgba(56, 189, 248, 0.25) }
 
-        .mark {
-            width: 46px;
-            height: 46px;
-            border-radius: 16px;
-            background: linear-gradient(145deg, #7dd3fc, #86efac);
-            display: grid;
-            place-items: center;
-            font-size: 24px;
-            box-shadow: 0 6px 16px rgba(56, 189, 248, 0.25)
-        }
-
-        .nav {
-            display: flex;
-            gap: 8px;
-            padding: 5px;
-            border: 1px solid #d8e8f2;
-            border-radius: 18px;
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(14px)
-        }
+        .nav { display: flex; gap: 8px; padding: 5px; border: 1px solid #d8e8f2; border-radius: 18px; background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(14px) }
 
         .glass {
             border: 1px solid rgba(255, 255, 255, 0.9);
             background: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(239, 250, 255, 0.75));
             box-shadow: 0 4px 14px rgba(41, 96, 132, 0.08), inset 0 1px #fff;
-            border-radius: 14px;
-            color: var(--ink);
-            font-weight: 700;
-            padding: 10px 18px;
-            transition: all .2s ease
+            border-radius: 14px; color: var(--ink); font-weight: 700; padding: 10px 18px; transition: all .2s ease
         }
 
-        .glass:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(41, 96, 132, 0.14)
-        }
+        .glass:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(41, 96, 132, 0.14) }
 
-        .glass.active {
-            background: linear-gradient(140deg, #bbf7d0, #dcfce7);
-            color: #14532d;
-            border-color: #86efac
-        }
+        .glass.active { background: linear-gradient(140deg, #bbf7d0, #dcfce7); color: #14532d; border-color: #86efac }
 
-        .circular-pill {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 6px 14px;
-            border-radius: 99px;
-            background: rgba(255, 255, 255, 0.85);
-            border: 1px solid #cce3f0;
-            font-size: 12px;
-            font-weight: 700;
-            color: #0369a1;
-            box-shadow: 0 2px 8px rgba(3, 105, 161, 0.08)
-        }
+        .circular-pill { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; border-radius: 99px; background: rgba(255, 255, 255, 0.85); border: 1px solid #cce3f0; font-size: 12px; font-weight: 700; color: #0369a1; box-shadow: 0 2px 8px rgba(3, 105, 161, 0.08) }
 
-        .hero {
-            display: grid;
-            grid-template-columns: 1.15fr .85fr;
-            align-items: center;
-            gap: 32px;
-            padding: 36px 0 32px
-        }
+        .hero { display: grid; grid-template-columns: 1.15fr .85fr; align-items: center; gap: 32px; padding: 36px 0 32px }
 
-        .hero h1 {
-            font: 800 clamp(34px, 4.5vw, 56px)/1.08 Manrope, sans-serif;
-            letter-spacing: -2px;
-            margin: 16px 0 14px
-        }
+        .hero h1 { font: 800 clamp(34px, 4.5vw, 56px)/1.08 Manrope, sans-serif; letter-spacing: -2px; margin: 16px 0 14px }
 
-        .hero h1 span {
-            color: #0284c7;
-            background: linear-gradient(135deg, #0284c7, #059669);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent
-        }
+        .hero h1 span { color: #0284c7; background: linear-gradient(135deg, #0284c7, #059669); -webkit-background-clip: text; -webkit-text-fill-color: transparent }
 
-        .hero p {
-            color: var(--muted);
-            line-height: 1.65;
-            max-width: 550px;
-            font-size: 15px;
-            margin-bottom: 22px
-        }
+        .hero p { color: var(--muted); line-height: 1.65; max-width: 550px; font-size: 15px; margin-bottom: 22px }
 
         .hero-art {
-            position: relative;
-            min-height: 330px;
-            border: 1px solid #fff;
-            border-radius: 28px;
-            box-shadow: var(--shadow);
-            overflow: hidden;
-            background-color: #eaf8ff;
+            position: relative; min-height: 330px; border: 1px solid #fff; border-radius: 28px; box-shadow: var(--shadow);
+            overflow: hidden; background-color: #eaf8ff;
             background-image: linear-gradient(180deg, rgba(234, 247, 255, 0.2), rgba(234, 247, 255, 0.05)), url("./athletics-hero.png");
-            background-size: cover;
-            background-position: center 56%;
-            animation: hero-pan 14s ease-in-out infinite alternate
+            background-size: cover; background-position: center 56%; animation: hero-pan 14s ease-in-out infinite alternate
         }
 
-        @keyframes hero-pan {
-            from {
-                background-position: 47% 56%
-            }
-
-            to {
-                background-position: 53% 56%
-            }
-        }
-
-        .float-label {
-            position: absolute;
-            border: 1px solid rgba(255, 255, 255, 0.95);
-            background: rgba(255, 255, 255, 0.88);
-            backdrop-filter: blur(10px);
-            padding: 9px 13px;
-            border-radius: 13px;
-            box-shadow: 0 8px 24px rgba(40, 97, 129, 0.15);
-            font-size: 12px;
-            font-weight: 700;
-            color: #0f273d
-        }
-
-        .l1 {
-            top: 18px;
-            left: 18px
-        }
-
-        .l2 {
-            bottom: 18px;
-            right: 18px
-        }
-
-        .stats-bar {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 14px;
-            margin-bottom: 24px
-        }
-
-        .stat-card {
-            border: 1px solid rgba(255, 255, 255, 0.9);
-            background: rgba(255, 255, 255, 0.82);
-            backdrop-filter: blur(16px);
-            padding: 16px;
-            border-radius: 20px;
-            box-shadow: 0 4px 18px rgba(35, 78, 107, 0.06)
-        }
-
-        .stat-title {
-            font-size: 11px;
-            color: var(--muted);
-            text-transform: uppercase;
-            font-weight: 700;
-            letter-spacing: .05em;
-            margin-bottom: 4px
-        }
-
-        .stat-val {
-            font: 800 22px Manrope, sans-serif;
-            color: var(--ink)
-        }
-
-        .stat-sub {
-            font-size: 12px;
-            color: var(--muted);
-            margin-top: 3px
-        }
-
-        .layout {
-            display: grid;
-            grid-template-columns: 1fr 330px;
-            gap: 24px;
-            align-items: start
-        }
-
-        .panel,
-        .side {
-            border: 1px solid #ffffff;
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(18px);
-            box-shadow: var(--shadow);
-            border-radius: 24px
-        }
-
-        .panel {
-            padding: 28px
-        }
-
-        .side {
-            padding: 24px
-        }
-
-        .heading {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 18px;
-            margin-bottom: 22px
-        }
+        @keyframes hero-pan { from { background-position: 47% 56% } to { background-position: 53% 56% } }
 
-        .heading h2 {
-            margin: 0 0 6px;
-            font: 800 24px Manrope, sans-serif;
-            letter-spacing: -.5px
-        }
-
-        .heading p {
-            margin: 0;
-            color: var(--muted);
-            font-size: 14px
-        }
+        .float-label { position: absolute; border: 1px solid rgba(255, 255, 255, 0.95); background: rgba(255, 255, 255, 0.88); backdrop-filter: blur(10px); padding: 9px 13px; border-radius: 13px; box-shadow: 0 8px 24px rgba(40, 97, 129, 0.15); font-size: 12px; font-weight: 700; color: #0f273d }
 
-        .step-badge {
-            font-size: 11px;
-            font-weight: 800;
-            color: #0284c7;
-            background: #e0f2fe;
-            border-radius: 99px;
-            padding: 8px 14px;
-            white-space: nowrap;
-            letter-spacing: .04em
-        }
+        .l1 { top: 18px; left: 18px }
+        .l2 { bottom: 18px; right: 18px }
 
-        .deadline-banner {
-            grid-column: 1/-1;
-            padding: 14px 16px;
-            border-radius: 14px;
-            font-size: 13px;
-            font-weight: 600;
-            margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 12px
-        }
+        .stats-bar { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 24px }
 
-        .deadline-ok {
-            background: #ecfdf5;
-            color: #065f46;
-            border: 1px solid #a7f3d0
-        }
+        .stat-card { border: 1px solid rgba(255, 255, 255, 0.9); background: rgba(255, 255, 255, 0.82); backdrop-filter: blur(16px); padding: 16px; border-radius: 20px; box-shadow: 0 4px 18px rgba(35, 78, 107, 0.06) }
 
-        .deadline-warn {
-            background: var(--warn-bg);
-            color: var(--warn-text);
-            border: 1px solid var(--warn-border)
-        }
+        .stat-title { font-size: 11px; color: var(--muted); text-transform: uppercase; font-weight: 700; letter-spacing: .05em; margin-bottom: 4px }
 
-        .deadline-over {
-            background: var(--danger-bg);
-            color: var(--danger-text);
-            border: 1px solid var(--danger-border)
-        }
+        .stat-val { font: 800 22px Manrope, sans-serif; color: var(--ink) }
 
-        .grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px
-        }
+        .stat-sub { font-size: 12px; color: var(--muted); margin-top: 3px }
 
-        .field {
-            display: flex;
-            flex-direction: column;
-            gap: 6px
-        }
+        .layout { display: grid; grid-template-columns: 1fr 330px; gap: 24px; align-items: start }
 
-        .field.wide {
-            grid-column: 1/-1
-        }
+        .panel, .side { border: 1px solid #ffffff; background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(18px); box-shadow: var(--shadow); border-radius: 24px }
 
-        label {
-            font-size: 13px;
-            font-weight: 700;
-            color: #1e3a5f;
-            display: flex;
-            justify-content: space-between;
-            align-items: center
-        }
+        .panel { padding: 28px }
+        .side { padding: 24px }
 
-        .link-ext {
-            font-size: 11px;
-            color: #0284c7;
-            text-decoration: none;
-            font-weight: 600
-        }
+        .heading { display: flex; justify-content: space-between; align-items: flex-start; gap: 18px; margin-bottom: 22px }
 
-        .link-ext:hover {
-            text-decoration: underline
-        }
+        .heading h2 { margin: 0 0 6px; font: 800 24px Manrope, sans-serif; letter-spacing: -.5px }
 
-        input,
-        select,
-        textarea {
-            width: 100%;
-            border: 1px solid #cbd5e1;
-            border-radius: 12px;
-            background: rgba(255, 255, 255, 0.95);
-            color: var(--ink);
-            padding: 11px 13px;
-            outline: none;
-            transition: all .15s ease
-        }
+        .heading p { margin: 0; color: var(--muted); font-size: 14px }
 
-        input:focus,
-        select:focus,
-        textarea:focus {
-            border-color: #0284c7;
-            box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15)
-        }
+        .step-badge { font-size: 11px; font-weight: 800; color: #0284c7; background: #e0f2fe; border-radius: 99px; padding: 8px 14px; white-space: nowrap; letter-spacing: .04em }
 
-        textarea {
-            min-height: 80px;
-            resize: vertical
-        }
+        .deadline-banner { grid-column: 1/-1; padding: 14px 16px; border-radius: 14px; font-size: 13px; font-weight: 600; margin-bottom: 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px }
 
-        .hint {
-            font-size: 11px;
-            color: #64748b;
-            line-height: 1.4
-        }
+        .deadline-ok { background: #ecfdf5; color: #065f46; border: 1px solid #a7f3d0 }
+        .deadline-warn { background: var(--warn-bg); color: var(--warn-text); border: 1px solid var(--warn-border) }
+        .deadline-over { background: var(--danger-bg); color: var(--danger-text); border: 1px solid var(--danger-border) }
 
-        .dob-feedback {
-            font-size: 12px;
-            font-weight: 600;
-            padding: 6px 10px;
-            border-radius: 8px;
-            margin-top: 3px
-        }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px }
 
-        .dob-valid {
-            background: #dcfce7;
-            color: #166534;
-            border: 1px solid #bbf7d0
-        }
+        .field { display: flex; flex-direction: column; gap: 6px }
 
-        .dob-invalid {
-            background: #fee2e2;
-            color: #991b1b;
-            border: 1px solid #fecaca
-        }
+        .field.wide { grid-column: 1/-1 }
 
-        .section-title {
-            font: 800 16px Manrope, sans-serif;
-            margin: 26px 0 12px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between
-        }
+        label { font-size: 13px; font-weight: 700; color: #1e3a5f; display: flex; justify-content: space-between; align-items: center }
 
-        .events {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px
-        }
+        .link-ext { font-size: 11px; color: #0284c7; text-decoration: none; font-weight: 600 }
+        .link-ext:hover { text-decoration: underline }
 
-        .events.single-col {
-            grid-template-columns: 1fr
-        }
+        input, select, textarea { width: 100%; border: 1px solid #cbd5e1; border-radius: 12px; background: rgba(255, 255, 255, 0.95); color: var(--ink); padding: 11px 13px; outline: none; transition: all .15s ease }
 
-        .group-label {
-            font-weight: 700;
-            font-size: 13px;
-            color: #1e3a5f;
-            grid-column: 1/-1;
-            margin: 6px 0 6px
-        }
+        input:focus, select:focus, textarea:focus { border-color: #0284c7; box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15) }
 
-        .event {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            border: 1px solid #dceaf1;
-            background: rgba(255, 255, 255, 0.85);
-            border-radius: 13px;
-            padding: 12px 14px;
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all .15s ease
-        }
+        textarea { min-height: 80px; resize: vertical }
 
-        .event:hover {
-            border-color: #7dd3fc;
-            background: #f0f9ff
-        }
+        .hint { font-size: 11px; color: #64748b; line-height: 1.4 }
 
-        .event.selected {
-            border-color: #22c55e;
-            background: #f0fdf4
-        }
+        .dob-feedback { font-size: 12px; font-weight: 600; padding: 6px 10px; border-radius: 8px; margin-top: 3px }
+        .dob-valid { background: #dcfce7; color: #166534; border: 1px solid #bbf7d0 }
+        .dob-invalid { background: #fee2e2; color: #991b1b; border: 1px solid #fecaca }
 
-        .event.disabled {
-            opacity: .55;
-            cursor: not-allowed;
-            background: #f1f5f9;
-            border-style: dashed
-        }
+        .section-title { font: 800 16px Manrope, sans-serif; margin: 26px 0 12px; display: flex; align-items: center; justify-content: space-between }
 
-        .event.mandatory {
-            background: #f0f9ff;
-            border: 1px dashed #7dd3fc;
-            cursor: default
-        }
+        .events { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px }
+        .events.single-col { grid-template-columns: 1fr }
 
-        .event input {
-            width: 17px;
-            height: 17px;
-            accent-color: #16a34a;
-            flex: none;
-            margin: 0
-        }
+        .group-label { font-weight: 700; font-size: 13px; color: #1e3a5f; grid-column: 1/-1; margin: 6px 0 6px }
 
-        .declaration-box {
-            margin-top: 18px;
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 14px;
-            padding: 16px
-        }
+        .event { display: flex; align-items: center; gap: 10px; border: 1px solid #dceaf1; background: rgba(255, 255, 255, 0.85); border-radius: 13px; padding: 12px 14px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all .15s ease }
 
-        .check-label {
-            display: flex;
-            gap: 12px;
-            align-items: flex-start;
-            cursor: pointer;
-            font-size: 12.5px;
-            line-height: 1.5;
-            color: #334155;
-            font-weight: 400
-        }
+        .event:hover { border-color: #7dd3fc; background: #f0f9ff }
+        .event.selected { border-color: #22c55e; background: #f0fdf4 }
+        .event.disabled { opacity: .55; cursor: not-allowed; background: #f1f5f9; border-style: dashed }
+        .event.mandatory { background: #f0f9ff; border: 1px dashed #7dd3fc; cursor: default }
 
-        .check-label input {
-            width: 18px;
-            height: 18px;
-            margin-top: 2px;
-            flex: none;
-            accent-color: #0284c7
-        }
+        .event input { width: 17px; height: 17px; accent-color: #16a34a; flex: none; margin: 0 }
 
-        .check-label strong {
-            color: #0f273d;
-            font-weight: 700
-        }
+        .declaration-box { margin-top: 18px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 14px; padding: 16px }
 
-        .actions {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 24px;
-            gap: 16px
-        }
+        .check-label { display: flex; gap: 12px; align-items: flex-start; cursor: pointer; font-size: 12.5px; line-height: 1.5; color: #334155; font-weight: 400 }
 
-        .primary {
-            background: linear-gradient(145deg, #22c55e, #16a34a);
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            border-radius: 14px;
-            padding: 13px 24px;
-            color: #ffffff;
-            font-weight: 800;
-            box-shadow: 0 6px 18px rgba(22, 163, 74, 0.25);
-            transition: all .2s ease
-        }
+        .check-label input { width: 18px; height: 18px; margin-top: 2px; flex: none; accent-color: #0284c7 }
 
-        .primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 24px rgba(22, 163, 74, 0.35)
-        }
+        .check-label strong { color: #0f273d; font-weight: 700 }
 
-        .primary:disabled {
-            opacity: .6;
-            cursor: not-allowed;
-            transform: none
-        }
+        .actions { display: flex; justify-content: space-between; align-items: center; margin-top: 24px; gap: 16px }
 
-        .secure {
-            color: var(--muted);
-            font-size: 12px;
-            display: flex;
-            align-items: center;
-            gap: 6px
-        }
+        .primary { background: linear-gradient(145deg, #22c55e, #16a34a); border: 1px solid rgba(255, 255, 255, 0.6); border-radius: 14px; padding: 13px 24px; color: #ffffff; font-weight: 800; box-shadow: 0 6px 18px rgba(22, 163, 74, 0.25); transition: all .2s ease }
 
-        .side h3 {
-            font: 800 17px Manrope;
-            margin: 0 0 16px;
-            letter-spacing: -.3px
-        }
+        .primary:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(22, 163, 74, 0.35) }
+        .primary:disabled { opacity: .6; cursor: not-allowed; transform: none }
 
-        .info {
-            display: flex;
-            gap: 12px;
-            padding: 12px 0;
-            border-bottom: 1px solid #eef4f8
-        }
+        .secure { color: var(--muted); font-size: 12px; display: flex; align-items: center; gap: 6px }
 
-        .ico {
-            width: 32px;
-            height: 32px;
-            border-radius: 10px;
-            background: #e0f2fe;
-            display: grid;
-            place-items: center;
-            flex: none;
-            font-size: 15px
-        }
+        .side h3 { font: 800 17px Manrope; margin: 0 0 16px; letter-spacing: -.3px }
 
-        .info b {
-            display: block;
-            font-size: 13px;
-            margin-bottom: 3px;
-            color: #1e3a5f
-        }
+        .info { display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid #eef4f8 }
 
-        .info span {
-            font-size: 12px;
-            color: var(--muted);
-            line-height: 1.45
-        }
+        .ico { width: 32px; height: 32px; border-radius: 10px; background: #e0f2fe; display: grid; place-items: center; flex: none; font-size: 15px }
 
-        .notice {
-            margin-top: 18px;
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 14px;
-            padding: 14px;
-            color: #475569;
-            font-size: 12px;
-            line-height: 1.55
-        }
+        .info b { display: block; font-size: 13px; margin-bottom: 3px; color: #1e3a5f }
 
-        .notice-danger {
-            background: #fff1f2;
-            border-color: #fecdd3;
-            color: #9f1239
-        }
+        .info span { font-size: 12px; color: var(--muted); line-height: 1.45 }
 
-        .admin-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 13px
-        }
+        .notice { margin-top: 18px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 14px; padding: 14px; color: #475569; font-size: 12px; line-height: 1.55 }
 
-        .admin-table th,
-        .admin-table td {
-            text-align: left;
-            border-bottom: 1px solid #e2e8f0;
-            padding: 12px 10px
-        }
+        .notice-danger { background: #fff1f2; border-color: #fecdd3; color: #9f1239 }
 
-        .admin-table th {
-            color: #64748b;
-            font-size: 11px;
-            text-transform: uppercase;
-            font-weight: 700;
-            letter-spacing: .05em
-        }
+        .admin-table { width: 100%; border-collapse: collapse; font-size: 13px }
 
-        .badge {
-            padding: 4px 9px;
-            border-radius: 99px;
-            font-size: 11px;
-            font-weight: 700;
-            display: inline-block
-        }
+        .admin-table th, .admin-table td { text-align: left; border-bottom: 1px solid #e2e8f0; padding: 12px 10px }
 
-        .badge-u14 {
-            background: #e0f2fe;
-            color: #0369a1
-        }
+        .admin-table th { color: #64748b; font-size: 11px; text-transform: uppercase; font-weight: 700; letter-spacing: .05em }
 
-        .badge-u16 {
-            background: #fef3c7;
-            color: #92400e
-        }
+        .badge { padding: 4px 9px; border-radius: 99px; font-size: 11px; font-weight: 700; display: inline-block }
 
-        .badge-verified {
-            background: #dcfce7;
-            color: #15803d
-        }
+        .badge-u14 { background: #e0f2fe; color: #0369a1 }
+        .badge-u16 { background: #fef3c7; color: #92400e }
+        .badge-verified { background: #dcfce7; color: #15803d }
 
-        .empty {
-            text-align: center;
-            color: var(--muted);
-            padding: 40px 12px
-        }
+        .empty { text-align: center; color: var(--muted); padding: 40px 12px }
 
-        .login {
-            max-width: 440px;
-            margin: 40px auto
-        }
+        .login { max-width: 440px; margin: 40px auto }
 
-        .checklist-card {
-            background: #f0fdf4;
-            border: 1px solid #bbf7d0;
-            border-radius: 16px;
-            padding: 18px;
-            margin-bottom: 24px
-        }
+        .checklist-card { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 16px; padding: 18px; margin-bottom: 24px }
 
-        .checklist-card h4 {
-            margin: 0 0 10px;
-            color: #14532d;
-            font: 800 15px Manrope
-        }
+        .checklist-card h4 { margin: 0 0 10px; color: #14532d; font: 800 15px Manrope }
 
-        .checklist-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            font-size: 12px;
-            color: #166534
-        }
+        .checklist-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 12px; color: #166534 }
 
-        .check-item {
-            display: flex;
-            align-items: center;
-            gap: 8px
-        }
+        .check-item { display: flex; align-items: center; gap: 8px }
 
-        .foot {
-            text-align: center;
-            padding-top: 36px;
-            color: #64748b;
-            font-size: 12px;
-            line-height: 1.6
-        }
+        .foot { text-align: center; padding-top: 36px; color: #64748b; font-size: 12px; line-height: 1.6 }
 
-        .hide {
-            display: none !important
-        }
+        .hide { display: none !important }
 
         @media(max-width:960px) {
-            .stats-bar {
-                grid-template-columns: 1fr 1fr
-            }
-
-            .layout {
-                grid-template-columns: 1fr
-            }
-
-            .hero {
-                grid-template-columns: 1fr
-            }
+            .stats-bar { grid-template-columns: 1fr 1fr }
+            .layout { grid-template-columns: 1fr }
+            .hero { grid-template-columns: 1fr }
         }
 
         @media(max-width:600px) {
-            .shell {
-                padding: 16px 14px 40px
-            }
-
-            .stats-bar {
-                grid-template-columns: 1fr
-            }
-
-            .grid {
-                grid-template-columns: 1fr
-            }
-
-            .events {
-                grid-template-columns: 1fr
-            }
-
-            .checklist-grid {
-                grid-template-columns: 1fr
-            }
-
-            .actions {
-                flex-direction: column;
-                align-items: stretch
-            }
+            .shell { padding: 16px 14px 40px }
+            .stats-bar { grid-template-columns: 1fr }
+            .grid { grid-template-columns: 1fr }
+            .events { grid-template-columns: 1fr }
+            .checklist-grid { grid-template-columns: 1fr }
+            .actions { flex-direction: column; align-items: stretch }
         }
 
-        /* Circular 88 Dedicated Styling */
-        .circular-card {
-            background: #ffffff;
-            border: 1px solid #dceaf1;
-            border-radius: 22px;
-            padding: 26px;
-            box-shadow: 0 4px 18px rgba(35, 78, 107, 0.05);
-            margin-top: 14px;
-        }
+        .circular-card { background: #ffffff; border: 1px solid #dceaf1; border-radius: 22px; padding: 26px; box-shadow: 0 4px 18px rgba(35, 78, 107, 0.05); margin-top: 14px; }
 
-        .circular-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 16px;
-            border-bottom: 1px solid #eef4f8;
-            padding-bottom: 16px;
-            margin-bottom: 16px;
-        }
+        .circular-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; border-bottom: 1px solid #eef4f8; padding-bottom: 16px; margin-bottom: 16px; }
 
-        .circular-subject {
-            background: #f0f9ff;
-            border: 1px solid #bae6fd;
-            border-radius: 12px;
-            padding: 12px 16px;
-            font-size: 14px;
-            color: #0369a1;
-            margin-bottom: 20px;
-        }
+        .circular-subject { background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 12px; padding: 12px 16px; font-size: 14px; color: #0369a1; margin-bottom: 20px; }
 
-        .circular-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-            margin-bottom: 24px;
-        }
+        .circular-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
 
-        .circular-rule-box {
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 14px;
-            padding: 18px;
-        }
+        .circular-rule-box { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 14px; padding: 18px; }
 
-        .circular-rule-box h4 {
-            margin: 0 0 10px;
-            font: 800 14px Manrope, sans-serif;
-            color: #0f273d;
-        }
+        .circular-rule-box h4 { margin: 0 0 10px; font: 800 14px Manrope, sans-serif; color: #0f273d; }
 
-        .circular-rule-box ul {
-            margin: 0;
-            padding-left: 18px;
-            font-size: 12.5px;
-            color: #475569;
-            line-height: 1.6;
-        }
+        .circular-rule-box ul { margin: 0; padding-left: 18px; font-size: 12.5px; color: #475569; line-height: 1.6; }
 
-        .circular-rule-box li {
-            margin-bottom: 6px;
-        }
+        .circular-rule-box li { margin-bottom: 6px; }
 
-        .circular-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 13px;
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            overflow: hidden;
-            margin-bottom: 18px;
-        }
+        .circular-table { width: 100%; border-collapse: collapse; font-size: 13px; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; margin-bottom: 18px; }
 
-        .circular-table th,
-        .circular-table td {
-            text-align: left;
-            padding: 11px 14px;
-            border-bottom: 1px solid #e2e8f0;
-        }
+        .circular-table th, .circular-table td { text-align: left; padding: 11px 14px; border-bottom: 1px solid #e2e8f0; }
 
-        .circular-table th {
-            background: #f1f5f9;
-            color: #475569;
-            font-size: 11px;
-            text-transform: uppercase;
-            font-weight: 700;
-            letter-spacing: .05em;
-        }
+        .circular-table th { background: #f1f5f9; color: #475569; font-size: 11px; text-transform: uppercase; font-weight: 700; letter-spacing: .05em; }
 
-        .circular-verbatim {
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 14px;
-            padding: 20px;
-            font-family: 'DM Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-            font-size: 12px;
-            line-height: 1.65;
-            color: #334155;
-            white-space: pre-wrap;
-            max-height: 520px;
-            overflow-y: auto;
-            margin: 0;
-        }
+        .circular-verbatim { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 14px; padding: 20px; font-family: 'DM Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 12px; line-height: 1.65; color: #334155; white-space: pre-wrap; max-height: 520px; overflow-y: auto; margin: 0; }
 
         @media(max-width:850px) {
-            .circular-grid {
-                grid-template-columns: 1fr;
-            }
-            .circular-top {
-                flex-direction: column;
-            }
+            .circular-grid { grid-template-columns: 1fr; }
+            .circular-top { flex-direction: column; }
         }
     </style>
 </head>
@@ -884,9 +277,9 @@
                 </div>
             </div>
             <nav class="nav">
-                <button class="glass active" data-view="athlete" id="navAthlete">Athlete Entry</button>
-                <button class="glass" data-view="circular" id="navCircular">Circular No. 88</button>
-                <button class="glass" data-view="admin" id="navAdmin">District Admin</button>
+                <button class="glass active" data-view="athlete" id="navAthlete" type="button">Athlete Entry</button>
+                <button class="glass" data-view="circular" id="navCircular" type="button">Circular No. 88</button>
+                <button class="glass" data-view="admin" id="navAdmin" type="button">District Admin</button>
             </nav>
         </header>
 
@@ -901,11 +294,11 @@
                 <p>Official athlete registration portal for Mysuru District Athletics Association. Qualifying athletes
                     will represent Mysuru District at Woxsen University, Hyderabad (14–16 November 2026).</p>
                 <div style="display:flex; gap:12px; flex-wrap:wrap">
-                    <button class="primary"
+                    <button class="primary" type="button"
                         onclick="document.querySelector('#entry').scrollIntoView({behavior:'smooth'})">
                         Proceed to Registration &nbsp;↗
                     </button>
-                    <button class="glass" id="readCircularBtn">
+                    <button class="glass" type="button" id="readCircularBtn">
                         Read Circular Rules 📄
                     </button>
                 </div>
@@ -916,7 +309,6 @@
             </div>
         </section>
 
-        <!-- Live Quota Status Bar -->
         <div class="stats-bar" id="statsBar">
             <div class="stat-card">
                 <div class="stat-title">District Quota (AFI Cap)</div>
@@ -940,7 +332,6 @@
             </div>
         </div>
 
-        <!-- 1. ATHLETE REGISTRATION VIEW -->
         <section id="athleteView" class="layout">
             <main class="panel" id="entry">
                 <div class="heading">
@@ -956,22 +347,17 @@
                 <form id="form">
                     <div class="grid">
                         <div class="field">
-                            <label for="name">
-                                Athlete Full Name *
-                            </label>
-                            <input id="name" name="name" required
-                                placeholder="Full name exactly as on Birth Certificate / ID">
+                            <label for="name">Athlete Full Name *</label>
+                            <input id="name" name="name" required placeholder="Full name exactly as on Birth Certificate / ID">
                             <span class="hint">Digital certificates will be issued strictly as per this name.</span>
                         </div>
 
                         <div class="field">
                             <label for="afi_uid">
                                 AFI UID *
-                                <a href="https://ors.indianathletics.in/#/login" target="_blank" rel="noopener"
-                                    class="link-ext">Get AFI UID ↗</a>
+                                <a href="https://ors.indianathletics.in/#/login" target="_blank" rel="noopener" class="link-ext">Get AFI UID ↗</a>
                             </label>
-                            <input id="afi_uid" name="afi_uid" required placeholder="e.g. AFI UID Number"
-                                autocomplete="off">
+                            <input id="afi_uid" name="afi_uid" required placeholder="e.g. AFI UID Number" autocomplete="off">
                             <span class="hint">Mandatory. Register on AFI ORS portal to obtain UID.</span>
                         </div>
 
@@ -1003,8 +389,7 @@
 
                         <div class="field">
                             <label for="aadhaar">Aadhaar Number *</label>
-                            <input id="aadhaar" name="aadhaar" inputmode="numeric" minlength="12" maxlength="12"
-                                pattern="[0-9]{12}" required placeholder="12-digit Aadhaar number">
+                            <input id="aadhaar" name="aadhaar" inputmode="numeric" minlength="12" maxlength="12" pattern="[0-9]{12}" required placeholder="12-digit Aadhaar number">
                             <span class="hint">Enter 12 digits without spaces or dashes.</span>
                         </div>
 
@@ -1025,14 +410,12 @@
 
                         <div class="field">
                             <label for="phone">Parent / Guardian Phone *</label>
-                            <input id="phone" name="phone" type="tel" pattern="[0-9]{10}" maxlength="10" required
-                                placeholder="10-digit mobile number">
+                            <input id="phone" name="phone" type="tel" pattern="[0-9]{10}" maxlength="10" required placeholder="10-digit mobile number">
                         </div>
 
                         <div class="field wide">
                             <label for="address">Full Residential Address *</label>
-                            <textarea id="address" name="address" required
-                                placeholder="House / street, locality, taluk, Mysuru district, PIN code"></textarea>
+                            <textarea id="address" name="address" required placeholder="House / street, locality, taluk, Mysuru district, PIN code"></textarea>
                         </div>
 
                         <div class="field wide">
@@ -1048,7 +431,6 @@
 
                     <div class="events" id="eventsContainer"></div>
 
-                    <!-- Mandatory Parent Declaration Checkbox -->
                     <div class="declaration-box">
                         <label class="check-label">
                             <input type="checkbox" id="declaration" name="declaration" required>
@@ -1077,8 +459,7 @@
                     <div class="ico">🪪</div>
                     <div>
                         <b>AFI UID Mandatory</b>
-                        <span>Every athlete must have an AFI UID from <a href="https://ors.indianathletics.in/#/login"
-                                target="_blank" rel="noopener">ors.indianathletics.in</a> before online entry.</span>
+                        <span>Every athlete must have an AFI UID from <a href="https://ors.indianathletics.in/#/login" target="_blank" rel="noopener">ors.indianathletics.in</a> before online entry.</span>
                     </div>
                 </div>
 
@@ -1086,8 +467,7 @@
                     <div class="ico">🏥</div>
                     <div>
                         <b>Age Verification (13 Nov 2026)</b>
-                        <span>AFI Medical Committee will verify original Birth Certificate (issued by Municipal
-                            Corporation / Nagar Palika) or 10th Standard Certificate.</span>
+                        <span>AFI Medical Committee will verify original Birth Certificate (issued by Municipal Corporation / Nagar Palika) or 10th Standard Certificate.</span>
                     </div>
                 </div>
 
@@ -1095,8 +475,7 @@
                     <div class="ico">🎯</div>
                     <div>
                         <b>Event Rules</b>
-                        <span>• U-14: 1 Triathlon + Kids Javelin (Mandatory)<br>• U-16: Exactly 1 event (max 2 athletes
-                            per event from Mysuru).</span>
+                        <span>• U-14: 1 Triathlon + Kids Javelin (Mandatory)<br>• U-16: Exactly 1 event (max 2 athletes per event from Mysuru).</span>
                     </div>
                 </div>
 
@@ -1104,8 +483,7 @@
                     <div class="ico">🚆</div>
                     <div>
                         <b>Rail Fare &amp; Boarding</b>
-                        <span>AFI provides free boarding/lodging for up to 13 athletes and 2 officials (13–17 Nov). Rail
-                            fare is reimbursed only to Association account.</span>
+                        <span>AFI provides free boarding/lodging for up to 13 athletes and 2 officials (13–17 Nov). Rail fare is reimbursed only to Association account.</span>
                     </div>
                 </div>
 
@@ -1116,18 +494,16 @@
             </aside>
         </section>
 
-        <!-- 2. CIRCULAR 88 FULL VIEW -->
         <section id="circularView" class="panel hide">
             <div class="heading">
                 <div>
                     <h2>AFI Circular No. 88/09-2026 — Official Rules &amp; Notification</h2>
                     <p>Official communication from Athletics Federation of India (AFI) · 09 September 2026</p>
                 </div>
-                <button class="primary" onclick="switchView('athlete')">Go to Registration Form ↗</button>
+                <button class="primary" type="button" onclick="switchView('athlete')">Go to Registration Form ↗</button>
             </div>
 
             <div class="circular-card">
-                <!-- Circular Header / Meta -->
                 <div class="circular-top">
                     <div>
                         <span class="badge" style="background:#e0f2fe; color:#0369a1; font-size:12px; margin-bottom:8px">OFFICIAL AFI NOTIFICATION</span>
@@ -1151,13 +527,12 @@
                     <strong>Subject:</strong> 20th National Inter District Junior Athletics Meet 2026 (NIDJAM)
                 </div>
 
-                <!-- Structured Rules Breakdown -->
                 <div class="circular-grid">
                     <div class="circular-rule-box">
                         <h4>1. Age Brackets &amp; Cut-Off Dates (as on 16 Nov 2026)</h4>
                         <ul>
                             <li><strong>Under 14 Years (Boys &amp; Girls):</strong> Born between <strong>17/11/2012 &amp; 16/11/2014</strong>.</li>
-                            <li><strong>Minimum Age Limit:</strong> Minimum <strong>12 years and above</strong> as on 16 November 2026. Boys and girls under 12 years are strictly NOT eligible.</li>
+                            <li><strong>Minimum Age Limit:</strong> Minimum <strong>12 years and above</strong> as on 16 November 2026.</li>
                             <li><strong>Under 16 Years (Boys &amp; Girls):</strong> Born between <strong>17/11/2010 &amp; 16/11/2012</strong>.</li>
                             <li><strong>Mandatory Age Verification:</strong> 13 November 2026 at meet venue by AFI Age Verification Committee including Doctors.</li>
                             <li><strong>Proof of Age:</strong> Birth Certificate issued by "Birth &amp; Death" Registration Office of Municipal Corporation / Nagar Palika / District Office, OR 10th Standard Examination Certificate.</li>
@@ -1179,9 +554,9 @@
                         <h4>3. Online Entry &amp; Mandatory AFI UID</h4>
                         <ul>
                             <li><strong>Online Entry Portal:</strong> Entries must be submitted online on AFI Website: <a href="https://www.indianathletics.in" target="_blank" rel="noopener">www.indianathletics.in</a>.</li>
-                            <li><strong>Mandatory AFI UID:</strong> Every athlete must register on the AFI Website to obtain an AFI UID via <a href="https://ors.indianathletics.in/#/login" target="_blank" rel="noopener">https://ors.indianathletics.in/#/login</a> with Photo, DOB proof &amp; Address proof.</li>
+                            <li><strong>Mandatory AFI UID:</strong> Every athlete must register on the AFI Website to obtain an AFI UID via <a href="https://ors.indianathletics.in/#/login" target="_blank" rel="noopener">https://ors.indianathletics.in/#/login</a>.</li>
                             <li><strong>Digital Certificates:</strong> Issued strictly as per the name registered in the online entry.</li>
-                            <li><strong>Entry Window:</strong> <strong>15th October 2026 to 30th October 2026</strong> (strict deadline). No WhatsApp or email entries accepted.</li>
+                            <li><strong>Entry Window:</strong> <strong>15th October 2026 to 30th October 2026</strong> (strict deadline).</li>
                         </ul>
                     </div>
 
@@ -1190,13 +565,12 @@
                         <ul>
                             <li><strong>District Meet Mandatory:</strong> Only districts that conducted their official District Athletics Meet are eligible.</li>
                             <li><strong>Mandatory Documents:</strong> 1. Results of District Meet · 2. Press-cuttings · 3. Photographs of the Meet · 4. District Association PAN Number.</li>
-                            <li><strong>Rail Fare Reimbursement:</strong> Reimbursed on verification of original tickets &amp; actual participation. Paid ONLY to the bank account of the District Athletics Association (no personal accounts).</li>
-                            <li><strong>Parent / Guardian Undertaking:</strong> Written declaration from parents/guardians regarding safety and liability is mandatory for all selected athletes.</li>
+                            <li><strong>Rail Fare Reimbursement:</strong> Paid ONLY to the bank account of the District Athletics Association (no personal accounts).</li>
+                            <li><strong>Parent / Guardian Undertaking:</strong> Written declaration from parents/guardians regarding safety and liability is mandatory.</li>
                         </ul>
                     </div>
                 </div>
 
-                <!-- Event Tables -->
                 <div style="margin-top:20px">
                     <h4 style="margin:0 0 10px; font:800 16px Manrope, sans-serif; color:#0f273d">Events Conducted in NIDJAM 2026</h4>
 
@@ -1244,64 +618,23 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Standard</td>
-                                    <td><strong>60M</strong></td>
-                                    <td>Standard</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>0.838m Hurdle Height</td>
-                                    <td><strong>80MH (80m Hurdles)</strong></td>
-                                    <td>0.762m Hurdle Height</td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>Standard</td>
-                                    <td><strong>600 M</strong></td>
-                                    <td>Standard</td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td>Scissor technique only</td>
-                                    <td><strong>High Jump (Scissor Only)</strong></td>
-                                    <td>Scissor technique only</td>
-                                </tr>
-                                <tr>
-                                    <td>5</td>
-                                    <td>5-meter Approach Runway</td>
-                                    <td><strong>Long Jump (5m Approach)</strong></td>
-                                    <td>5-meter Approach Runway</td>
-                                </tr>
-                                <tr>
-                                    <td>6</td>
-                                    <td>4Kg Shot Put (Standing)</td>
-                                    <td><strong>Shot Put (Standing)</strong></td>
-                                    <td>3Kg Shot Put (Standing)</td>
-                                </tr>
-                                <tr>
-                                    <td>7</td>
-                                    <td>600gms (10m Runway)</td>
-                                    <td><strong>Javelin Throw (10m Runway)</strong></td>
-                                    <td>500gms (10m Runway)</td>
-                                </tr>
-                                <tr>
-                                    <td>8</td>
-                                    <td style="font-size:12px">60m · 80mH · LJ (5m) · SP (4Kg Standing) · 600m</td>
-                                    <td><strong>Pentathlon (5 Events)</strong></td>
-                                    <td style="font-size:12px">60m · 80mH · LJ (5m) · SP (3Kg Standing) · 600m</td>
-                                </tr>
+                                <tr><td>1</td><td>Standard</td><td><strong>60M</strong></td><td>Standard</td></tr>
+                                <tr><td>2</td><td>0.838m Hurdle Height</td><td><strong>80MH (80m Hurdles)</strong></td><td>0.762m Hurdle Height</td></tr>
+                                <tr><td>3</td><td>Standard</td><td><strong>600 M</strong></td><td>Standard</td></tr>
+                                <tr><td>4</td><td>Scissor technique only</td><td><strong>High Jump (Scissor Only)</strong></td><td>Scissor technique only</td></tr>
+                                <tr><td>5</td><td>5-meter Approach Runway</td><td><strong>Long Jump (5m Approach)</strong></td><td>5-meter Approach Runway</td></tr>
+                                <tr><td>6</td><td>4Kg Shot Put (Standing)</td><td><strong>Shot Put (Standing)</strong></td><td>3Kg Shot Put (Standing)</td></tr>
+                                <tr><td>7</td><td>600gms (10m Runway)</td><td><strong>Javelin Throw (10m Runway)</strong></td><td>500gms (10m Runway)</td></tr>
+                                <tr><td>8</td><td style="font-size:12px">60m · 80mH · LJ (5m) · SP (4Kg Standing) · 600m</td><td><strong>Pentathlon (5 Events)</strong></td><td style="font-size:12px">60m · 80mH · LJ (5m) · SP (3Kg Standing) · 600m</td></tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
 
-                <!-- Complete Original Verbatim Text -->
                 <div style="margin-top:24px">
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px">
                         <strong style="font-size:13.5px; color:#1e3a5f">Complete Original Circular Text (Verbatim):</strong>
-                        <button class="glass" style="font-size:11.5px; padding:6px 12px" onclick="copyCircularText()">Copy Verbatim Text 📋</button>
+                        <button class="glass" type="button" style="font-size:11.5px; padding:6px 12px" onclick="copyCircularText()">Copy Verbatim Text 📋</button>
                     </div>
                     <pre class="circular-verbatim" id="circularVerbatim">Circular No. 88/09-2026
 09 September 2026
@@ -1346,7 +679,6 @@ S. No.   BOYS             EVENTS                       GIRLS
 6.       4Kg              Shot Put (Standing)          3Kg
 7.       600gms           Javelin Throw (10m Runway)   500gms
 8.       Pentathlon       Pentathlon                   Pentathlon
-         (60m, 80mH, LJ 5m, Shotput 4Kg Standing, 600m) (60m, 80mH, LJ 5m, Shotput 3Kg Standing, 600m)
 
 Age Brackets:
 Boys & Girls U-14 years - Born between 17/11/2012 & 16/11/2014
@@ -1363,7 +695,7 @@ In U-14 category each district can send maximum 4 athletes (boys and girls toget
 Only Online Entries will be accepted. Entries will not be accepted on WhatsApp or Email or any other mode.
 
 Last Date of Entry:
-The last date of receipt of Entries “ONLINE” is 30th October 2026.
+The last date of receipt of Entries "ONLINE" is 30th October 2026.
 
 For any enquiry, please contact:
 1. Mr. C.S. Rathi, Coordinator, Athletics Federation of India
@@ -1374,7 +706,7 @@ AFI Age Verification Committee including Doctor(s) will be present to assess the
 It is mandatory to produce original proof of date of birth. Please note that Age Verification will be done on 13th November 2026.
 
 Proof of Age:
-The athletes are required to produce the Birth Certificate issued by “Birth & Death” Registration Office of Municipal Corporation/Nagar Palika/District/ 10th Standard Examination.
+The athletes are required to produce the Birth Certificate issued by "Birth & Death" Registration Office of Municipal Corporation/Nagar Palika/District/ 10th Standard Examination.
 
 Food and Accommodation:
 Food will be provided from 13 to 17 November 2026.
@@ -1401,7 +733,6 @@ Youth Advancement, Tourism & Culture, Government of Telangana</pre>
             </div>
         </section>
 
-        <!-- 3. DISTRICT ADMIN VIEW -->
         <section id="adminView" class="hide">
             <div id="loginPanel" class="panel login">
                 <div class="heading">
@@ -1410,19 +741,23 @@ Youth Advancement, Tourism & Culture, Government of Telangana</pre>
                         <p>Mysuru District Athletics Association Admin Access</p>
                     </div>
                 </div>
-                <form id="loginForm">
+                <!--
+                    IMPORTANT:
+                    - onsubmit="return false;" prevents native form submission
+                    - Button is type="button" — handled by click, never by submit
+                    - This guarantees no page reload on login
+                -->
+                <form id="loginForm" autocomplete="on" onsubmit="event.preventDefault(); window.handleLoginSubmit && window.handleLoginSubmit(event); return false;">
                     <div class="field" style="margin-bottom:14px">
                         <label for="adminEmail">Admin Email</label>
-                        <input type="email" id="adminEmail" value="admin@mysuru-athletics.com" required>
+                        <input type="email" id="adminEmail" name="adminEmail" value="admin@mysuru-athletics.com" required>
                     </div>
                     <div class="field" style="margin-bottom:16px">
                         <label for="adminPass">Admin Passcode</label>
-                        <input type="password" id="adminPass" required placeholder="Enter passcode (mysuru2026)">
+                        <input type="password" id="adminPass" name="adminPass" required placeholder="Enter passcode (mysuru2026)">
                     </div>
-                    <button class="primary" type="submit" style="width:100%">Sign In to Dashboard &nbsp;↗</button>
-                    <p class="hint" style="margin-top:10px; text-align:center">Authorized officials only · Passcode:
-                        <b>mysuru2026</b>
-                    </p>
+                    <button type="submit" id="loginSubmitBtn" class="primary" style="width:100%">Sign In to Dashboard &nbsp;↗</button>
+                    <p class="hint" style="margin-top:10px; text-align:center">Authorized officials only · Passcode: <b>mysuru2026</b></p>
                 </form>
             </div>
 
@@ -1434,12 +769,10 @@ Youth Advancement, Tourism & Culture, Government of Telangana</pre>
                     </div>
                     <div style="display:flex; gap:10px; align-items:center">
                         <span class="step-badge" id="adminCount">0 / 13 ATHLETES</span>
-                        <button class="glass" id="adminSignOut" style="padding:6px 12px; font-size:12px">Sign
-                            Out</button>
+                        <button class="glass" type="button" id="adminSignOut" style="padding:6px 12px; font-size:12px">Sign Out</button>
                     </div>
                 </div>
 
-                <!-- Circular 88 Mandatory District Compliance Checklist -->
                 <div class="checklist-card">
                     <h4>📋 AFI Circular 88 — District Association Compliance Checklist</h4>
                     <div class="checklist-grid">
@@ -1450,8 +783,7 @@ Youth Advancement, Tourism & Culture, Government of Telangana</pre>
                         <div class="check-item">✅ <span>5. Association PAN Card (Valid)</span></div>
                         <div class="check-item">✅ <span>6. Association Bank Account for Rail Fare</span></div>
                         <div class="check-item">✅ <span>7. Parent Undertakings Signed</span></div>
-                        <div class="check-item">✅ <span>8. Free Boarding &amp; Lodging: Max 13 + 2 Officials</span>
-                        </div>
+                        <div class="check-item">✅ <span>8. Free Boarding &amp; Lodging: Max 13 + 2 Officials</span></div>
                     </div>
                 </div>
 
@@ -1471,14 +803,14 @@ Youth Advancement, Tourism & Culture, Government of Telangana</pre>
                             </tr>
                         </thead>
                         <tbody id="rows"></tbody>
-                    </table>
+       i             </table>
                 </div>
 
                 <div id="empty" class="empty">No athlete entries have been registered yet.</div>
 
                 <div class="actions">
                     <span class="secure">Entries conform to AFI Circular No. 88/09-2026 quota limits.</span>
-                    <button class="primary" id="export">Export Official AFI CSV File ↓</button>
+                    <button class="primary" type="button" id="export">Export Official AFI CSV File ↓</button>
                 </div>
             </div>
         </section>
@@ -1489,45 +821,15 @@ Youth Advancement, Tourism & Culture, Government of Telangana</pre>
             20th National Inter District Junior Athletics Meet 2026 (NIDJAM) · Woxsen University, Hyderabad
         </footer>
     </div>
-    <!-- Standalone Navigation Script (Runs independently of Supabase) -->
-    <script>
-        function switchView(view) {
-            // Handle top navigation tabs
-            document.querySelectorAll('[data-view]').forEach(b => {
-                b.classList.toggle('active', b.dataset.view === view);
-            });
 
-            // Show/hide sections
-            const athleteView = document.querySelector('#athleteView');
-            const circularView = document.querySelector('#circularView');
-            const adminView = document.querySelector('#adminView');
-
-            if (athleteView) athleteView.classList.toggle('hide', view !== 'athlete');
-            if (circularView) circularView.classList.toggle('hide', view !== 'circular');
-            if (adminView) adminView.classList.toggle('hide', view !== 'admin');
-
-            // Safely call functions if they exist (prevents crashing)
-            if (view === 'circular' && typeof loadCircularText === 'function') loadCircularText();
-            if (view === 'admin' && typeof checkAdminSession === 'function') checkAdminSession();
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            // Attach listeners to top nav buttons
-            document.querySelectorAll('[data-view]').forEach(btn => {
-                btn.addEventListener('click', () => switchView(btn.dataset.view));
-            });
-
-            // Attach listener to the "Read Circular Rules" button
-            const readCircularBtn = document.getElementById('readCircularBtn');
-            if (readCircularBtn) {
-                readCircularBtn.addEventListener('click', () => switchView('circular'));
-            }
-        });
-    </script>
-    <!-- Scripts -->
-    <script src="/config.js"></script>
+    <!-- Config + Supabase (cache-busted) -->
+    <script src="/config.js?v=3"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
     <script>
+    (function () {
+        'use strict';
+
         // ==========================================
         // 1. CONFIG & INITIALIZATION
         // ==========================================
@@ -1537,23 +839,26 @@ Youth Advancement, Tourism & Culture, Government of Telangana</pre>
         const ADMIN_EMAIL = env.ADMIN_EMAIL || 'admin@mysuru-athletics.com';
         const OPEN_DATE = new Date(env.ENTRY_OPEN_DATE || '2026-10-15T00:00:00+05:30');
         const DEADLINE = new Date(env.ENTRY_DEADLINE || '2026-10-30T23:59:59+05:30');
-        const BASE_DATE = new Date('2026-11-16T00:00:00+05:30'); // Age cutoff date per circular
+        const BASE_DATE = new Date('2026-11-16T00:00:00+05:30');
 
         let supabase = null;
-        // Add '&& window.supabase' to the condition
         if (SUPABASE_URL && SUPABASE_ANON_KEY && window.supabase) {
-            supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+            try {
+                supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+                console.log('[Init] Supabase client created');
+            } catch (e) {
+                console.error('[Init] Supabase createClient failed:', e);
+            }
         } else {
-            console.warn("Supabase client could not be initialized. Check CDN or config.");
+            console.warn('[Init] Supabase NOT initialized. Has /config.js loaded? window.supabase present?',
+                { hasEnv: !!env.SUPABASE_URL, hasKey: !!env.SUPABASE_ANON_KEY, hasSdk: !!window.supabase });
         }
 
-        // Circular 88 Date Boundaries
         const U14_MIN_DOB = new Date('2012-11-17T00:00:00+05:30');
         const U14_MAX_DOB = new Date('2014-11-16T23:59:59+05:30');
         const U16_MIN_DOB = new Date('2010-11-17T00:00:00+05:30');
         const U16_MAX_DOB = new Date('2012-11-16T23:59:59+05:30');
 
-        // Circular 88 Events
         const U14_TRIATHLONS = [
             { id: 'Triathlon A', label: 'Triathlon (A)', desc: '60m · Long Jump (5m approach) · High Jump (Scissor only)' },
             { id: 'Triathlon B', label: 'Triathlon (B)', desc: '60m · Long Jump (5m approach) · Back Throw (1kg Shot Put)' },
@@ -1583,32 +888,45 @@ Youth Advancement, Tourism & Culture, Government of Telangana</pre>
             ]
         };
 
-        let liveStats = {
-            totalAthletes: 0,
-            maxAthletes: 13,
-            u14Count: 0,
-            maxU14: 4,
-            u16EventCounts: {}
-        };
+        let liveStats = { totalAthletes: 0, maxAthletes: 13, u14Count: 0, maxU14: 4, u16EventCounts: {} };
 
         // ==========================================
-        // 2. NAVIGATION & TABS
+        // 2. NAVIGATION & VIEW SWITCHING
         // ==========================================
-        function switchView(view) {
-            document.querySelectorAll('[data-view]').forEach(b => {
+        const VIEWS = ['athlete', 'circular', 'admin'];
+
+        function switchView(view, options = {}) {
+console.trace('[DEBUG] switchView called with:', view);
+            if (VIEWS.indexOf(view) === -1) view = 'athlete';
+
+            document.querySelectorAll('[data-view]').forEach(function (b) {
                 b.classList.toggle('active', b.dataset.view === view);
             });
-            document.querySelector('#athleteView').classList.toggle('hide', view !== 'athlete');
-            document.querySelector('#circularView').classList.toggle('hide', view !== 'circular');
-            document.querySelector('#adminView').classList.toggle('hide', view !== 'admin');
 
-            if (view === 'circular') loadCircularText();
-            if (view === 'admin') checkAdminSession();
+            VIEWS.forEach(function (v) {
+                const el = document.querySelector('#' + v + 'View');
+                if (el) el.classList.toggle('hide', v !== view);
+            });
+
+            // Persist in URL hash
+            try {
+                const target = '#' + view;
+                if (window.location.hash !== target) {
+                    history.replaceState(null, '', target);
+                }
+            } catch (e) {
+                // Fallback for very old browsers
+                try { window.location.hash = view; } catch (e2) { /* ignore */ }
+            }
+
+            console.log('[Nav] view =', view);
+
+            if (view === 'admin' && !options.skipSessionCheck) {
+                checkAdminSession();
+            }
         }
 
-        document.querySelectorAll('[data-view]').forEach(btn => {
-            btn.addEventListener('click', () => switchView(btn.dataset.view));
-        });
+        window.switchView = switchView;
 
         // ==========================================
         // 3. STATS & DEADLINE BANNER
@@ -1616,23 +934,21 @@ Youth Advancement, Tourism & Culture, Government of Telangana</pre>
         async function fetchStats() {
             try {
                 const res = await fetch('/api/stats');
-                if (res.ok) {
-                    liveStats = await res.json();
-                    updateStatsUI();
-                }
+                if (res.ok) liveStats = await res.json();
             } catch (e) {
-                console.warn('Could not fetch stats:', e);
+                console.warn('[Stats] Could not fetch /api/stats:', e);
             }
+            updateStatsUI();
         }
 
         function updateStatsUI() {
             const statTotal = document.querySelector('#statTotal');
             const statU14 = document.querySelector('#statU14');
-            if (statTotal) statTotal.textContent = `${liveStats.totalAthletes || 0} / 13`;
-            if (statU14) statU14.textContent = `${liveStats.u14Count || 0} / 4`;
+            if (statTotal) statTotal.textContent = (liveStats.totalAthletes || 0) + ' / 13';
+            if (statU14) statU14.textContent = (liveStats.u14Count || 0) + ' / 4';
 
             const adminCount = document.querySelector('#adminCount');
-            if (adminCount) adminCount.textContent = `${liveStats.totalAthletes || 0} / 13 ATHLETES`;
+            if (adminCount) adminCount.textContent = (liveStats.totalAthletes || 0) + ' / 13 ATHLETES';
 
             renderDeadlineBanner();
             renderEvents();
@@ -1647,11 +963,11 @@ Youth Advancement, Tourism & Culture, Government of Telangana</pre>
             const daysLeft = Math.ceil((DEADLINE - now) / (1000 * 60 * 60 * 24));
 
             if (now > DEADLINE) {
-                bannerSlot.innerHTML = `
-                    <div class="deadline-banner deadline-over">
-                        <span>⛔ <strong>Online Entries Closed:</strong> The deadline of 30 October 2026 has passed. No further entries accepted as per AFI Circular No. 88.</span>
-                        <span class="step-badge" style="background:#fee2e2; color:#991b1b">CLOSED</span>
-                    </div>`;
+                bannerSlot.innerHTML =
+                    '<div class="deadline-banner deadline-over">' +
+                        '<span>⛔ <strong>Online Entries Closed:</strong> The deadline of 30 October 2026 has passed. No further entries accepted as per AFI Circular No. 88.</span>' +
+                        '<span class="step-badge" style="background:#fee2e2; color:#991b1b">CLOSED</span>' +
+                    '</div>';
                 if (statCountdown) statCountdown.textContent = 'Closed on 30 Oct';
                 const submitBtn = document.querySelector('#submitBtn');
                 if (submitBtn) submitBtn.disabled = true;
@@ -1659,21 +975,21 @@ Youth Advancement, Tourism & Culture, Government of Telangana</pre>
             }
 
             if (now < OPEN_DATE) {
-                bannerSlot.innerHTML = `
-                    <div class="deadline-banner deadline-warn">
-                        <span>📢 <strong>Official Entry Window:</strong> Online entries officially open on 15 October 2026 and close on 30 October 2026. Pre-registration preview active.</span>
-                        <span class="step-badge" style="background:#fef3c7; color:#92400e">OPENS 15 OCT</span>
-                    </div>`;
+                bannerSlot.innerHTML =
+                    '<div class="deadline-banner deadline-warn">' +
+                        '<span>📢 <strong>Official Entry Window:</strong> Online entries officially open on 15 October 2026 and close on 30 October 2026. Pre-registration preview active.</span>' +
+                        '<span class="step-badge" style="background:#fef3c7; color:#92400e">OPENS 15 OCT</span>' +
+                    '</div>';
                 if (statCountdown) statCountdown.textContent = 'Opens 15 Oct';
                 return;
             }
 
-            bannerSlot.innerHTML = `
-                <div class="deadline-banner deadline-ok">
-                    <span>✅ <strong>AFI Online Entry Window Active:</strong> ${daysLeft} day(s) remaining. Closing date is 30 October 2026 (23:59:59 IST).</span>
-                    <span class="step-badge" style="background:#dcfce7; color:#166534">${daysLeft} DAYS LEFT</span>
-                </div>`;
-            if (statCountdown) statCountdown.textContent = `${daysLeft} days remaining`;
+            bannerSlot.innerHTML =
+                '<div class="deadline-banner deadline-ok">' +
+                    '<span>✅ <strong>AFI Online Entry Window Active:</strong> ' + daysLeft + ' day(s) remaining. Closing date is 30 October 2026 (23:59:59 IST).</span>' +
+                    '<span class="step-badge" style="background:#dcfce7; color:#166534">' + daysLeft + ' DAYS LEFT</span>' +
+                '</div>';
+            if (statCountdown) statCountdown.textContent = daysLeft + ' days remaining';
         }
 
         // ==========================================
@@ -1682,25 +998,21 @@ Youth Advancement, Tourism & Culture, Government of Telangana</pre>
         function calculateAge(dobDate, targetDate) {
             let age = targetDate.getFullYear() - dobDate.getFullYear();
             const m = targetDate.getMonth() - dobDate.getMonth();
-            if (m < 0 || (m === 0 && targetDate.getDate() < dobDate.getDate())) {
-                age--;
-            }
+            if (m < 0 || (m === 0 && targetDate.getDate() < dobDate.getDate())) age--;
             return age;
         }
 
         function checkDobValidity() {
-            const dobVal = document.querySelector('#dob').value;
+            const dobInput = document.querySelector('#dob');
             const categorySelect = document.querySelector('#category');
             const feedback = document.querySelector('#dobFeedback');
+            if (!dobInput || !categorySelect || !feedback) return;
 
-            if (!dobVal) {
-                feedback.className = 'dob-feedback hide';
-                return;
-            }
+            const dobVal = dobInput.value;
+            if (!dobVal) { feedback.className = 'dob-feedback hide'; return; }
 
             const dob = new Date(dobVal + 'T00:00:00+05:30');
             const ageAsOfNov = calculateAge(dob, BASE_DATE);
-
             feedback.classList.remove('hide');
 
             const isU14 = dob >= U14_MIN_DOB && dob <= U14_MAX_DOB;
@@ -1708,42 +1020,32 @@ Youth Advancement, Tourism & Culture, Government of Telangana</pre>
 
             if (isU14) {
                 feedback.className = 'dob-feedback dob-valid';
-                feedback.innerHTML = `✓ Eligible for <strong>Under 14 (U-14)</strong> · Age: ${ageAsOfNov} yrs as on 16 Nov 2026.`;
-                if (categorySelect.value !== 'Under 14') {
-                    categorySelect.value = 'Under 14';
-                    renderEvents();
-                }
+                feedback.innerHTML = '✓ Eligible for <strong>Under 14 (U-14)</strong> · Age: ' + ageAsOfNov + ' yrs as on 16 Nov 2026.';
+                if (categorySelect.value !== 'Under 14') { categorySelect.value = 'Under 14'; renderEvents(); }
             } else if (isU16) {
                 feedback.className = 'dob-feedback dob-valid';
-                feedback.innerHTML = `✓ Eligible for <strong>Under 16 (U-16)</strong> · Age: ${ageAsOfNov} yrs as on 16 Nov 2026.`;
-                if (categorySelect.value !== 'Under 16') {
-                    categorySelect.value = 'Under 16';
-                    renderEvents();
-                }
+                feedback.innerHTML = '✓ Eligible for <strong>Under 16 (U-16)</strong> · Age: ' + ageAsOfNov + ' yrs as on 16 Nov 2026.';
+                if (categorySelect.value !== 'Under 16') { categorySelect.value = 'Under 16'; renderEvents(); }
             } else {
                 feedback.className = 'dob-feedback dob-invalid';
-                if (dob > U14_MAX_DOB) {
-                    feedback.innerHTML = `⚠️ Ineligible: Born after 16/11/2014. Athletes under 12 years are not eligible to participate per Circular No. 88.`;
-                } else if (dob < U16_MIN_DOB) {
-                    feedback.innerHTML = `⚠️ Ineligible: Born before 17/11/2010. Over-aged for junior category as per Circular No. 88.`;
-                } else {
-                    feedback.innerHTML = `⚠️ Ineligible: DOB does not fall into U-14 (17/11/2012–16/11/2014) or U-16 (17/11/2010–16/11/2012).`;
-                }
+                if (dob > U14_MAX_DOB) feedback.innerHTML = '⚠️ Ineligible: Born after 16/11/2014. Athletes under 12 years are not eligible per Circular No. 88.';
+                else if (dob < U16_MIN_DOB) feedback.innerHTML = '⚠️ Ineligible: Born before 17/11/2010. Over-aged for junior category.';
+                else feedback.innerHTML = '⚠️ Ineligible: DOB does not fall into U-14 or U-16 brackets.';
             }
         }
 
-        document.querySelector('#dob').addEventListener('input', checkDobValidity);
-        document.querySelector('#dob').addEventListener('change', checkDobValidity);
-
         // ==========================================
-        // 5. DYNAMIC EVENT RENDERER WITH QUOTA CHECKS
+        // 5. EVENT RENDERER
         // ==========================================
         function renderEvents() {
-            const category = document.querySelector('#category').value;
-            const gender = document.querySelector('#gender').value;
+            const categoryEl = document.querySelector('#category');
+            const genderEl = document.querySelector('#gender');
             const container = document.querySelector('#eventsContainer');
             const rulesBadge = document.querySelector('#eventRulesBadge');
+            if (!categoryEl || !container) return;
 
+            const category = categoryEl.value;
+            const gender = genderEl ? genderEl.value : '';
             container.classList.remove('single-col');
 
             if (!category) {
@@ -1755,130 +1057,81 @@ Youth Advancement, Tourism & Culture, Government of Telangana</pre>
             if (category === 'Under 14') {
                 container.classList.add('single-col');
                 const u14Full = (liveStats.u14Count || 0) >= 4;
+                if (rulesBadge) rulesBadge.textContent = 'U-14 Quota: ' + (liveStats.u14Count || 0) + '/4 filled · Choose 1 Triathlon + Mandatory Javelin';
 
-                if (rulesBadge) {
-                    rulesBadge.textContent = `U-14 Quota: ${liveStats.u14Count || 0}/4 filled · Choose 1 Triathlon + Mandatory Javelin`;
-                }
+                let html = '<div style="grid-column:1/-1; margin-bottom:4px">';
+                if (u14Full) html += '<div class="deadline-banner deadline-over" style="margin-bottom:8px">⚠️ Mysuru District U-14 Quota Reached (4 / 4 athletes). Contact district secretary.</div>';
+                html += '<p class="group-label">Step 1 — Choose ONE Triathlon Group (Required):</p></div>';
 
-                container.innerHTML = `
-                    <div style="grid-column:1/-1; margin-bottom:4px">
-                        ${u14Full ? '<div class="deadline-banner deadline-over" style="margin-bottom:8px">⚠️ Mysuru District U-14 Quota Reached (4 / 4 athletes). Contact district secretary.</div>' : ''}
-                        <p class="group-label">Step 1 — Choose ONE Triathlon Group (Required):</p>
-                    </div>
-                    ${U14_TRIATHLONS.map((t, idx) => `
-                        <label class="event ${u14Full ? 'disabled' : ''}">
-                            <input type="radio" name="triathlonGroup" value="${t.id}" required ${u14Full ? 'disabled' : ''} ${idx === 0 ? 'checked' : ''}>
-                            <div>
-                                <strong>${t.label}</strong>
-                                <div style="font-size:11.5px; color:#537189">${t.desc}</div>
-                            </div>
-                        </label>
-                    `).join('')}
-                    <div style="grid-column:1/-1; margin-top:8px">
-                        <p class="group-label">Step 2 — Mandatory Event for All U-14 Athletes (Auto-included):</p>
-                    </div>
-                    <label class="event mandatory">
-                        <input type="checkbox" checked disabled>
-                        <div>
-                            <strong>Kids Javelin Throw (with 5-meter runway)</strong>
-                            <div style="font-size:11.5px; color:#537189">Mandatory for all U-14 athletes as per Circular No. 88 Clause 4</div>
-                        </div>
-                    </label>
-                `;
+                html += U14_TRIATHLONS.map(function (t, idx) {
+                    return '<label class="event ' + (u14Full ? 'disabled' : '') + '">' +
+                        '<input type="radio" name="triathlonGroup" value="' + t.id + '" required ' + (u14Full ? 'disabled' : '') + ' ' + (idx === 0 ? 'checked' : '') + '>' +
+                        '<div><strong>' + t.label + '</strong><div style="font-size:11.5px; color:#537189">' + t.desc + '</div></div>' +
+                    '</label>';
+                }).join('');
+
+                html += '<div style="grid-column:1/-1; margin-top:8px"><p class="group-label">Step 2 — Mandatory Event for All U-14 Athletes (Auto-included):</p></div>';
+                html += '<label class="event mandatory"><input type="checkbox" checked disabled><div><strong>Kids Javelin Throw (with 5-meter runway)</strong><div style="font-size:11.5px; color:#537189">Mandatory for all U-14 athletes as per Circular No. 88</div></div></label>';
+
+                container.innerHTML = html;
                 return;
             }
 
-            // U-16
             if (!gender) {
-                container.innerHTML = '<p class="hint" style="grid-column:1/-1">Please select Gender to see official U-16 events and specifications.</p>';
+                container.innerHTML = '<p class="hint" style="grid-column:1/-1">Please select Gender to see official U-16 events.</p>';
                 if (rulesBadge) rulesBadge.textContent = 'Select gender to view events';
                 return;
             }
 
             const list = U16_EVENTS[gender] || [];
-            if (rulesBadge) {
-                rulesBadge.textContent = `U-16 ${gender}: Choose exactly 1 event (District limit: 2 athletes per event)`;
-            }
+            if (rulesBadge) rulesBadge.textContent = 'U-16 ' + gender + ': Choose exactly 1 event (Max 2 athletes per event per district)';
 
-            container.innerHTML = `
-                <div style="grid-column:1/-1">
-                    <p class="group-label">Choose EXACTLY ONE event (AFI Rule: U-16 athlete can enter 1 event only):</p>
-                </div>
-                ${list.map(e => {
-                const key = `${gender}|${e.id}`;
+            let html = '<div style="grid-column:1/-1"><p class="group-label">Choose EXACTLY ONE event (AFI Rule: U-16 athlete can enter 1 event only):</p></div>';
+
+            html += list.map(function (e) {
+                const key = gender + '|' + e.id;
                 const countInDistrict = (liveStats.u16EventCounts && liveStats.u16EventCounts[key]) || 0;
                 const isFull = countInDistrict >= 2;
+                return '<label class="event ' + (isFull ? 'disabled' : '') + '">' +
+                    '<input type="radio" name="u16Event" value="' + e.id + '" required ' + (isFull ? 'disabled' : '') + '>' +
+                    '<div style="flex:1"><div style="display:flex; justify-content:space-between; align-items:center">' +
+                        '<strong>' + e.label + '</strong>' +
+                        (isFull ? '<span class="badge" style="background:#fee2e2; color:#991b1b">Full (2/2)</span>'
+                                : '<span class="badge" style="background:#e0f2fe; color:#0369a1">' + countInDistrict + '/2 taken</span>') +
+                    '</div><div style="font-size:11.5px; color:#537189">' + e.desc + '</div></div>' +
+                '</label>';
+            }).join('');
 
-                return `
-                        <label class="event ${isFull ? 'disabled' : ''}">
-                            <input type="radio" name="u16Event" value="${e.id}" required ${isFull ? 'disabled' : ''}>
-                            <div style="flex:1">
-                                <div style="display:flex; justify-content:space-between; align-items:center">
-                                    <strong>${e.label}</strong>
-                                    ${isFull
-                        ? '<span class="badge" style="background:#fee2e2; color:#991b1b">Full (2/2)</span>'
-                        : `<span class="badge" style="background:#e0f2fe; color:#0369a1">${countInDistrict}/2 taken</span>`
-                    }
-                                </div>
-                                <div style="font-size:11.5px; color:#537189">${e.desc}</div>
-                            </div>
-                        </label>
-                    `;
-            }).join('')}
-            `;
+            container.innerHTML = html;
         }
 
-        document.querySelector('#category').addEventListener('change', renderEvents);
-        document.querySelector('#gender').addEventListener('change', renderEvents);
-
         // ==========================================
-        // 6. FORM SUBMISSION VIA SECURE SERVER API
+        // 6. ATHLETE FORM SUBMISSION
         // ==========================================
-        document.querySelector('#form').addEventListener('submit', async (e) => {
+        async function handleFormSubmit(e) {
             e.preventDefault();
             const submitBtn = document.querySelector('#submitBtn');
+            if (!submitBtn) return;
             const originalBtnText = submitBtn.innerHTML;
 
             const fd = new FormData(e.target);
             const data = Object.fromEntries(fd);
 
-            // Client-side quick check
-            if (!data.declaration) {
-                alert('You must accept the Parent/Guardian Undertaking declaration before submitting.');
-                return;
-            }
+            if (!data.declaration) { alert('You must accept the Parent/Guardian Undertaking declaration before submitting.'); return; }
 
-            // Build events array
             let events = [];
             if (data.category === 'Under 14') {
-                if (!data.triathlonGroup) {
-                    alert('Please select one Triathlon group for the U-14 athlete.');
-                    return;
-                }
+                if (!data.triathlonGroup) { alert('Please select one Triathlon group for the U-14 athlete.'); return; }
                 events = [data.triathlonGroup, 'Kids Javelin Throw'];
             } else {
-                if (!data.u16Event) {
-                    alert('Please select exactly one event for the U-16 athlete.');
-                    return;
-                }
+                if (!data.u16Event) { alert('Please select exactly one event for the U-16 athlete.'); return; }
                 events = [data.u16Event];
             }
 
             const payload = {
-                name: data.name,
-                afi_uid: data.afi_uid,
-                dob: data.dob,
-                gender: data.gender,
-                category: data.category,
-                father: data.father,
-                mother: data.mother,
-                aadhaar: data.aadhaar,
-                school: data.school,
-                phone: data.phone,
-                address: data.address,
-                coach: data.coach || '',
-                declaration: true,
-                events
+                name: data.name, afi_uid: data.afi_uid, dob: data.dob, gender: data.gender, category: data.category,
+                father: data.father, mother: data.mother, aadhaar: data.aadhaar, school: data.school, phone: data.phone,
+                address: data.address, coach: data.coach || '', declaration: true, events: events
             };
 
             try {
@@ -1892,229 +1145,284 @@ Youth Advancement, Tourism & Culture, Government of Telangana</pre>
                 });
 
                 const result = await res.json();
-
-                if (!res.ok) {
-                    alert('Registration Error: ' + (result.error || 'Submission failed'));
-                    return;
-                }
+                if (!res.ok) { alert('Registration Error: ' + (result.error || 'Submission failed')); return; }
 
                 alert('✅ Success!\n\n' + result.message + '\n\nAthlete: ' + data.name + ' (' + data.afi_uid + ')\nCategory: ' + data.category + '\nEvents: ' + events.join(', '));
                 e.target.reset();
-                document.querySelector('#dobFeedback').className = 'dob-feedback hide';
+                const dobFeedback = document.querySelector('#dobFeedback');
+                if (dobFeedback) dobFeedback.className = 'dob-feedback hide';
+                renderEvents();
                 fetchStats();
             } catch (err) {
-                console.error('Submission failed:', err);
+                console.error('[Entry] Submission failed:', err);
                 alert('Network error while submitting entry. Please verify server connection.');
             } finally {
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = originalBtnText;
             }
-        });
+        }
 
         // ==========================================
-        // 7. CIRCULAR TEXT & COPY HELPER
+        // 7. CIRCULAR TEXT COPY
         // ==========================================
         function copyCircularText() {
             const verbatimEl = document.querySelector('#circularVerbatim');
             if (!verbatimEl) return;
             const text = verbatimEl.textContent;
             if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(text).then(() => {
+                navigator.clipboard.writeText(text).then(function () {
                     alert('Official AFI Circular No. 88/09-2026 text copied to clipboard.');
-                }).catch(() => {
-                    prompt('Copy the circular text below:', text);
-                });
+                }).catch(function () { prompt('Copy the circular text below:', text); });
             } else {
                 prompt('Copy the circular text below:', text);
             }
         }
+        window.copyCircularText = copyCircularText;
 
-        async function loadCircularText() {
-            // Content is already pre-loaded into the DOM for instant, offline access.
-            // This function is kept for backward compatibility with switchView.
+        // ==========================================
+        // 8. ADMIN AUTH + DASHBOARD
+        // ==========================================
+        function applyAdminPanels(session) {
+            const loginPanel = document.querySelector('#loginPanel');
+            const dashboard = document.querySelector('#dashboard');
+            if (!loginPanel || !dashboard) return;
+            loginPanel.classList.toggle('hide', !!session);
+            dashboard.classList.toggle('hide', !session);
         }
 
-        // ==========================================
-        // 8. ADMIN DASHBOARD & AUTHENTICATION
-        // ==========================================
         async function checkAdminSession() {
-            if (!supabase) return;
-            const { data: { session } } = await supabase.auth.getSession();
-            if (session) {
-                document.querySelector('#loginPanel').classList.add('hide');
-                document.querySelector('#dashboard').classList.remove('hide');
-                loadAdminDashboard();
-            } else {
-                document.querySelector('#loginPanel').classList.remove('hide');
-                document.querySelector('#dashboard').classList.add('hide');
+            if (!supabase) { applyAdminPanels(null); return; }
+            try {
+                const res = await supabase.auth.getSession();
+                const session = res && res.data ? res.data.session : null;
+                applyAdminPanels(session);
+                if (session) loadAdminDashboard();
+            } catch (e) {
+                console.error('[Auth] checkAdminSession error:', e);
+                applyAdminPanels(null);
             }
         }
 
-        document.querySelector('#loginForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const email = document.querySelector('#adminEmail').value.trim();
-            const password = document.querySelector('#adminPass').value;
+        async function handleLoginSubmit(e) {
+            if (e && e.preventDefault) e.preventDefault();
+            if (e && e.stopPropagation) e.stopPropagation();
 
-            if (!email || !password) return;
+            const submitBtn = document.querySelector('#loginSubmitBtn');
+            const emailEl = document.querySelector('#adminEmail');
+            const passEl = document.querySelector('#adminPass');
+            if (!emailEl || !passEl) return;
+
+            const email = emailEl.value.trim();
+            const password = passEl.value;
+
+            if (!email || !password) { alert('Please enter both email and passcode.'); return; }
 
             if (!supabase) {
-                alert('Supabase client not initialized.');
+                alert('Backend not configured. Missing SUPABASE_URL / SUPABASE_ANON_KEY in /config.js');
                 return;
             }
 
-            const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-            if (error) {
-                alert('Authentication Failed: ' + error.message);
-                return;
+            const orig = submitBtn ? submitBtn.innerHTML : '';
+            if (submitBtn) { submitBtn.disabled = true; submitBtn.innerHTML = 'Signing In...'; }
+
+            try {
+                const { data, error } = await supabase.auth.signInWithPassword({ email: email, password: password });
+                if (error) {
+                    alert('Authentication Failed: ' + error.message);
+                    return;
+                }
+
+                console.log('[Auth] Sign-in success. Session:', !!data.session);
+
+console.log('[DEBUG] URL hash:', window.location.hash);
+console.log('[DEBUG] Session:', data.session);
+console.log('[DEBUG] Admin view:', document.querySelector('#adminView'));
+console.log('[DEBUG] Athlete view:', document.querySelector('#athleteView'));
+
+                // Authentication has succeeded. Avoid starting a second
+// session check while switching to the admin dashboard.
+switchView('admin', { skipSessionCheck: true });
+
+applyAdminPanels(data.session);
+
+await loadAdminDashboard();
+            } catch (err) {
+                console.error('[Auth] Login error:', err);
+                alert('Login error: ' + (err && err.message ? err.message : 'Unknown error'));
+            } finally {
+                if (submitBtn) { submitBtn.disabled = false; submitBtn.innerHTML = orig; }
             }
+        }
+        window.handleLoginSubmit = handleLoginSubmit;
 
-            document.querySelector('#loginPanel').classList.add('hide');
-            document.querySelector('#dashboard').classList.remove('hide');
-            loadAdminDashboard();
-        });
-
-        document.querySelector('#adminSignOut').addEventListener('click', async () => {
-            if (supabase) await supabase.auth.signOut();
-            document.querySelector('#loginPanel').classList.remove('hide');
-            document.querySelector('#dashboard').classList.add('hide');
-        });
+        async function handleSignOut() {
+            if (supabase) { try { await supabase.auth.signOut(); } catch (e) { console.warn(e); } }
+            applyAdminPanels(null);
+        }
 
         async function loadAdminDashboard() {
             if (!supabase) return;
-            const { data: entries, error } = await supabase
-                .from('entries')
-                .select('*')
-                .order('created_at', { ascending: false });
-
-            if (error) {
-                alert('Could not fetch entries: ' + error.message);
-                return;
+            try {
+                const { data: entries, error } = await supabase
+                    .from('entries').select('*').order('created_at', { ascending: false });
+                if (error) { console.error('[Admin] fetch error:', error); alert('Could not fetch entries: ' + error.message); return; }
+                renderAdminTable(entries || []);
+            } catch (e) {
+                console.error('[Admin] loadAdminDashboard exception:', e);
             }
-
-            renderAdminTable(entries || []);
         }
 
         function renderAdminTable(entries) {
             const rowsContainer = document.querySelector('#rows');
             const emptyNotice = document.querySelector('#empty');
+            const table = document.querySelector('.admin-table');
+            const adminCount = document.querySelector('#adminCount');
+            if (!rowsContainer) return;
 
-            document.querySelector('#adminCount').textContent =
-                `${entries.length} / 13 ATHLETES`;
+            if (adminCount) adminCount.textContent = entries.length + ' / 13 ATHLETES';
+            if (emptyNotice) emptyNotice.classList.toggle('hide', entries.length > 0);
+            if (table) table.classList.toggle('hide', entries.length === 0);
 
-            emptyNotice.classList.toggle('hide', entries.length > 0);
-            document.querySelector('.admin-table').classList.toggle('hide', entries.length === 0);
-
-            rowsContainer.innerHTML = entries.map((x, index) => {
-                // Parse AFI UID from coach string if present
+            rowsContainer.innerHTML = entries.map(function (x, index) {
                 const coachStr = x.coach || '';
                 const afiMatch = coachStr.match(/AFI UID:\s*([^|]+)/i);
                 const afiUid = afiMatch ? afiMatch[1].trim() : 'N/A';
-
                 const ageAtMeet = x.dob ? calculateAge(new Date(x.dob + 'T00:00:00+05:30'), BASE_DATE) : '—';
                 const catBadgeClass = x.category === 'Under 14' ? 'badge-u14' : 'badge-u16';
 
-                return `
-                    <tr>
-                        <td><strong>${index + 1}</strong></td>
-                        <td><span style="font-family:monospace; font-weight:700; color:#0284c7">${esc(afiUid)}</span></td>
-                        <td><strong>${esc(x.name)}</strong><br><span style="font-size:11px; color:#64748b">Aadhaar: ${esc(x.aadhaar)}</span></td>
-                        <td>
-                            <span class="badge ${catBadgeClass}">${esc(x.category)}</span><br>
-                            <span style="font-size:11px; color:#64748b">${esc(x.gender)}</span>
-                        </td>
-                        <td>${esc(x.dob)}<br><span style="font-size:11px; color:#64748b">${ageAtMeet} yrs on 16 Nov</span></td>
-                        <td><strong>${(x.events || []).map(esc).join('<br>')}</strong></td>
-                        <td>${esc(x.school)}</td>
-                        <td>${esc(x.phone)}<br><span style="font-size:11px; color:#64748b">Parent: ${esc(x.father || x.mother)}</span></td>
-                        <td><span class="badge badge-verified">✓ Signed</span></td>
-                    </tr>
-                `;
+                return '<tr>' +
+                    '<td><strong>' + (index + 1) + '</strong></td>' +
+                    '<td><span style="font-family:monospace; font-weight:700; color:#0284c7">' + esc(afiUid) + '</span></td>' +
+                    '<td><strong>' + esc(x.name) + '</strong><br><span style="font-size:11px; color:#64748b">Aadhaar: ' + esc(x.aadhaar) + '</span></td>' +
+                    '<td><span class="badge ' + catBadgeClass + '">' + esc(x.category) + '</span><br><span style="font-size:11px; color:#64748b">' + esc(x.gender) + '</span></td>' +
+                    '<td>' + esc(x.dob) + '<br><span style="font-size:11px; color:#64748b">' + ageAtMeet + ' yrs on 16 Nov</span></td>' +
+                    '<td><strong>' + (x.events || []).map(esc).join('<br>') + '</strong></td>' +
+                    '<td>' + esc(x.school) + '</td>' +
+                    '<td>' + esc(x.phone) + '<br><span style="font-size:11px; color:#64748b">Parent: ' + esc(x.father || x.mother) + '</span></td>' +
+                    '<td><span class="badge badge-verified">✓ Signed</span></td>' +
+                '</tr>';
             }).join('');
         }
 
-        function esc(s = '') {
-            return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+        function esc(s) {
+            return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+                return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+            });
         }
 
         // ==========================================
-        // 9. CSV EXPORT FOR AFI ONLINE ENTRY
+        // 9. CSV EXPORT
         // ==========================================
-        document.querySelector('#export').addEventListener('click', async () => {
-            if (!supabase) return;
+        async function exportCSV() {
+            if (!supabase) { alert('Backend not configured.'); return; }
             const { data: entries, error } = await supabase.from('entries').select('*');
-            if (error || !entries.length) {
-                alert('No entries available for export.');
-                return;
-            }
+            if (error || !entries || !entries.length) { alert('No entries available for export.'); return; }
 
-            const headers = [
-                'Sl No',
-                'AFI UID',
-                'Athlete Full Name',
-                'Date of Birth',
-                'Age Category',
-                'Gender',
-                'Events Entered',
-                'Father Name',
-                'Mother Name',
-                'Aadhaar Number',
-                'School Name',
-                'Parent Phone',
-                'Residential Address',
-                'Coach Details',
-                'Parent Undertaking Status',
-                'Entry Registration Timestamp'
-            ];
+            const headers = ['Sl No','AFI UID','Athlete Full Name','Date of Birth','Age Category','Gender','Events Entered','Father Name','Mother Name','Aadhaar Number','School Name','Parent Phone','Residential Address','Coach Details','Parent Undertaking Status','Entry Registration Timestamp'];
 
-            const rows = entries.map((x, i) => {
+            const rows = entries.map(function (x, i) {
                 const coachStr = x.coach || '';
                 const afiMatch = coachStr.match(/AFI UID:\s*([^|]+)/i);
                 const afiUid = afiMatch ? afiMatch[1].trim() : '';
-
                 return [
-                    i + 1,
-                    afiUid,
-                    x.name || '',
-                    x.dob || '',
-                    x.category || '',
-                    x.gender || '',
-                    (x.events || []).join('; '),
-                    x.father || '',
-                    x.mother || '',
-                    x.aadhaar || '',
-                    x.school || '',
-                    x.phone || '',
-                    x.address || '',
-                    x.coach || '',
-                    'Verified & Consented',
-                    x.created_at || ''
-                ].map(val => `"${String(val).replaceAll('"', '""')}"`).join(',');
+                    i + 1, afiUid, x.name || '', x.dob || '', x.category || '', x.gender || '',
+                    (x.events || []).join('; '), x.father || '', x.mother || '', x.aadhaar || '',
+                    x.school || '', x.phone || '', x.address || '', x.coach || '',
+                    'Verified & Consented', x.created_at || ''
+                ].map(function (val) { return '"' + String(val).replace(/"/g, '""') + '"'; }).join(',');
             });
 
-            const csvContent = '\uFEFF' + [headers.join(','), ...rows].join('\r\n');
+            const csvContent = '\uFEFF' + [headers.join(',')].concat(rows).join('\r\n');
             const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
             const link = document.createElement('a');
             link.href = URL.createObjectURL(blob);
-            link.download = `Mysuru_Athletics_NIDJAM_2026_Entries_${new Date().toISOString().slice(0, 10)}.csv`;
+            link.download = 'Mysuru_Athletics_NIDJAM_2026_Entries_' + new Date().toISOString().slice(0, 10) + '.csv';
+            document.body.appendChild(link);
             link.click();
+            document.body.removeChild(link);
             URL.revokeObjectURL(link.href);
-        });
+        }
 
-        // Initialize on page load
-        document.addEventListener('DOMContentLoaded', () => {
-            fetchStats();
+        // ==========================================
+        // 10. DOM WIRING
+        // ==========================================
+        function safeOn(selector, event, handler) {
+            const el = document.querySelector(selector);
+            if (el) el.addEventListener(event, handler);
+            else console.warn('[Wiring] Element not found:', selector);
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            console.log('[DOM] Ready. Wiring up.');
+
+            // Navigation
+            document.querySelectorAll('[data-view]').forEach(function (btn) {
+                btn.addEventListener('click', function () { switchView(btn.dataset.view); });
+            });
+
+            safeOn('#readCircularBtn', 'click', function () { switchView('circular'); });
+
+            // Athlete form
+            safeOn('#dob', 'input', checkDobValidity);
+            safeOn('#dob', 'change', checkDobValidity);
+            safeOn('#category', 'change', renderEvents);
+            safeOn('#gender', 'change', renderEvents);
+            safeOn('#form', 'submit', handleFormSubmit);
+
+            // Admin login
+            safeOn('#loginSubmitBtn', 'click', function (e) {
+                if (e && e.preventDefault) e.preventDefault();
+                handleLoginSubmit(e);
+            });
+            const passEl = document.querySelector('#adminPass');
+            if (passEl) {
+                passEl.addEventListener('keydown', function (ev) {
+                    if (ev.key === 'Enter') { ev.preventDefault(); handleLoginSubmit(ev); }
+                });
+            }
+            const loginForm = document.querySelector('#loginForm');
+            if (loginForm) {
+                loginForm.addEventListener('submit', function (ev) {
+                    ev.preventDefault();
+                    handleLoginSubmit(ev);
+                });
+            }
+
+            // Sign out + export
+            safeOn('#adminSignOut', 'click', handleSignOut);
+            safeOn('#export', 'click', exportCSV);
+
+            // Supabase auth state — single source of truth for panels
+            if (supabase) {
+                supabase.auth.onAuthStateChange(function (event, session) {
+                    console.log('[Auth] onAuthStateChange:', event, 'session:', !!session);
+console.log(
+    '[DEBUG] Auth event:',
+    event,
+    '| Session exists:',
+    !!session,
+    '| Current view:',
+    window.location.hash
+);
+                    applyAdminPanels(session);
+                    if (session) loadAdminDashboard();
+                });
+            }
+
+            // Hash-based view restoration (survives reloads)
+            window.addEventListener('hashchange', function () {
+                switchView(window.location.hash.slice(1) || 'athlete');
+            });
+
+            // Initial render — always run, independent of API
             renderDeadlineBanner();
             renderEvents();
-        });
-        document.addEventListener('DOMContentLoaded', () => {
-            // ... existing initialization ...
+            fetchStats();
 
-            // Safely attach the button listener
-            const readCircularBtn = document.getElementById('readCircularBtn');
-            if (readCircularBtn) {
-                readCircularBtn.addEventListener('click', () => switchView('circular'));
-            }
+            // Restore view from hash (or default to athlete)
+            switchView(window.location.hash.slice(1) || 'athlete');
         });
+    })();
     </script>
 </body>
 
