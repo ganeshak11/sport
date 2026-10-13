@@ -1410,16 +1410,16 @@ Youth Advancement, Tourism & Culture, Government of Telangana</pre>
                         <p>Mysuru District Athletics Association Admin Access</p>
                     </div>
                 </div>
-                <form id="loginForm">
+                <form id="loginForm" autocomplete="on">
                     <div class="field" style="margin-bottom:14px">
                         <label for="adminEmail">Admin Email</label>
-                        <input type="email" id="adminEmail" value="admin@mysuru-athletics.com" required>
+                        <input type="email" id="adminEmail" name="adminEmail" value="admin@mysuru-athletics.com" required>
                     </div>
                     <div class="field" style="margin-bottom:16px">
                         <label for="adminPass">Admin Passcode</label>
-                        <input type="password" id="adminPass" required placeholder="Enter passcode (mysuru2026)">
+                        <input type="password" id="adminPass" name="adminPass" required placeholder="Enter passcode (mysuru2026)">
                     </div>
-                    <button class="primary" type="submit" style="width:100%">Sign In to Dashboard &nbsp;↗</button>
+                    <button class="primary" type="submit" id="loginSubmitBtn" style="width:100%">Sign In to Dashboard &nbsp;↗</button>
                     <p class="hint" style="margin-top:10px; text-align:center">Authorized officials only · Passcode:
                         <b>mysuru2026</b>
                     </p>
@@ -1489,45 +1489,16 @@ Youth Advancement, Tourism & Culture, Government of Telangana</pre>
             20th National Inter District Junior Athletics Meet 2026 (NIDJAM) · Woxsen University, Hyderabad
         </footer>
     </div>
-    <!-- Standalone Navigation Script (Runs independently of Supabase) -->
-    <script>
-        function switchView(view) {
-            // Handle top navigation tabs
-            document.querySelectorAll('[data-view]').forEach(b => {
-                b.classList.toggle('active', b.dataset.view === view);
-            });
 
-            // Show/hide sections
-            const athleteView = document.querySelector('#athleteView');
-            const circularView = document.querySelector('#circularView');
-            const adminView = document.querySelector('#adminView');
-
-            if (athleteView) athleteView.classList.toggle('hide', view !== 'athlete');
-            if (circularView) circularView.classList.toggle('hide', view !== 'circular');
-            if (adminView) adminView.classList.toggle('hide', view !== 'admin');
-
-            // Safely call functions if they exist (prevents crashing)
-            if (view === 'circular' && typeof loadCircularText === 'function') loadCircularText();
-            if (view === 'admin' && typeof checkAdminSession === 'function') checkAdminSession();
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            // Attach listeners to top nav buttons
-            document.querySelectorAll('[data-view]').forEach(btn => {
-                btn.addEventListener('click', () => switchView(btn.dataset.view));
-            });
-
-            // Attach listener to the "Read Circular Rules" button
-            const readCircularBtn = document.getElementById('readCircularBtn');
-            if (readCircularBtn) {
-                readCircularBtn.addEventListener('click', () => switchView('circular'));
-            }
-        });
-    </script>
-    <!-- Scripts -->
+    <!-- Config + Supabase -->
     <script src="/config.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- Application Script (single source of truth) -->
     <script>
+    (function () {
+        'use strict';
+
         // ==========================================
         // 1. CONFIG & INITIALIZATION
         // ==========================================
@@ -1537,14 +1508,17 @@ Youth Advancement, Tourism & Culture, Government of Telangana</pre>
         const ADMIN_EMAIL = env.ADMIN_EMAIL || 'admin@mysuru-athletics.com';
         const OPEN_DATE = new Date(env.ENTRY_OPEN_DATE || '2026-10-15T00:00:00+05:30');
         const DEADLINE = new Date(env.ENTRY_DEADLINE || '2026-10-30T23:59:59+05:30');
-        const BASE_DATE = new Date('2026-11-16T00:00:00+05:30'); // Age cutoff date per circular
+        const BASE_DATE = new Date('2026-11-16T00:00:00+05:30');
 
         let supabase = null;
-        // Add '&& window.supabase' to the condition
         if (SUPABASE_URL && SUPABASE_ANON_KEY && window.supabase) {
-            supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+            try {
+                supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+            } catch (e) {
+                console.error('Supabase init failed:', e);
+            }
         } else {
-            console.warn("Supabase client could not be initialized. Check CDN or config.");
+            console.warn('Supabase client not initialized. Check /config.js and CDN.');
         }
 
         // Circular 88 Date Boundaries
@@ -1592,23 +1566,36 @@ Youth Advancement, Tourism & Culture, Government of Telangana</pre>
         };
 
         // ==========================================
-        // 2. NAVIGATION & TABS
+        // 2. NAVIGATION & VIEW SWITCHING (with hash persistence)
         // ==========================================
+        const VIEWS = ['athlete', 'circular', 'admin'];
+
         function switchView(view) {
+            if (!VIEWS.includes(view)) view = 'athlete';
+
             document.querySelectorAll('[data-view]').forEach(b => {
                 b.classList.toggle('active', b.dataset.view === view);
             });
-            document.querySelector('#athleteView').classList.toggle('hide', view !== 'athlete');
-            document.querySelector('#circularView').classList.toggle('hide', view !== 'circular');
-            document.querySelector('#adminView').classList.toggle('hide', view !== 'admin');
 
-            if (view === 'circular') loadCircularText();
+            VIEWS.forEach(v => {
+                const el = document.querySelector('#' + v + 'View');
+                if (el) el.classList.toggle('hide', v !== view);
+            });
+
+            // Persist view in URL hash so a reload (or native submit) returns here
+            if (window.location.hash !== '#' + view) {
+                try {
+                    history.replaceState(null, '', '#' + view);
+                } catch (e) {
+                    window.location.hash = view;
+                }
+            }
+
             if (view === 'admin') checkAdminSession();
         }
 
-        document.querySelectorAll('[data-view]').forEach(btn => {
-            btn.addEventListener('click', () => switchView(btn.dataset.view));
-        });
+        // Expose to inline onclick handlers (hero buttons, circular view "Go to Registration")
+        window.switchView = switchView;
 
         // ==========================================
         // 3. STATS & DEADLINE BANNER
@@ -1618,21 +1605,22 @@ Youth Advancement, Tourism & Culture, Government of Telangana</pre>
                 const res = await fetch('/api/stats');
                 if (res.ok) {
                     liveStats = await res.json();
-                    updateStatsUI();
                 }
             } catch (e) {
                 console.warn('Could not fetch stats:', e);
             }
+            // Always refresh UI, even if stats fetch failed
+            updateStatsUI();
         }
 
         function updateStatsUI() {
             const statTotal = document.querySelector('#statTotal');
             const statU14 = document.querySelector('#statU14');
-            if (statTotal) statTotal.textContent = `${liveStats.totalAthletes || 0} / 13`;
-            if (statU14) statU14.textContent = `${liveStats.u14Count || 0} / 4`;
+            if (statTotal) statTotal.textContent = (liveStats.totalAthletes || 0) + ' / 13';
+            if (statU14) statU14.textContent = (liveStats.u14Count || 0) + ' / 4';
 
             const adminCount = document.querySelector('#adminCount');
-            if (adminCount) adminCount.textContent = `${liveStats.totalAthletes || 0} / 13 ATHLETES`;
+            if (adminCount) adminCount.textContent = (liveStats.totalAthletes || 0) + ' / 13 ATHLETES';
 
             renderDeadlineBanner();
             renderEvents();
@@ -1647,11 +1635,11 @@ Youth Advancement, Tourism & Culture, Government of Telangana</pre>
             const daysLeft = Math.ceil((DEADLINE - now) / (1000 * 60 * 60 * 24));
 
             if (now > DEADLINE) {
-                bannerSlot.innerHTML = `
-                    <div class="deadline-banner deadline-over">
-                        <span>⛔ <strong>Online Entries Closed:</strong> The deadline of 30 October 2026 has passed. No further entries accepted as per AFI Circular No. 88.</span>
-                        <span class="step-badge" style="background:#fee2e2; color:#991b1b">CLOSED</span>
-                    </div>`;
+                bannerSlot.innerHTML =
+                    '<div class="deadline-banner deadline-over">' +
+                        '<span>⛔ <strong>Online Entries Closed:</strong> The deadline of 30 October 2026 has passed. No further entries accepted as per AFI Circular No. 88.</span>' +
+                        '<span class="step-badge" style="background:#fee2e2; color:#991b1b">CLOSED</span>' +
+                    '</div>';
                 if (statCountdown) statCountdown.textContent = 'Closed on 30 Oct';
                 const submitBtn = document.querySelector('#submitBtn');
                 if (submitBtn) submitBtn.disabled = true;
@@ -1659,21 +1647,21 @@ Youth Advancement, Tourism & Culture, Government of Telangana</pre>
             }
 
             if (now < OPEN_DATE) {
-                bannerSlot.innerHTML = `
-                    <div class="deadline-banner deadline-warn">
-                        <span>📢 <strong>Official Entry Window:</strong> Online entries officially open on 15 October 2026 and close on 30 October 2026. Pre-registration preview active.</span>
-                        <span class="step-badge" style="background:#fef3c7; color:#92400e">OPENS 15 OCT</span>
-                    </div>`;
+                bannerSlot.innerHTML =
+                    '<div class="deadline-banner deadline-warn">' +
+                        '<span>📢 <strong>Official Entry Window:</strong> Online entries officially open on 15 October 2026 and close on 30 October 2026. Pre-registration preview active.</span>' +
+                        '<span class="step-badge" style="background:#fef3c7; color:#92400e">OPENS 15 OCT</span>' +
+                    '</div>';
                 if (statCountdown) statCountdown.textContent = 'Opens 15 Oct';
                 return;
             }
 
-            bannerSlot.innerHTML = `
-                <div class="deadline-banner deadline-ok">
-                    <span>✅ <strong>AFI Online Entry Window Active:</strong> ${daysLeft} day(s) remaining. Closing date is 30 October 2026 (23:59:59 IST).</span>
-                    <span class="step-badge" style="background:#dcfce7; color:#166534">${daysLeft} DAYS LEFT</span>
-                </div>`;
-            if (statCountdown) statCountdown.textContent = `${daysLeft} days remaining`;
+            bannerSlot.innerHTML =
+                '<div class="deadline-banner deadline-ok">' +
+                    '<span>✅ <strong>AFI Online Entry Window Active:</strong> ' + daysLeft + ' day(s) remaining. Closing date is 30 October 2026 (23:59:59 IST).</span>' +
+                    '<span class="step-badge" style="background:#dcfce7; color:#166534">' + daysLeft + ' DAYS LEFT</span>' +
+                '</div>';
+            if (statCountdown) statCountdown.textContent = daysLeft + ' days remaining';
         }
 
         // ==========================================
@@ -1689,10 +1677,12 @@ Youth Advancement, Tourism & Culture, Government of Telangana</pre>
         }
 
         function checkDobValidity() {
-            const dobVal = document.querySelector('#dob').value;
+            const dobInput = document.querySelector('#dob');
             const categorySelect = document.querySelector('#category');
             const feedback = document.querySelector('#dobFeedback');
+            if (!dobInput || !categorySelect || !feedback) return;
 
+            const dobVal = dobInput.value;
             if (!dobVal) {
                 feedback.className = 'dob-feedback hide';
                 return;
@@ -1708,14 +1698,14 @@ Youth Advancement, Tourism & Culture, Government of Telangana</pre>
 
             if (isU14) {
                 feedback.className = 'dob-feedback dob-valid';
-                feedback.innerHTML = `✓ Eligible for <strong>Under 14 (U-14)</strong> · Age: ${ageAsOfNov} yrs as on 16 Nov 2026.`;
+                feedback.innerHTML = '✓ Eligible for <strong>Under 14 (U-14)</strong> · Age: ' + ageAsOfNov + ' yrs as on 16 Nov 2026.';
                 if (categorySelect.value !== 'Under 14') {
                     categorySelect.value = 'Under 14';
                     renderEvents();
                 }
             } else if (isU16) {
                 feedback.className = 'dob-feedback dob-valid';
-                feedback.innerHTML = `✓ Eligible for <strong>Under 16 (U-16)</strong> · Age: ${ageAsOfNov} yrs as on 16 Nov 2026.`;
+                feedback.innerHTML = '✓ Eligible for <strong>Under 16 (U-16)</strong> · Age: ' + ageAsOfNov + ' yrs as on 16 Nov 2026.';
                 if (categorySelect.value !== 'Under 16') {
                     categorySelect.value = 'Under 16';
                     renderEvents();
@@ -1723,26 +1713,27 @@ Youth Advancement, Tourism & Culture, Government of Telangana</pre>
             } else {
                 feedback.className = 'dob-feedback dob-invalid';
                 if (dob > U14_MAX_DOB) {
-                    feedback.innerHTML = `⚠️ Ineligible: Born after 16/11/2014. Athletes under 12 years are not eligible to participate per Circular No. 88.`;
+                    feedback.innerHTML = '⚠️ Ineligible: Born after 16/11/2014. Athletes under 12 years are not eligible to participate per Circular No. 88.';
                 } else if (dob < U16_MIN_DOB) {
-                    feedback.innerHTML = `⚠️ Ineligible: Born before 17/11/2010. Over-aged for junior category as per Circular No. 88.`;
+                    feedback.innerHTML = '⚠️ Ineligible: Born before 17/11/2010. Over-aged for junior category as per Circular No. 88.';
                 } else {
-                    feedback.innerHTML = `⚠️ Ineligible: DOB does not fall into U-14 (17/11/2012–16/11/2014) or U-16 (17/11/2010–16/11/2012).`;
+                    feedback.innerHTML = '⚠️ Ineligible: DOB does not fall into U-14 (17/11/2012–16/11/2014) or U-16 (17/11/2010–16/11/2012).';
                 }
             }
         }
-
-        document.querySelector('#dob').addEventListener('input', checkDobValidity);
-        document.querySelector('#dob').addEventListener('change', checkDobValidity);
 
         // ==========================================
         // 5. DYNAMIC EVENT RENDERER WITH QUOTA CHECKS
         // ==========================================
         function renderEvents() {
-            const category = document.querySelector('#category').value;
-            const gender = document.querySelector('#gender').value;
+            const categoryEl = document.querySelector('#category');
+            const genderEl = document.querySelector('#gender');
             const container = document.querySelector('#eventsContainer');
             const rulesBadge = document.querySelector('#eventRulesBadge');
+            if (!categoryEl || !container) return;
+
+            const category = categoryEl.value;
+            const gender = genderEl ? genderEl.value : '';
 
             container.classList.remove('single-col');
 
@@ -1757,34 +1748,35 @@ Youth Advancement, Tourism & Culture, Government of Telangana</pre>
                 const u14Full = (liveStats.u14Count || 0) >= 4;
 
                 if (rulesBadge) {
-                    rulesBadge.textContent = `U-14 Quota: ${liveStats.u14Count || 0}/4 filled · Choose 1 Triathlon + Mandatory Javelin`;
+                    rulesBadge.textContent = 'U-14 Quota: ' + (liveStats.u14Count || 0) + '/4 filled · Choose 1 Triathlon + Mandatory Javelin';
                 }
 
-                container.innerHTML = `
-                    <div style="grid-column:1/-1; margin-bottom:4px">
-                        ${u14Full ? '<div class="deadline-banner deadline-over" style="margin-bottom:8px">⚠️ Mysuru District U-14 Quota Reached (4 / 4 athletes). Contact district secretary.</div>' : ''}
-                        <p class="group-label">Step 1 — Choose ONE Triathlon Group (Required):</p>
-                    </div>
-                    ${U14_TRIATHLONS.map((t, idx) => `
-                        <label class="event ${u14Full ? 'disabled' : ''}">
-                            <input type="radio" name="triathlonGroup" value="${t.id}" required ${u14Full ? 'disabled' : ''} ${idx === 0 ? 'checked' : ''}>
-                            <div>
-                                <strong>${t.label}</strong>
-                                <div style="font-size:11.5px; color:#537189">${t.desc}</div>
-                            </div>
-                        </label>
-                    `).join('')}
-                    <div style="grid-column:1/-1; margin-top:8px">
-                        <p class="group-label">Step 2 — Mandatory Event for All U-14 Athletes (Auto-included):</p>
-                    </div>
-                    <label class="event mandatory">
-                        <input type="checkbox" checked disabled>
-                        <div>
-                            <strong>Kids Javelin Throw (with 5-meter runway)</strong>
-                            <div style="font-size:11.5px; color:#537189">Mandatory for all U-14 athletes as per Circular No. 88 Clause 4</div>
-                        </div>
-                    </label>
-                `;
+                let html = '<div style="grid-column:1/-1; margin-bottom:4px">';
+                if (u14Full) {
+                    html += '<div class="deadline-banner deadline-over" style="margin-bottom:8px">⚠️ Mysuru District U-14 Quota Reached (4 / 4 athletes). Contact district secretary.</div>';
+                }
+                html += '<p class="group-label">Step 1 — Choose ONE Triathlon Group (Required):</p></div>';
+
+                html += U14_TRIATHLONS.map((t, idx) =>
+                    '<label class="event ' + (u14Full ? 'disabled' : '') + '">' +
+                        '<input type="radio" name="triathlonGroup" value="' + t.id + '" required ' + (u14Full ? 'disabled' : '') + ' ' + (idx === 0 ? 'checked' : '') + '>' +
+                        '<div>' +
+                            '<strong>' + t.label + '</strong>' +
+                            '<div style="font-size:11.5px; color:#537189">' + t.desc + '</div>' +
+                        '</div>' +
+                    '</label>'
+                ).join('');
+
+                html += '<div style="grid-column:1/-1; margin-top:8px"><p class="group-label">Step 2 — Mandatory Event for All U-14 Athletes (Auto-included):</p></div>';
+                html += '<label class="event mandatory">' +
+                            '<input type="checkbox" checked disabled>' +
+                            '<div>' +
+                                '<strong>Kids Javelin Throw (with 5-meter runway)</strong>' +
+                                '<div style="font-size:11.5px; color:#537189">Mandatory for all U-14 athletes as per Circular No. 88 Clause 4</div>' +
+                            '</div>' +
+                        '</label>';
+
+                container.innerHTML = html;
                 return;
             }
 
@@ -1797,58 +1789,51 @@ Youth Advancement, Tourism & Culture, Government of Telangana</pre>
 
             const list = U16_EVENTS[gender] || [];
             if (rulesBadge) {
-                rulesBadge.textContent = `U-16 ${gender}: Choose exactly 1 event (District limit: 2 athletes per event)`;
+                rulesBadge.textContent = 'U-16 ' + gender + ': Choose exactly 1 event (District limit: 2 athletes per event)';
             }
 
-            container.innerHTML = `
-                <div style="grid-column:1/-1">
-                    <p class="group-label">Choose EXACTLY ONE event (AFI Rule: U-16 athlete can enter 1 event only):</p>
-                </div>
-                ${list.map(e => {
-                const key = `${gender}|${e.id}`;
+            let html = '<div style="grid-column:1/-1"><p class="group-label">Choose EXACTLY ONE event (AFI Rule: U-16 athlete can enter 1 event only):</p></div>';
+
+            html += list.map(e => {
+                const key = gender + '|' + e.id;
                 const countInDistrict = (liveStats.u16EventCounts && liveStats.u16EventCounts[key]) || 0;
                 const isFull = countInDistrict >= 2;
 
-                return `
-                        <label class="event ${isFull ? 'disabled' : ''}">
-                            <input type="radio" name="u16Event" value="${e.id}" required ${isFull ? 'disabled' : ''}>
-                            <div style="flex:1">
-                                <div style="display:flex; justify-content:space-between; align-items:center">
-                                    <strong>${e.label}</strong>
-                                    ${isFull
-                        ? '<span class="badge" style="background:#fee2e2; color:#991b1b">Full (2/2)</span>'
-                        : `<span class="badge" style="background:#e0f2fe; color:#0369a1">${countInDistrict}/2 taken</span>`
-                    }
-                                </div>
-                                <div style="font-size:11.5px; color:#537189">${e.desc}</div>
-                            </div>
-                        </label>
-                    `;
-            }).join('')}
-            `;
-        }
+                return '<label class="event ' + (isFull ? 'disabled' : '') + '">' +
+                            '<input type="radio" name="u16Event" value="' + e.id + '" required ' + (isFull ? 'disabled' : '') + '>' +
+                            '<div style="flex:1">' +
+                                '<div style="display:flex; justify-content:space-between; align-items:center">' +
+                                    '<strong>' + e.label + '</strong>' +
+                                    (isFull
+                                        ? '<span class="badge" style="background:#fee2e2; color:#991b1b">Full (2/2)</span>'
+                                        : '<span class="badge" style="background:#e0f2fe; color:#0369a1">' + countInDistrict + '/2 taken</span>'
+                                    ) +
+                                '</div>' +
+                                '<div style="font-size:11.5px; color:#537189">' + e.desc + '</div>' +
+                            '</div>' +
+                        '</label>';
+            }).join('');
 
-        document.querySelector('#category').addEventListener('change', renderEvents);
-        document.querySelector('#gender').addEventListener('change', renderEvents);
+            container.innerHTML = html;
+        }
 
         // ==========================================
         // 6. FORM SUBMISSION VIA SECURE SERVER API
         // ==========================================
-        document.querySelector('#form').addEventListener('submit', async (e) => {
+        async function handleFormSubmit(e) {
             e.preventDefault();
             const submitBtn = document.querySelector('#submitBtn');
+            if (!submitBtn) return;
             const originalBtnText = submitBtn.innerHTML;
 
             const fd = new FormData(e.target);
             const data = Object.fromEntries(fd);
 
-            // Client-side quick check
             if (!data.declaration) {
                 alert('You must accept the Parent/Guardian Undertaking declaration before submitting.');
                 return;
             }
 
-            // Build events array
             let events = [];
             if (data.category === 'Under 14') {
                 if (!data.triathlonGroup) {
@@ -1878,7 +1863,7 @@ Youth Advancement, Tourism & Culture, Government of Telangana</pre>
                 address: data.address,
                 coach: data.coach || '',
                 declaration: true,
-                events
+                events: events
             };
 
             try {
@@ -1900,7 +1885,9 @@ Youth Advancement, Tourism & Culture, Government of Telangana</pre>
 
                 alert('✅ Success!\n\n' + result.message + '\n\nAthlete: ' + data.name + ' (' + data.afi_uid + ')\nCategory: ' + data.category + '\nEvents: ' + events.join(', '));
                 e.target.reset();
-                document.querySelector('#dobFeedback').className = 'dob-feedback hide';
+                const dobFeedback = document.querySelector('#dobFeedback');
+                if (dobFeedback) dobFeedback.className = 'dob-feedback hide';
+                renderEvents();
                 fetchStats();
             } catch (err) {
                 console.error('Submission failed:', err);
@@ -1909,7 +1896,7 @@ Youth Advancement, Tourism & Culture, Government of Telangana</pre>
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = originalBtnText;
             }
-        });
+        }
 
         // ==========================================
         // 7. CIRCULAR TEXT & COPY HELPER
@@ -1919,65 +1906,98 @@ Youth Advancement, Tourism & Culture, Government of Telangana</pre>
             if (!verbatimEl) return;
             const text = verbatimEl.textContent;
             if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(text).then(() => {
+                navigator.clipboard.writeText(text).then(function () {
                     alert('Official AFI Circular No. 88/09-2026 text copied to clipboard.');
-                }).catch(() => {
+                }).catch(function () {
                     prompt('Copy the circular text below:', text);
                 });
             } else {
                 prompt('Copy the circular text below:', text);
             }
         }
+        window.copyCircularText = copyCircularText;
 
-        async function loadCircularText() {
+        function loadCircularText() {
             // Content is already pre-loaded into the DOM for instant, offline access.
-            // This function is kept for backward compatibility with switchView.
         }
 
         // ==========================================
         // 8. ADMIN DASHBOARD & AUTHENTICATION
         // ==========================================
+        function applyAdminPanels(session) {
+            const loginPanel = document.querySelector('#loginPanel');
+            const dashboard = document.querySelector('#dashboard');
+            if (!loginPanel || !dashboard) return;
+            loginPanel.classList.toggle('hide', !!session);
+            dashboard.classList.toggle('hide', !session);
+        }
+
         async function checkAdminSession() {
-            if (!supabase) return;
-            const { data: { session } } = await supabase.auth.getSession();
-            if (session) {
-                document.querySelector('#loginPanel').classList.add('hide');
-                document.querySelector('#dashboard').classList.remove('hide');
-                loadAdminDashboard();
-            } else {
-                document.querySelector('#loginPanel').classList.remove('hide');
-                document.querySelector('#dashboard').classList.add('hide');
+            if (!supabase) {
+                // Config missing — show login panel; user will see alert on submit
+                applyAdminPanels(null);
+                return;
+            }
+            try {
+                const { data: { session } } = await supabase.auth.getSession();
+                applyAdminPanels(session);
+                if (session) loadAdminDashboard();
+            } catch (e) {
+                console.error('checkAdminSession error:', e);
+                applyAdminPanels(null);
             }
         }
 
-        document.querySelector('#loginForm').addEventListener('submit', async (e) => {
+        async function handleLoginSubmit(e) {
             e.preventDefault();
-            const email = document.querySelector('#adminEmail').value.trim();
-            const password = document.querySelector('#adminPass').value;
+            e.stopPropagation();
 
+            const submitBtn = document.querySelector('#loginSubmitBtn');
+            const emailEl = document.querySelector('#adminEmail');
+            const passEl = document.querySelector('#adminPass');
+            if (!emailEl || !passEl) return;
+
+            const email = emailEl.value.trim();
+            const password = passEl.value;
             if (!email || !password) return;
 
             if (!supabase) {
-                alert('Supabase client not initialized.');
+                alert('Backend not configured. Missing SUPABASE_URL / SUPABASE_ANON_KEY in /config.js');
                 return;
             }
 
-            const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-            if (error) {
-                alert('Authentication Failed: ' + error.message);
-                return;
+            const originalText = submitBtn ? submitBtn.innerHTML : '';
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = 'Signing In...';
             }
 
-            document.querySelector('#loginPanel').classList.add('hide');
-            document.querySelector('#dashboard').classList.remove('hide');
-            loadAdminDashboard();
-        });
+            try {
+                const { data, error } = await supabase.auth.signInWithPassword({ email: email, password: password });
+                if (error) {
+                    alert('Authentication Failed: ' + error.message);
+                    return;
+                }
+                // onAuthStateChange will also fire — make sure panels are correct
+                applyAdminPanels(data && data.session ? data.session : null);
+                loadAdminDashboard();
+            } catch (err) {
+                console.error('Login error:', err);
+                alert('Login error: ' + (err && err.message ? err.message : 'Unknown error'));
+            } finally {
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalText;
+                }
+            }
+        }
 
-        document.querySelector('#adminSignOut').addEventListener('click', async () => {
-            if (supabase) await supabase.auth.signOut();
-            document.querySelector('#loginPanel').classList.remove('hide');
-            document.querySelector('#dashboard').classList.add('hide');
-        });
+        async function handleSignOut() {
+            if (supabase) {
+                try { await supabase.auth.signOut(); } catch (e) { console.warn(e); }
+            }
+            applyAdminPanels(null);
+        }
 
         async function loadAdminDashboard() {
             if (!supabase) return;
@@ -1987,6 +2007,7 @@ Youth Advancement, Tourism & Culture, Government of Telangana</pre>
                 .order('created_at', { ascending: false });
 
             if (error) {
+                console.error('Could not fetch entries:', error);
                 alert('Could not fetch entries: ' + error.message);
                 return;
             }
@@ -1997,15 +2018,16 @@ Youth Advancement, Tourism & Culture, Government of Telangana</pre>
         function renderAdminTable(entries) {
             const rowsContainer = document.querySelector('#rows');
             const emptyNotice = document.querySelector('#empty');
+            const table = document.querySelector('.admin-table');
+            const adminCount = document.querySelector('#adminCount');
+            if (!rowsContainer) return;
 
-            document.querySelector('#adminCount').textContent =
-                `${entries.length} / 13 ATHLETES`;
+            if (adminCount) adminCount.textContent = entries.length + ' / 13 ATHLETES';
 
-            emptyNotice.classList.toggle('hide', entries.length > 0);
-            document.querySelector('.admin-table').classList.toggle('hide', entries.length === 0);
+            if (emptyNotice) emptyNotice.classList.toggle('hide', entries.length > 0);
+            if (table) table.classList.toggle('hide', entries.length === 0);
 
-            rowsContainer.innerHTML = entries.map((x, index) => {
-                // Parse AFI UID from coach string if present
+            rowsContainer.innerHTML = entries.map(function (x, index) {
                 const coachStr = x.coach || '';
                 const afiMatch = coachStr.match(/AFI UID:\s*([^|]+)/i);
                 const afiUid = afiMatch ? afiMatch[1].trim() : 'N/A';
@@ -2013,36 +2035,39 @@ Youth Advancement, Tourism & Culture, Government of Telangana</pre>
                 const ageAtMeet = x.dob ? calculateAge(new Date(x.dob + 'T00:00:00+05:30'), BASE_DATE) : '—';
                 const catBadgeClass = x.category === 'Under 14' ? 'badge-u14' : 'badge-u16';
 
-                return `
-                    <tr>
-                        <td><strong>${index + 1}</strong></td>
-                        <td><span style="font-family:monospace; font-weight:700; color:#0284c7">${esc(afiUid)}</span></td>
-                        <td><strong>${esc(x.name)}</strong><br><span style="font-size:11px; color:#64748b">Aadhaar: ${esc(x.aadhaar)}</span></td>
-                        <td>
-                            <span class="badge ${catBadgeClass}">${esc(x.category)}</span><br>
-                            <span style="font-size:11px; color:#64748b">${esc(x.gender)}</span>
-                        </td>
-                        <td>${esc(x.dob)}<br><span style="font-size:11px; color:#64748b">${ageAtMeet} yrs on 16 Nov</span></td>
-                        <td><strong>${(x.events || []).map(esc).join('<br>')}</strong></td>
-                        <td>${esc(x.school)}</td>
-                        <td>${esc(x.phone)}<br><span style="font-size:11px; color:#64748b">Parent: ${esc(x.father || x.mother)}</span></td>
-                        <td><span class="badge badge-verified">✓ Signed</span></td>
-                    </tr>
-                `;
+                return '<tr>' +
+                    '<td><strong>' + (index + 1) + '</strong></td>' +
+                    '<td><span style="font-family:monospace; font-weight:700; color:#0284c7">' + esc(afiUid) + '</span></td>' +
+                    '<td><strong>' + esc(x.name) + '</strong><br><span style="font-size:11px; color:#64748b">Aadhaar: ' + esc(x.aadhaar) + '</span></td>' +
+                    '<td>' +
+                        '<span class="badge ' + catBadgeClass + '">' + esc(x.category) + '</span><br>' +
+                        '<span style="font-size:11px; color:#64748b">' + esc(x.gender) + '</span>' +
+                    '</td>' +
+                    '<td>' + esc(x.dob) + '<br><span style="font-size:11px; color:#64748b">' + ageAtMeet + ' yrs on 16 Nov</span></td>' +
+                    '<td><strong>' + (x.events || []).map(esc).join('<br>') + '</strong></td>' +
+                    '<td>' + esc(x.school) + '</td>' +
+                    '<td>' + esc(x.phone) + '<br><span style="font-size:11px; color:#64748b">Parent: ' + esc(x.father || x.mother) + '</span></td>' +
+                    '<td><span class="badge badge-verified">✓ Signed</span></td>' +
+                '</tr>';
             }).join('');
         }
 
-        function esc(s = '') {
-            return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+        function esc(s) {
+            return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+                return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+            });
         }
 
         // ==========================================
         // 9. CSV EXPORT FOR AFI ONLINE ENTRY
         // ==========================================
-        document.querySelector('#export').addEventListener('click', async () => {
-            if (!supabase) return;
+        async function exportCSV() {
+            if (!supabase) {
+                alert('Backend not configured.');
+                return;
+            }
             const { data: entries, error } = await supabase.from('entries').select('*');
-            if (error || !entries.length) {
+            if (error || !entries || !entries.length) {
                 alert('No entries available for export.');
                 return;
             }
@@ -2066,7 +2091,7 @@ Youth Advancement, Tourism & Culture, Government of Telangana</pre>
                 'Entry Registration Timestamp'
             ];
 
-            const rows = entries.map((x, i) => {
+            const rows = entries.map(function (x, i) {
                 const coachStr = x.coach || '';
                 const afiMatch = coachStr.match(/AFI UID:\s*([^|]+)/i);
                 const afiUid = afiMatch ? afiMatch[1].trim() : '';
@@ -2088,33 +2113,81 @@ Youth Advancement, Tourism & Culture, Government of Telangana</pre>
                     x.coach || '',
                     'Verified & Consented',
                     x.created_at || ''
-                ].map(val => `"${String(val).replaceAll('"', '""')}"`).join(',');
+                ].map(function (val) {
+                    return '"' + String(val).replace(/"/g, '""') + '"';
+                }).join(',');
             });
 
-            const csvContent = '\uFEFF' + [headers.join(','), ...rows].join('\r\n');
+            const csvContent = '\uFEFF' + [headers.join(',')].concat(rows).join('\r\n');
             const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
             const link = document.createElement('a');
             link.href = URL.createObjectURL(blob);
-            link.download = `Mysuru_Athletics_NIDJAM_2026_Entries_${new Date().toISOString().slice(0, 10)}.csv`;
+            link.download = 'Mysuru_Athletics_NIDJAM_2026_Entries_' + new Date().toISOString().slice(0, 10) + '.csv';
+            document.body.appendChild(link);
             link.click();
+            document.body.removeChild(link);
             URL.revokeObjectURL(link.href);
-        });
+        }
 
-        // Initialize on page load
-        document.addEventListener('DOMContentLoaded', () => {
-            fetchStats();
+        // ==========================================
+        // 10. SINGLE DOMContentLoaded WIRING
+        // ==========================================
+        function safeOn(selector, event, handler) {
+            const el = document.querySelector(selector);
+            if (el) el.addEventListener(event, handler);
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // --- Navigation buttons ---
+            document.querySelectorAll('[data-view]').forEach(function (btn) {
+                btn.addEventListener('click', function () { switchView(btn.dataset.view); });
+            });
+
+            // --- Read Circular button ---
+            safeOn('#readCircularBtn', 'click', function () { switchView('circular'); });
+
+            // --- Athlete form field listeners ---
+            safeOn('#dob', 'input', checkDobValidity);
+            safeOn('#dob', 'change', checkDobValidity);
+            safeOn('#category', 'change', renderEvents);
+            safeOn('#gender', 'change', renderEvents);
+
+            // --- Athlete form submit ---
+            const form = document.querySelector('#form');
+            if (form) form.addEventListener('submit', handleFormSubmit);
+
+            // --- Admin login ---
+            const loginForm = document.querySelector('#loginForm');
+            if (loginForm) loginForm.addEventListener('submit', handleLoginSubmit);
+
+            // --- Admin sign out ---
+            safeOn('#adminSignOut', 'click', handleSignOut);
+
+            // --- CSV Export ---
+            safeOn('#export', 'click', exportCSV);
+
+            // --- Supabase auth state (single source of truth) ---
+            if (supabase) {
+                supabase.auth.onAuthStateChange(function (_event, session) {
+                    applyAdminPanels(session);
+                    if (session) loadAdminDashboard();
+                });
+            }
+
+            // --- Hash-based view restoration (survives reload / native submit) ---
+            window.addEventListener('hashchange', function () {
+                switchView(window.location.hash.slice(1) || 'athlete');
+            });
+
+            // --- Initial render (unconditional, independent of stats API) ---
             renderDeadlineBanner();
             renderEvents();
-        });
-        document.addEventListener('DOMContentLoaded', () => {
-            // ... existing initialization ...
+            fetchStats();
 
-            // Safely attach the button listener
-            const readCircularBtn = document.getElementById('readCircularBtn');
-            if (readCircularBtn) {
-                readCircularBtn.addEventListener('click', () => switchView('circular'));
-            }
+            // --- Restore last view from hash ---
+            switchView(window.location.hash.slice(1) || 'athlete');
         });
+    })();
     </script>
 </body>
 
