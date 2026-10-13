@@ -896,6 +896,7 @@ Youth Advancement, Tourism & Culture, Government of Telangana</pre>
         const VIEWS = ['athlete', 'circular', 'admin'];
 
         function switchView(view, options = {}) {
+console.trace('[DEBUG] switchView called with:', view);
             if (VIEWS.indexOf(view) === -1) view = 'athlete';
 
             document.querySelectorAll('[data-view]').forEach(function (b) {
@@ -1232,6 +1233,11 @@ if (view === 'admin' && !options.skipSessionCheck) {
 
                 console.log('[Auth] Sign-in success. Session:', !!data.session);
 
+console.log('[DEBUG] URL hash:', window.location.hash);
+console.log('[DEBUG] Session:', data.session);
+console.log('[DEBUG] Admin view:', document.querySelector('#adminView'));
+console.log('[DEBUG] Athlete view:', document.querySelector('#athleteView'));
+
                 // Authentication has succeeded. Avoid starting a second
 // session check while switching to the admin dashboard.
 switchView('admin', { skipSessionCheck: true });
@@ -1387,6 +1393,14 @@ await loadAdminDashboard();
             if (supabase) {
                 supabase.auth.onAuthStateChange(function (event, session) {
                     console.log('[Auth] onAuthStateChange:', event, 'session:', !!session);
+console.log(
+    '[DEBUG] Auth event:',
+    event,
+    '| Session exists:',
+    !!session,
+    '| Current view:',
+    window.location.hash
+);
                     applyAdminPanels(session);
                     if (session) loadAdminDashboard();
                 });
