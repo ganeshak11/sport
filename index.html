@@ -1368,7 +1368,12 @@ await loadAdminDashboard();
             safeOn('#form', 'submit', handleFormSubmit);
 
             // Admin login — click-driven (form submit is neutralized in HTML)
-            safeOn('#loginSubmitBtn', 'click', handleLoginSubmit);
+           safeOn('#loginSubmitBtn', 'click', function (e) {
+    e.preventDefault();
+    console.log('[DEBUG] Login button clicked');
+    alert('Login click handler is running');
+    handleLoginSubmit(e);
+});
             // Also, Enter key in password field triggers login
             const passEl = document.querySelector('#adminPass');
             if (passEl) {
