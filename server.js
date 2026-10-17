@@ -337,6 +337,52 @@ const server = http.createServer(async (req, res) => {
         return;
     }
 
+    // 3b. DELETE /api/entries - Remove Suspicious or Test Entries (Admin)
+    if (pathname === '/api/entries' && req.method === 'DELETE') {
+        let body = '';
+        req.on('data', chunk => { body += chunk; });
+        req.on('end', async () => {
+            try {
+                let id = parsedUrl.query.id;
+                if (!id && body) {
+                    try {
+                        const parsedBody = JSON.parse(body);
+                        id = parsedBody.id;
+                    } catch (e) {}
+                }
+
+                if (!id) {
+                    res.writeHead(400, { 'Content-Type': 'application/json' });
+                    return res.end(JSON.stringify({ error: 'Entry ID is required for deletion.' }));
+                }
+
+                const delResp = await fetchSupabase(`entries?id=eq.${encodeURIComponent(id)}`, {
+                    method: 'DELETE'
+                });
+
+                if (!delResp.ok) {
+                    const errData = await delResp.json().catch(() => ({}));
+                    console.error('Supabase delete failed:', delResp.status, errData);
+                    res.writeHead(500, { 'Content-Type': 'application/json' });
+                    return res.end(JSON.stringify({
+                        error: errData.message || 'Database error occurred while deleting entry.'
+                    }));
+                }
+
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                return res.end(JSON.stringify({
+                    success: true,
+                    message: 'Athlete entry deleted successfully.'
+                }));
+            } catch (err) {
+                console.error('API deletion error:', err);
+                res.writeHead(400, { 'Content-Type': 'application/json' });
+                return res.end(JSON.stringify({ error: err.message || 'Invalid delete request' }));
+            }
+        });
+        return;
+    }
+
     // 4. Block access to sensitive files
     const blocked = ['.env', '.env.example', '.gitignore', 'server.js', 'package.json', 'package-lock.json'];
     if (blocked.includes(path.basename(pathname))) {

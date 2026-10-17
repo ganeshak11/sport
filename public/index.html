@@ -204,6 +204,279 @@
         .badge-u16 { background: #fef3c7; color: #92400e }
         .badge-verified { background: #dcfce7; color: #15803d }
 
+        /* Delete Button in Admin Table */
+        .btn-delete-row {
+            background: #fff1f2;
+            color: #be123c;
+            border: 1px solid #fecdd3;
+            border-radius: 9px;
+            padding: 6px 12px;
+            font-size: 11.5px;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            transition: all .15s ease;
+            white-space: nowrap;
+        }
+        .btn-delete-row:hover {
+            background: #e11d48;
+            color: #ffffff;
+            border-color: #e11d48;
+            box-shadow: 0 4px 12px rgba(225, 29, 72, 0.28);
+            transform: translateY(-1px);
+        }
+        .btn-delete-row:active {
+            transform: translateY(0);
+        }
+
+        /* Modal Backdrop & Card */
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 1;
+            transition: opacity .2s ease;
+        }
+
+        .modal-card {
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(0, 0, 0, 0.05);
+            width: 100%;
+            max-width: 520px;
+            overflow: hidden;
+            animation: modalPopIn .2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes modalPopIn {
+            from {
+                opacity: 0;
+                transform: scale(0.94) translateY(12px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 20px 24px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .modal-header-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: #fee2e2;
+            color: #dc2626;
+            display: grid;
+            place-items: center;
+            flex: none;
+        }
+
+        .modal-header-text {
+            flex: 1;
+        }
+
+        .modal-header-text h3 {
+            margin: 0 0 2px;
+            font: 800 17px Manrope, sans-serif;
+            color: #0f172a;
+        }
+
+        .modal-header-text p {
+            margin: 0;
+            font-size: 12px;
+            color: #64748b;
+        }
+
+        .modal-close-btn {
+            background: transparent;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: grid;
+            place-items: center;
+            font-size: 22px;
+            color: #94a3b8;
+            cursor: pointer;
+            line-height: 1;
+            transition: all .15s ease;
+        }
+
+        .modal-close-btn:hover {
+            background: #f1f5f9;
+            color: #334155;
+        }
+
+        .modal-body {
+            padding: 20px 24px;
+        }
+
+        .modal-alert-warning {
+            background: #fff1f2;
+            border: 1px solid #fecdd3;
+            border-radius: 12px;
+            padding: 12px 14px;
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+            color: #9f1239;
+            font-size: 12.5px;
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+
+        .modal-warning-icon {
+            font-size: 18px;
+            line-height: 1;
+            flex: none;
+        }
+
+        .athlete-summary-card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 14px 18px;
+            margin-bottom: 16px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 7px 0;
+            border-bottom: 1px dashed #e2e8f0;
+            font-size: 12.5px;
+            gap: 12px;
+        }
+
+        .summary-row:last-child {
+            border-bottom: none;
+        }
+
+        .summary-label {
+            color: #64748b;
+            font-weight: 600;
+            flex: 1;
+        }
+
+        .summary-value {
+            color: #0f172a;
+            font-weight: 700;
+            text-align: right;
+            flex: 1.4;
+            word-break: break-word;
+        }
+
+        .modal-error {
+            background: #fef2f2;
+            border: 1px solid #f87171;
+            color: #b91c1c;
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-size: 12.5px;
+            margin-top: 12px;
+            line-height: 1.4;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            padding: 16px 24px 20px;
+            background: #fafafa;
+            border-top: 1px solid #f1f5f9;
+        }
+
+        .btn-cancel {
+            background: #ffffff;
+            color: #475569;
+            border: 1px solid #cbd5e1;
+            border-radius: 12px;
+            padding: 10px 18px;
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all .15s ease;
+        }
+
+        .btn-cancel:hover {
+            background: #f1f5f9;
+            color: #1e293b;
+            border-color: #94a3b8;
+        }
+
+        .btn-confirm-delete {
+            background: linear-gradient(145deg, #ef4444, #dc2626);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 12px;
+            padding: 10px 20px;
+            font-weight: 800;
+            font-size: 13px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            box-shadow: 0 4px 14px rgba(220, 38, 38, 0.28);
+            transition: all .15s ease;
+        }
+
+        .btn-confirm-delete:hover {
+            background: linear-gradient(145deg, #dc2626, #b91c1c);
+            box-shadow: 0 6px 20px rgba(220, 38, 38, 0.38);
+            transform: translateY(-1px);
+        }
+
+        .btn-confirm-delete:active {
+            transform: translateY(0);
+        }
+
+        .btn-confirm-delete:disabled, .btn-cancel:disabled {
+            opacity: .6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Admin Action Toast */
+        .admin-toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: #0f172a;
+            color: #ffffff;
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 600;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 10001;
+            animation: toastSlideUp .25s ease;
+        }
+
+        @keyframes toastSlideUp {
+            from { opacity: 0; transform: translateY(16px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         .empty { text-align: center; color: var(--muted); padding: 40px 12px }
 
         .login { max-width: 440px; margin: 40px auto }
@@ -937,10 +1210,11 @@ Youth Advancement, Tourism & Culture, Government of Telangana</pre>
                                 <th>School</th>
                                 <th>Parent Contact</th>
                                 <th>Undertaking</th>
+                                <th style="text-align:center; min-width:85px">Action</th>
                             </tr>
                         </thead>
                         <tbody id="rows"></tbody>
-       i             </table>
+                    </table>
                 </div>
 
                 <div id="empty" class="empty">No athlete entries have been registered yet.</div>
@@ -948,6 +1222,79 @@ Youth Advancement, Tourism & Culture, Government of Telangana</pre>
                 <div class="actions">
                     <span class="secure">Entries conform to AFI Circular No. 88/09-2026 quota limits.</span>
                     <button class="primary" type="button" id="export">Export Official AFI CSV File ↓</button>
+                </div>
+            </div>
+
+            <!-- Delete Confirmation Modal (Admin) -->
+            <div id="deleteModal" class="modal-backdrop hide" role="dialog" aria-modal="true" aria-labelledby="deleteModalTitle">
+                <div class="modal-card">
+                    <div class="modal-header">
+                        <div class="modal-header-icon">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M3 6h18"></path>
+                                <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
+                                <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
+                                <line x1="10" y1="11" x2="10" y2="17"></line>
+                                <line x1="14" y1="11" x2="14" y2="17"></line>
+                            </svg>
+                        </div>
+                        <div class="modal-header-text">
+                            <h3 id="deleteModalTitle">Delete Athlete Entry</h3>
+                            <p>Permanently remove invalid, test, or suspicious entry</p>
+                        </div>
+                        <button type="button" class="modal-close-btn" id="cancelDeleteBtnIcon" aria-label="Close dialog">&times;</button>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="modal-alert-warning">
+                            <span class="modal-warning-icon">⚠️</span>
+                            <div>
+                                <strong>Are you sure you want to delete this athlete entry?</strong>
+                                <div>This action is permanent and cannot be undone. The entry will be purged from the official roster and its quota spot will be restored immediately.</div>
+                            </div>
+                        </div>
+
+                        <div class="athlete-summary-card">
+                            <div class="summary-row">
+                                <span class="summary-label">Athlete Name</span>
+                                <span class="summary-value" id="delModalName">—</span>
+                            </div>
+                            <div class="summary-row">
+                                <span class="summary-label">AFI UID / Status</span>
+                                <span class="summary-value" id="delModalAfi">—</span>
+                            </div>
+                            <div class="summary-row">
+                                <span class="summary-label">Category &amp; Gender</span>
+                                <span class="summary-value" id="delModalCategory">—</span>
+                            </div>
+                            <div class="summary-row">
+                                <span class="summary-label">Selected Event(s)</span>
+                                <span class="summary-value" id="delModalEvents">—</span>
+                            </div>
+                            <div class="summary-row">
+                                <span class="summary-label">Aadhaar Number</span>
+                                <span class="summary-value" id="delModalAadhaar">—</span>
+                            </div>
+                            <div class="summary-row">
+                                <span class="summary-label">School / Institution</span>
+                                <span class="summary-value" id="delModalSchool">—</span>
+                            </div>
+                        </div>
+
+                        <div id="deleteModalError" class="modal-error hide"></div>
+                    </div>
+
+                    <div class="modal-actions">
+                        <button type="button" class="btn-cancel" id="cancelDeleteBtn">Cancel</button>
+                        <button type="button" class="btn-confirm-delete" id="confirmDeleteBtn">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M3 6h18"></path>
+                                <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
+                                <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
+                            </svg>
+                            <span>Delete Entry</span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </section>
@@ -1419,7 +1766,11 @@ await loadAdminDashboard();
             }
         }
 
+        let adminEntries = [];
+        let pendingDeleteId = null;
+
         function renderAdminTable(entries) {
+            adminEntries = entries || [];
             const rowsContainer = document.querySelector('#rows');
             const emptyNotice = document.querySelector('#empty');
             const table = document.querySelector('.admin-table');
@@ -1452,8 +1803,149 @@ await loadAdminDashboard();
                     '<td>' + esc(x.school) + '</td>' +
                     '<td>' + esc(x.phone) + '<br><span style="font-size:11px; color:#64748b">Parent: ' + esc(x.father || x.mother) + '</span></td>' +
                     '<td><span class="badge badge-verified">✓ Signed</span></td>' +
+                    '<td style="text-align:center; vertical-align:middle">' +
+                        '<button type="button" class="btn-delete-row" data-id="' + esc(x.id) + '" title="Delete this entry">' +
+                            '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px"><path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path></svg> ' +
+                            'Delete' +
+                        '</button>' +
+                    '</td>' +
                 '</tr>';
             }).join('');
+        }
+
+        function openDeleteModal(id) {
+            const entry = adminEntries.find(function (e) { return String(e.id) === String(id); });
+            if (!entry) {
+                console.warn('[DeleteModal] Entry not found for id:', id);
+                return;
+            }
+
+            pendingDeleteId = id;
+
+            const nameEl = document.querySelector('#delModalName');
+            const afiEl = document.querySelector('#delModalAfi');
+            const catEl = document.querySelector('#delModalCategory');
+            const evEl = document.querySelector('#delModalEvents');
+            const aadhEl = document.querySelector('#delModalAadhaar');
+            const schoolEl = document.querySelector('#delModalSchool');
+            const errEl = document.querySelector('#deleteModalError');
+
+            if (nameEl) nameEl.textContent = entry.name || '—';
+
+            const coachStr = entry.coach || '';
+            const afiMatch = coachStr.match(/AFI UID:\s*([^|]+)/i);
+            const rawAfi = afiMatch ? afiMatch[1].trim() : '';
+            const hasAfi = rawAfi && !rawAfi.toLowerCase().includes('none') && !rawAfi.toLowerCase().includes('not');
+            if (afiEl) {
+                afiEl.innerHTML = hasAfi
+                    ? '<span class="badge" style="background:#dcfce7; color:#15803d; font-family:monospace; font-weight:700">✓ ' + esc(rawAfi) + '</span>'
+                    : '<span class="badge" style="background:#fff7ed; color:#c2410c; font-weight:700">No AFI UID</span>';
+            }
+
+            if (catEl) catEl.textContent = (entry.category || '—') + ' · ' + (entry.gender || '—');
+            if (evEl) evEl.textContent = (entry.events && entry.events.length) ? entry.events.join(', ') : '—';
+            if (aadhEl) aadhEl.textContent = entry.aadhaar || '—';
+            if (schoolEl) schoolEl.textContent = entry.school || '—';
+
+            if (errEl) {
+                errEl.textContent = '';
+                errEl.classList.add('hide');
+            }
+
+            const modal = document.querySelector('#deleteModal');
+            if (modal) modal.classList.remove('hide');
+        }
+
+        function closeDeleteModal() {
+            const modal = document.querySelector('#deleteModal');
+            if (modal) modal.classList.add('hide');
+            pendingDeleteId = null;
+        }
+
+        async function handleConfirmDelete() {
+            if (!pendingDeleteId) return;
+
+            const confirmBtn = document.querySelector('#confirmDeleteBtn');
+            const cancelBtn = document.querySelector('#cancelDeleteBtn');
+            const errEl = document.querySelector('#deleteModalError');
+
+            if (confirmBtn) {
+                confirmBtn.disabled = true;
+                confirmBtn.innerHTML = '<span>Deleting...</span>';
+            }
+            if (cancelBtn) cancelBtn.disabled = true;
+            if (errEl) { errEl.classList.add('hide'); errEl.textContent = ''; }
+
+            try {
+                let success = false;
+                let errorMsg = '';
+
+                // Method 1: Backend API /api/entries?id=... (with service-role key)
+                try {
+                    const resp = await fetch('/api/entries?id=' + encodeURIComponent(pendingDeleteId), {
+                        method: 'DELETE'
+                    });
+                    if (resp.ok) {
+                        success = true;
+                    } else {
+                        const errData = await resp.json().catch(function () { return {}; });
+                        errorMsg = errData.error || ('Server returned ' + resp.status);
+                    }
+                } catch (fetchErr) {
+                    console.warn('[Delete] API fetch failed, trying direct Supabase fallback:', fetchErr);
+                }
+
+                // Method 2: Supabase direct client fallback
+                if (!success && supabase) {
+                    const { error: supaErr } = await supabase
+                        .from('entries')
+                        .delete()
+                        .eq('id', pendingDeleteId);
+                    if (!supaErr) {
+                        success = true;
+                    } else {
+                        errorMsg = supaErr.message || errorMsg;
+                    }
+                }
+
+                if (!success) {
+                    throw new Error(errorMsg || 'Failed to delete athlete entry');
+                }
+
+                closeDeleteModal();
+                showAdminToast('Athlete entry removed successfully.');
+
+                await loadAdminDashboard();
+                if (typeof fetchStats === 'function') {
+                    await fetchStats();
+                }
+            } catch (err) {
+                console.error('[Delete] Exception:', err);
+                if (errEl) {
+                    errEl.textContent = '❌ ' + (err.message || 'Error deleting entry. Please try again.');
+                    errEl.classList.remove('hide');
+                } else {
+                    alert('Error deleting entry: ' + err.message);
+                }
+            } finally {
+                if (confirmBtn) {
+                    confirmBtn.disabled = false;
+                    confirmBtn.innerHTML = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path></svg> <span>Delete Entry</span>';
+                }
+                if (cancelBtn) cancelBtn.disabled = false;
+            }
+        }
+
+        let toastTimer = null;
+        function showAdminToast(msg) {
+            const toast = document.querySelector('#adminToast');
+            if (!toast) return;
+            toast.textContent = '✓ ' + msg;
+            toast.classList.remove('hide');
+            if (toastTimer) clearTimeout(toastTimer);
+            toastTimer = setTimeout(function () {
+                toast.classList.add('hide');
+            }, 4000);
         }
 
         function esc(s) {
@@ -1562,6 +2054,42 @@ await loadAdminDashboard();
             safeOn('#adminSignOut', 'click', handleSignOut);
             safeOn('#export', 'click', exportCSV);
 
+            // Admin entries delete button click (event delegation)
+            const rowsContainer = document.querySelector('#rows');
+            if (rowsContainer) {
+                rowsContainer.addEventListener('click', function (e) {
+                    const btn = e.target.closest('.btn-delete-row');
+                    if (btn && btn.dataset.id) {
+                        openDeleteModal(btn.dataset.id);
+                    }
+                });
+            }
+
+            // Modal action buttons
+            safeOn('#confirmDeleteBtn', 'click', handleConfirmDelete);
+            safeOn('#cancelDeleteBtn', 'click', closeDeleteModal);
+            safeOn('#cancelDeleteBtnIcon', 'click', closeDeleteModal);
+
+            // Close modal on click outside (backdrop)
+            const deleteModal = document.querySelector('#deleteModal');
+            if (deleteModal) {
+                deleteModal.addEventListener('click', function (e) {
+                    if (e.target === deleteModal) {
+                        closeDeleteModal();
+                    }
+                });
+            }
+
+            // Close modal on Escape key
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape') {
+                    const modal = document.querySelector('#deleteModal');
+                    if (modal && !modal.classList.contains('hide')) {
+                        closeDeleteModal();
+                    }
+                }
+            });
+
             // Supabase auth state — single source of truth for panels
             if (supabase) {
                 supabase.auth.onAuthStateChange(function (event, session) {
@@ -1594,6 +2122,7 @@ console.log(
         });
     })();
     </script>
+    <div id="adminToast" class="admin-toast hide" role="status" aria-live="polite"></div>
 </body>
 
 </html>

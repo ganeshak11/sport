@@ -1,6 +1,51 @@
 const { fetchSupabase, validateAthleteEntry } = require('./_utils');
 
 module.exports = async (req, res) => {
+    if (req.method === 'DELETE') {
+        try {
+            let id = null;
+            if (req.query && req.query.id) {
+                id = req.query.id;
+            } else if (req.url) {
+                try {
+                    const parsedUrl = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
+                    id = parsedUrl.searchParams.get('id');
+                } catch (e) {}
+            }
+            if (!id && req.body) {
+                const b = typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
+                id = b.id;
+            }
+            if (!id) {
+                res.writeHead(400, { 'Content-Type': 'application/json' });
+                return res.end(JSON.stringify({ error: 'Entry ID is required for deletion.' }));
+            }
+
+            const delResp = await fetchSupabase(`entries?id=eq.${encodeURIComponent(id)}`, {
+                method: 'DELETE'
+            });
+
+            if (!delResp.ok) {
+                const errData = await delResp.json().catch(() => ({}));
+                console.error('Supabase delete failed:', delResp.status, errData);
+                res.writeHead(500, { 'Content-Type': 'application/json' });
+                return res.end(JSON.stringify({
+                    error: errData.message || 'Database error occurred while deleting entry.'
+                }));
+            }
+
+            res.writeHead(200, { 'Content-Type': 'application/json' });
+            return res.end(JSON.stringify({
+                success: true,
+                message: 'Athlete entry deleted successfully.'
+            }));
+        } catch (err) {
+            console.error('API deletion error:', err);
+            res.writeHead(400, { 'Content-Type': 'application/json' });
+            return res.end(JSON.stringify({ error: err.message || 'Invalid delete request' }));
+        }
+    }
+
     if (req.method !== 'POST') {
         res.writeHead(405, { 'Content-Type': 'application/json' });
         return res.end(JSON.stringify({ error: 'Method not allowed' }));
