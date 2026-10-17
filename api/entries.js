@@ -30,8 +30,13 @@ module.exports = async (req, res) => {
         }
 
         // Prepare record matching database schema
+        const afiTrimmed = (data.afi_uid || '').trim().toUpperCase();
+        const afiFormatted = afiTrimmed
+            ? `AFI UID: ${afiTrimmed}`
+            : 'AFI UID: None (District Meet Only - Not Eligible for NIDJAM)';
+
         const coachFormatted = [
-            `AFI UID: ${data.afi_uid.trim().toUpperCase()}`,
+            afiFormatted,
             data.coach ? `Coach: ${data.coach.trim()}` : null,
             data.declaration ? `Parent Undertaking: Verified` : null
         ].filter(Boolean).join(' | ');
@@ -70,7 +75,7 @@ module.exports = async (req, res) => {
         res.writeHead(201, { 'Content-Type': 'application/json' });
         return res.end(JSON.stringify({
             success: true,
-            message: 'Athlete entry registered successfully in accordance with AFI Circular No. 88/09-2026.',
+            message: 'Athlete entry registered successfully for Mysore District Athletic Association District Selection Meet 2026.',
             entry: inserted[0]
         }));
     } catch (err) {

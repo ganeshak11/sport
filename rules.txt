@@ -1,41 +1,56 @@
 ================================================================================
-ATHLETICS FEDERATION OF INDIA (AFI)
-20th National Inter District Junior Athletics Meet 2026 (NIDJAM)
-Circular No. 88/09-2026 (Dated: 09 September 2026)
-Official Strict Rules & Compliance Guidelines for Mysuru District Athletics Association
+MYSORE DISTRICT ATHLETIC ASSOCIATION (MDAA)
+District Meet to Select Athletes for 20th National Inter District Junior Athletics Meet 2026 (NIDJAM)
+Affiliated to Karnataka Athletics Association (KAA) & Athletics Federation of India (AFI)
+Circular No. 88/09-2026 Compliance & Selection Guidelines
 ================================================================================
+
+********************************************************************************
+IMPORTANT NOTE TO ALL ATHLETES
+
+AFI UID IS COMPULSORY FOR NIDJAM
+
+1. Only athletes with AFI UID can participate in NIDJAM Meet.
+2. Athletes without AFI UID can participate in this competition and if they win,
+   they will get Certificate and Medal, but they will NOT be allowed to take part
+   in NIDJAM Meet.
+3. You can register for AFI UID at AFI Website:
+   www.indianathletics.in - AFI UID Registration
+4. All athletes are requested to register and get your AFI UID immediately before the meet.
+
+No AFI UID = No NIDJAM
+********************************************************************************
 
 1. GENERAL MEET DETAILS
 --------------------------------------------------------------------------------
-- Championship: 20th National Inter District Junior Athletics Meet 2026 (NIDJAM)
-- Venue: Woxsen University, Kamkole, Sadasivpet, Hyderabad, Telangana
-- Collaboration: Government of Telangana & Athletics Federation of India
+- Purpose: Mysore District Athletic Association (MDAA) is conducting the official
+  District Athletics Meet to select athletes for the 20th National Inter District
+  Junior Athletics Meet 2026 (NIDJAM).
+- National Championship: 20th National Inter District Junior Athletics Meet 2026
+- National Venue: Woxsen University, Kamkole, Sadasivpet, Hyderabad, Telangana
+- Collaboration: Government of Telangana & Athletics Federation of India (AFI)
 - Competition Dates: 14 – 16 November 2026
 - Age Verification Date: 13 November 2026 (at competition venue)
-- Boarding & Lodging Window: 13 to 17 November 2026
-- Official Contact: Mr. C.S. Rathi, Coordinator, AFI (+91 9313167978)
+- Official Coordinator: Mr. C.S. Rathi, Coordinator, AFI (+91 9313167978)
 
-2. DISTRICT ELIGIBILITY & DOCUMENT MANDATE
+2. DISTRICT MEET MANDATE & DOCUMENTATION
 --------------------------------------------------------------------------------
 Only District Athletics Associations that have conducted their official District
-Athletics Meet as per AFI guidelines are eligible to participate.
-Mandatory district submission requirements with online entry:
+Athletics Meet as per AFI guidelines are eligible to participate in NIDJAM.
+MDAA is conducting this District Meet to finalize the Mysore District contingent.
+Documents submitted with district entries:
 1. Complete Results of the District Meet
 2. Official Press-cuttings of the District Meet
 3. Photographs of the District Meet
 4. Valid Permanent Account Number (PAN) registered in the name of the District
-   Athletics Association (personal PANs are not accepted)
-5. Reimbursement of Rail Fare will be paid ONLY into the verified official bank
-   account of the District Athletics Association upon verification of original
-   rail tickets and actual participation.
+   Athletics Association (MDAA).
 
-3. QUOTA RESTRICTIONS (STRICT PER-DISTRICT LIMITS)
+3. NIDJAM SELECTION QUOTA (PER-DISTRICT CONTINGENT LIMITS)
 --------------------------------------------------------------------------------
-- Overall District Contingent: Maximum of 13 Athletes and 2 Officials eligible
-  for free boarding and lodging provided by AFI.
-- Under 14 (U-14) Quota: Maximum 4 athletes per district (boys and girls combined).
-- Under 16 (U-16) Quota per Event: Maximum 2 athletes can be entered in the
-  same event from the same district.
+- Mysore District Contingent Cap: Maximum of 13 Athletes and 2 Officials selected
+  to represent Mysore District at NIDJAM 2026.
+- Under 14 (U-14) Selection Quota: Maximum 4 athletes per district (boys and girls combined).
+- Under 16 (U-16) Selection Limit: Maximum 2 athletes per event from the district.
 
 4. AGE BRACKETS & ELIGIBILITY CRITERIA (CUTOFF DATE: 16 NOVEMBER 2026)
 --------------------------------------------------------------------------------
@@ -50,18 +65,19 @@ Mandatory district submission requirements with online entry:
   * Original Birth Certificate issued by "Birth & Death" Registration Office of
     Municipal Corporation / Nagar Palika / District Office, OR
   * 10th Standard Examination Certificate.
-  * Athletes found overage or cleared by the AFI Medical & Age Verification
-    Committee will be disqualified and forfeit all T.A., food, and accommodation.
+  * Zero Tolerance on Over-aging: Athletes found overage will be immediately
+    disqualified and barred from competition.
 
 5. ATHLETE PARTICIPATION & EVENT RULES
 --------------------------------------------------------------------------------
 A. UNDER 14 YEARS (BOYS & GIRLS):
+   - In event mention clearly: Tri A, Tri B, Tri C
    - An athlete can choose any ONE of the following Triathlon groups:
-     * Triathlon (A): 60m, Long Jump (5m approach), High Jump (Scissor only)
-     * Triathlon (B): 60m, Long Jump (5m approach), Back Throw (1kg Shot Put)
-     * Triathlon (C): 60m, Long Jump (5m approach), 600m
+     * Tri A: 60m · Long Jump (5m approach) · High Jump (Scissor only)
+     * Tri B: 60m · Long Jump (5m approach) · Back Throw (1kg Shot Put)
+     * Tri C: 60m · Long Jump (5m approach) · 600m
    - Kids Javelin Throw (with 5-meter runway) is MANDATORY for ALL U-14 athletes.
-   - Total events per U-14 athlete: Exactly 1 Triathlon group + Kids Javelin Throw.
+   - Total events per U-14 athlete: Exactly 1 Triathlon group (Tri A, Tri B, or Tri C) + Kids Javelin Throw.
 
 B. UNDER 16 YEARS (BOYS & GIRLS):
    - An athlete can participate in EXACTLY ONE event.
@@ -79,19 +95,20 @@ B. UNDER 16 YEARS (BOYS & GIRLS):
 
 6. ONLINE REGISTRATION & AFI UID PROCEDURE
 --------------------------------------------------------------------------------
-- Portal URL: Entries must be submitted online on AFI Portal (www.indianathletics.in).
-- Mandatory AFI UID: Every athlete must possess a valid AFI UID.
-  AFI UID is obtained at: https://ors.indianathletics.in/#/login
-- Clear Photo, Date of Birth Proof, and Address Proof are required for AFI UID.
+- Portal URL: Entries submitted online via the official MDAA Entry Portal.
+- AFI UID Policy:
+  * Athletes with AFI UID can participate in NIDJAM Meet if selected.
+  * Athletes without AFI UID can participate in this District Meet, and if they
+    win, they get Certificate and Medal, but will NOT be allowed to take part in NIDJAM.
+  * Register for AFI UID at: https://ors.indianathletics.in/#/login or www.indianathletics.in
 - Digital Certificates: Issued strictly based on the athlete's name in the online entry.
 - Online Entry Timeline:
   * Opens: 15th October 2026
   * Closes: 30th October 2026 (23:59:59 IST)
-  * No entries accepted via WhatsApp, email, or physical post.
 
 7. PARENT / GUARDIAN UNDERTAKING
 --------------------------------------------------------------------------------
-AFI and District Associations are not liable for any mishap or unforeseen incident
-during the event and transit. A signed written declaration/undertaking from the
-parent or legal guardian is mandatory for all selected athletes.
+AFI and Mysore District Athletic Association are not liable for any mishap or
+unforeseen incident during the meet and transit. A signed written declaration/undertaking
+from parent or legal guardian is mandatory for all athletes.
 ================================================================================

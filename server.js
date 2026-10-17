@@ -38,6 +38,12 @@ const U16_MIN_DOB = new Date('2010-11-17T00:00:00+05:30');
 const U16_MAX_DOB = new Date('2012-11-16T23:59:59+05:30');
 
 const U14_TRIATHLONS = [
+    'Tri A',
+    'Tri B',
+    'Tri C',
+    'TriA',
+    'TriB',
+    'TriC',
     'Triathlon A',
     'Triathlon B',
     'Triathlon C'
@@ -91,11 +97,24 @@ function validateAthleteEntry(data, currentEntries = []) {
     }
 
     if (!data.name || !data.name.trim()) {
-        return { valid: false, error: 'Athlete full name is mandatory (must match AFI UID and Certificate).' };
+        return { valid: false, error: 'Athlete full name is mandatory (must match Certificate / Official ID).' };
     }
 
-    if (!data.afi_uid || !data.afi_uid.trim()) {
-        return { valid: false, error: 'AFI UID is mandatory for online entry (obtain via https://ors.indianathletics.in).' };
+    // AFI UID Policy per MDAA:
+    // AFI UID is compulsory for NIDJAM selection.
+    // Athletes without AFI UID can participate in this District Meet and win Certificate & Medal,
+    // but will NOT be allowed to take part in NIDJAM Meet.
+    const rawAfi = (data.afi_uid || '').trim();
+    if (rawAfi) {
+        const cleanAfiUid = rawAfi.toUpperCase();
+        const isDuplicateAfi = currentEntries.some(e => {
+            const coachStr = e.coach || '';
+            return coachStr.toUpperCase().includes(`AFI UID: ${cleanAfiUid}`) ||
+                   coachStr.toUpperCase().includes(cleanAfiUid);
+        });
+        if (isDuplicateAfi) {
+            return { valid: false, error: 'An entry with this AFI UID has already been registered.' };
+        }
     }
 
     if (!data.dob) {
@@ -159,13 +178,13 @@ function validateAthleteEntry(data, currentEntries = []) {
         const triathlon = events.find(e => U14_TRIATHLONS.includes(e));
         const hasKidsJavelin = events.includes('Kids Javelin Throw');
         if (!triathlon) {
-            return { valid: false, error: 'U-14 athletes must choose exactly one Triathlon group (A, B, or C).' };
+            return { valid: false, error: 'U-14 athletes must choose exactly one Triathlon group (Tri A, Tri B, or Tri C).' };
         }
         if (!hasKidsJavelin) {
             return { valid: false, error: 'Kids Javelin Throw is mandatory for all U-14 athletes.' };
         }
         if (events.length !== 2) {
-            return { valid: false, error: 'U-14 athletes may only enter one Triathlon group and Kids Javelin Throw.' };
+            return { valid: false, error: 'U-14 athletes may only enter one Triathlon group (Tri A, Tri B, or Tri C) and Kids Javelin Throw.' };
         }
     } else if (data.category === 'Under 16') {
         if (events.length !== 1) {
@@ -177,50 +196,10 @@ function validateAthleteEntry(data, currentEntries = []) {
         }
     }
 
-    // Duplicate Check
+    // Duplicate Check by Aadhaar (same athlete cannot register twice)
     const isDuplicateAadhaar = currentEntries.some(e => e.aadhaar === cleanAadhaar);
     if (isDuplicateAadhaar) {
         return { valid: false, error: 'An entry with this Aadhaar number has already been registered.' };
-    }
-
-    const cleanAfiUid = data.afi_uid.trim().toUpperCase();
-    const isDuplicateAfi = currentEntries.some(e => {
-        const coachStr = e.coach || '';
-        return coachStr.toUpperCase().includes(`AFI UID: ${cleanAfiUid}`) ||
-               coachStr.toUpperCase().includes(cleanAfiUid);
-    });
-    if (isDuplicateAfi) {
-        return { valid: false, error: 'An entry with this AFI UID has already been registered.' };
-    }
-
-    // District Quota Check (Max 13 athletes per district)
-    if (currentEntries.length >= 13) {
-        return { valid: false, error: 'District quota limit reached (maximum 13 athletes per district allowed by AFI).' };
-    }
-
-    // U-14 District Quota Check (Max 4 athletes boys & girls together)
-    if (data.category === 'Under 14') {
-        const u14Count = currentEntries.filter(e => e.category === 'Under 14').length;
-        if (u14Count >= 4) {
-            return { valid: false, error: 'U-14 district quota reached (maximum 4 athletes across boys and girls).' };
-        }
-    }
-
-    // U-16 Event Quota Check (Max 2 athletes per event in the district)
-    if (data.category === 'Under 16') {
-        const targetEvent = events[0];
-        const sameEventCount = currentEntries.filter(e =>
-            e.category === 'Under 16' &&
-            e.gender === data.gender &&
-            Array.isArray(e.events) &&
-            e.events.includes(targetEvent)
-        ).length;
-        if (sameEventCount >= 2) {
-            return {
-                valid: false,
-                error: `District quota full: Maximum 2 athletes can be entered in "${targetEvent}" for U-16 ${data.gender}s.`
-            };
-        }
     }
 
     return { valid: true };
@@ -301,8 +280,13 @@ const server = http.createServer(async (req, res) => {
                 }
 
                 // Prepare record matching database schema
+                const afiTrimmed = (data.afi_uid || '').trim().toUpperCase();
+                const afiFormatted = afiTrimmed
+                    ? `AFI UID: ${afiTrimmed}`
+                    : 'AFI UID: None (District Meet Only - Not Eligible for NIDJAM)';
+
                 const coachFormatted = [
-                    `AFI UID: ${data.afi_uid.trim().toUpperCase()}`,
+                    afiFormatted,
                     data.coach ? `Coach: ${data.coach.trim()}` : null,
                     data.declaration ? `Parent Undertaking: Verified` : null
                 ].filter(Boolean).join(' | ');
@@ -341,7 +325,7 @@ const server = http.createServer(async (req, res) => {
                 res.writeHead(201, { 'Content-Type': 'application/json' });
                 return res.end(JSON.stringify({
                     success: true,
-                    message: 'Athlete entry registered successfully in accordance with AFI Circular No. 88/09-2026.',
+                    message: 'Athlete entry registered successfully for Mysore District Athletic Association District Selection Meet 2026.',
                     entry: inserted[0]
                 }));
             } catch (err) {
