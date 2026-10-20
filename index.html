@@ -661,6 +661,166 @@
             font-weight: 800;
             color: #15803d;
         }
+
+        /* ── Organizer Announcement Box ── */
+        .org-notice-box {
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            border: 2px solid #3b82f6;
+            border-radius: 18px;
+            padding: 20px 22px;
+            margin-bottom: 22px;
+            box-shadow: 0 6px 22px rgba(59, 130, 246, 0.12);
+        }
+
+        .org-notice-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 14px;
+            border-bottom: 1px solid #bfdbfe;
+            padding-bottom: 10px;
+        }
+
+        .org-notice-title {
+            font: 800 15.5px Manrope, sans-serif;
+            color: #1e3a8a;
+            margin: 0;
+            flex: 1;
+        }
+
+        .org-badge {
+            background: #1d4ed8;
+            color: #fff;
+            font-size: 10.5px;
+            font-weight: 800;
+            padding: 3px 10px;
+            border-radius: 99px;
+            letter-spacing: .05em;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        .org-cards-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        @media(max-width: 600px) {
+            .org-cards-grid { grid-template-columns: 1fr; }
+        }
+
+        .org-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 13px 15px;
+            border: 1px solid #bfdbfe;
+        }
+
+        .org-card-danger {
+            background: #fff1f2;
+            border-color: #fecdd3;
+        }
+
+        .org-card-green {
+            background: #f0fdf4;
+            border-color: #bbf7d0;
+        }
+
+        .org-card-amber {
+            background: #fff7ed;
+            border-color: #fed7aa;
+        }
+
+        .org-card-title {
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: .06em;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .org-card .org-card-title { color: #1e40af; }
+        .org-card-danger .org-card-title { color: #be123c; }
+        .org-card-green .org-card-title { color: #15803d; }
+        .org-card-amber .org-card-title { color: #b45309; }
+
+        .org-card-body {
+            font-size: 13px;
+            line-height: 1.55;
+            color: #1e293b;
+        }
+
+        .org-card-body strong {
+            display: block;
+            font-size: 14.5px;
+            margin-bottom: 2px;
+        }
+
+        .org-card-body .sub {
+            font-size: 11.5px;
+            color: #475569;
+            margin-top: 3px;
+        }
+
+        .age-bracket-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 8px;
+            padding: 6px 0;
+            border-bottom: 1px dashed #bfdbfe;
+            font-size: 12.5px;
+        }
+
+        .age-bracket-row:last-child { border-bottom: none; }
+
+        .age-bracket-row .ab-label {
+            font-weight: 800;
+            color: #1e40af;
+            white-space: nowrap;
+        }
+
+        .age-bracket-row .ab-val {
+            color: #0f172a;
+            text-align: right;
+            font-weight: 600;
+        }
+
+        .whatsapp-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #f0fdf4;
+            border: 1px solid #86efac;
+            border-radius: 10px;
+            padding: 10px 14px;
+            margin-top: 10px;
+        }
+
+        .whatsapp-icon {
+            font-size: 22px;
+            line-height: 1;
+            flex: none;
+        }
+
+        .whatsapp-row p {
+            margin: 0;
+            font-size: 13px;
+            line-height: 1.45;
+            color: #14532d;
+        }
+
+        .whatsapp-row p strong {
+            font-size: 15px;
+            display: block;
+            color: #15803d;
+        }
     </style>
 </head>
 
@@ -740,6 +900,73 @@
                 </div>
 
                 <div id="deadlineBannerSlot"></div>
+
+                <!-- ══ ORGANIZER ANNOUNCEMENT ══ -->
+                <div class="org-notice-box" id="organizerNotice">
+                    <div class="org-notice-header">
+                        <h3 class="org-notice-title">📢 Important Notice from the Organizers — MDAA District Meet 2026</h3>
+                        <span class="org-badge">Official Announcement</span>
+                    </div>
+
+                    <div class="org-cards-grid">
+                        <!-- Bib Collection -->
+                        <div class="org-card">
+                            <div class="org-card-title">🎽 Bib / Race Number Collection</div>
+                            <div class="org-card-body">
+                                <strong>Chamundi Vihar Stadium, Mysuru</strong>
+                                📅 <strong>30 October 2026 · 4:00 PM – 6:00 PM</strong>
+                                <span class="sub">Bib numbers will be distributed in person at the stadium premises. Bring your Aadhaar and registration confirmation.</span>
+                            </div>
+                        </div>
+
+                        <!-- No Bib on 31st -->
+                        <div class="org-card org-card-danger">
+                            <div class="org-card-title">🚫 No Bib Distribution on 31st Oct</div>
+                            <div class="org-card-body">
+                                <strong>Bib numbers will NOT be distributed on 31 October 2026.</strong>
+                                <span class="sub">Kindly collect your bib number strictly on 30 October 2026 between 4:00 PM – 6:00 PM only. No exceptions.</span>
+                            </div>
+                        </div>
+
+                        <!-- Age Brackets -->
+                        <div class="org-card org-card-amber">
+                            <div class="org-card-title">🎂 Age Brackets (as on 16 Nov 2026)</div>
+                            <div class="org-card-body">
+                                <div class="age-bracket-row">
+                                    <span class="ab-label">U-14 (Boys &amp; Girls)</span>
+                                    <span class="ab-val">Born 17/11/2012 – 16/11/2014</span>
+                                </div>
+                                <div class="age-bracket-row">
+                                    <span class="ab-label">U-16 (Boys &amp; Girls)</span>
+                                    <span class="ab-val">Born 17/11/2010 – 16/11/2012</span>
+                                </div>
+                                <div class="age-bracket-row">
+                                    <span class="ab-label">Min. Age (U-14)</span>
+                                    <span class="ab-val">12 years &amp; above as on 16 Nov 2026</span>
+                                </div>
+                                <div class="age-bracket-row">
+                                    <span class="ab-label">Ineligible</span>
+                                    <span class="ab-val">Boys &amp; Girls under 12 years — strictly not eligible</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Bulk Registration WhatsApp -->
+                        <div class="org-card org-card-green">
+                            <div class="org-card-title">📋 Bulk / Team Registration</div>
+                            <div class="org-card-body">
+                                <span class="sub" style="display:block; margin-bottom:6px">For schools / clubs registering multiple athletes, send entries via WhatsApp:</span>
+                                <div class="whatsapp-row">
+                                    <span class="whatsapp-icon">💬</span>
+                                    <p>
+                                        <strong>WhatsApp: 97318 08008</strong>
+                                        Send athlete details (Name, DOB, Aadhaar, Category, Event) to the above number for bulk team entries.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <!-- CRITICAL AFI UID NOTICE -->
                 <div class="afi-important-box">
@@ -897,6 +1124,34 @@
                     <div>
                         <b>Event Rules</b>
                         <span>• U-14: 1 Triathlon (Tri A, Tri B, or Tri C) + Kids Javelin (Mandatory)<br>• U-16: Exactly 1 event.</span>
+                    </div>
+                </div>
+
+                <div class="info">
+                    <div class="ico">🎽</div>
+                    <div>
+                        <b>Bib Collection — 30 Oct only</b>
+                        <span><strong>Chamundi Vihar Stadium · 4:00 PM – 6:00 PM</strong><br>Bibs will NOT be given on 31 Oct 2026.</span>
+                    </div>
+                </div>
+
+                <div class="info">
+                    <div class="ico">🎂</div>
+                    <div>
+                        <b>Age Brackets (as on 16 Nov 2026)</b>
+                        <span>
+                            <strong>U-14:</strong> Born 17/11/2012 – 16/11/2014<br>
+                            <strong>U-16:</strong> Born 17/11/2010 – 16/11/2012<br>
+                            Min. age (U-14): 12 years &amp; above
+                        </span>
+                    </div>
+                </div>
+
+                <div class="info">
+                    <div class="ico">💬</div>
+                    <div>
+                        <b>Bulk Registration (WhatsApp)</b>
+                        <span>Send entries for multiple athletes to: <strong>97318 08008</strong></span>
                     </div>
                 </div>
 
