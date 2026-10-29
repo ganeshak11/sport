@@ -3,16 +3,16 @@ const path = require('path');
 const fs = require('fs');
 
 async function generateBeautifiedSchedule() {
-    const backupFile = 'mysuru_district_athletics_meet_2026_schedule_backup.xlsx';
+    const backupFile = 'mysuru_district_athletics_meet_2026_schedule.xlsx';
     const targetFile = 'mysuru_district_athletics_meet_2026_schedule.xlsx';
 
-    // 1. Read existing data rows from backup
+    // 1. Read existing schedule data rows
     const srcWb = new ExcelJS.Workbook();
     await srcWb.xlsx.readFile(backupFile);
     const srcWs = srcWb.getWorksheet('Event Schedule');
 
     const scheduleData = [];
-    for (let r = 5; r <= srcWs.rowCount; r++) {
+    for (let r = 9; r <= srcWs.rowCount; r++) {
         const row = srcWs.getRow(r);
         const sNo = row.getCell(1).value;
         const time = row.getCell(2).value;
@@ -22,9 +22,9 @@ async function generateBeautifiedSchedule() {
         const round = row.getCell(6).value;
         const techOff = row.getCell(7).value;
 
-        if (sNo !== null && sNo !== undefined && String(sNo).trim() !== '') {
+        if (sNo !== null && sNo !== undefined && String(sNo).trim() !== '' && !isNaN(Number(sNo))) {
             scheduleData.push({
-                sNo: Number(sNo) || sNo,
+                sNo: Number(sNo),
                 time: time ? String(time).trim() : '',
                 event: event ? String(event).trim() : '',
                 spec: spec ? String(spec).trim() : '',
@@ -37,7 +37,7 @@ async function generateBeautifiedSchedule() {
 
     console.log(`Extracted ${scheduleData.length} schedule rows.`);
 
-    // 2. Create brand-new polished workbook
+    // 2. Create brand-new 2-page polished workbook
     const wb = new ExcelJS.Workbook();
     wb.creator = 'Mysore District Athletics Association';
     wb.lastModifiedBy = 'MDAA';
@@ -52,31 +52,30 @@ async function generateBeautifiedSchedule() {
             fitToPage: true,
             fitToWidth: 1,
             fitToHeight: 0,
-            repeatRows: '8:8',
-            margins: { left: 0.4, right: 0.4, top: 0.5, bottom: 0.5, header: 0.2, footer: 0.2 }
+            margins: { left: 0.35, right: 0.35, top: 0.45, bottom: 0.45, header: 0.2, footer: 0.2 }
         }
     });
 
     // Column Definitions & Widths
     ws.columns = [
-        { key: 'sNo', width: 8 },         // Col A
-        { key: 'time', width: 14 },        // Col B
-        { key: 'event', width: 22 },       // Col C
-        { key: 'spec', width: 25 },        // Col D
-        { key: 'section', width: 13 },     // Col E
-        { key: 'round', width: 18 },       // Col F
-        { key: 'techOff', width: 18 }      // Col G
+        { key: 'sNo', width: 7.5 },        // Col A
+        { key: 'time', width: 13.5 },       // Col B
+        { key: 'event', width: 22 },        // Col C
+        { key: 'spec', width: 25 },         // Col D
+        { key: 'section', width: 12 },      // Col E
+        { key: 'round', width: 17 },        // Col F
+        { key: 'techOff', width: 17 }       // Col G
     ];
 
-    // Setup Header Rows (Rows 1 to 6)
-    ws.getRow(1).height = 28;
-    ws.getRow(2).height = 24;
-    ws.getRow(3).height = 24;
-    ws.getRow(4).height = 20;
+    // Setup Header Rows (Rows 1 to 7)
+    ws.getRow(1).height = 26;
+    ws.getRow(2).height = 22;
+    ws.getRow(3).height = 22;
+    ws.getRow(4).height = 18;
     ws.getRow(5).height = 22;
-    ws.getRow(6).height = 10; // spacer
-    ws.getRow(7).height = 28; // Section Banner
-    ws.getRow(8).height = 26; // Table Column Headers
+    ws.getRow(6).height = 8;  // spacer
+    ws.getRow(7).height = 26; // Section Banner
+    ws.getRow(8).height = 24; // Table Column Headers
 
     // Title Merges (Center between Col B and Col F, leaving A for Left Logo, G for Right Logo)
     ws.mergeCells('B1:F1');
@@ -89,31 +88,31 @@ async function generateBeautifiedSchedule() {
     // Row 1: State Association
     const cellR1 = ws.getCell('B1');
     cellR1.value = 'KARNATAKA ATHLETICS ASSOCIATION';
-    cellR1.font = { name: 'Arial', size: 15, bold: true, color: { argb: 'FF0F273D' } };
+    cellR1.font = { name: 'Arial', size: 14.5, bold: true, color: { argb: 'FF0F273D' } };
     cellR1.alignment = { vertical: 'middle', horizontal: 'center' };
 
     // Row 2: District Association
     const cellR2 = ws.getCell('B2');
     cellR2.value = 'MYSORE DISTRICT ATHLETICS ASSOCIATION (MDAA)';
-    cellR2.font = { name: 'Arial', size: 13, bold: true, color: { argb: 'FF1D4ED8' } };
+    cellR2.font = { name: 'Arial', size: 12.5, bold: true, color: { argb: 'FF1D4ED8' } };
     cellR2.alignment = { vertical: 'middle', horizontal: 'center' };
 
     // Row 3: Meet Title
     const cellR3 = ws.getCell('B3');
     cellR3.value = 'MYSORE DISTRICT JUNIOR ATHLETICS MEET 2026';
-    cellR3.font = { name: 'Arial', size: 12, bold: true, color: { argb: 'FF0F172A' } };
+    cellR3.font = { name: 'Arial', size: 11.5, bold: true, color: { argb: 'FF0F172A' } };
     cellR3.alignment = { vertical: 'middle', horizontal: 'center' };
 
     // Row 4: Subtitle / Selection Trials
     const cellR4 = ws.getCell('B4');
     cellR4.value = '(Selection Trials for 20th National Inter District Junior Athletics Meet — NIDJAM 2026)';
-    cellR4.font = { name: 'Arial', size: 9.5, italic: true, bold: true, color: { argb: 'FF64748B' } };
+    cellR4.font = { name: 'Arial', size: 9, italic: true, bold: true, color: { argb: 'FF64748B' } };
     cellR4.alignment = { vertical: 'middle', horizontal: 'center' };
 
     // Row 5: Venue & Date Meta Bar
     const cellR5 = ws.getCell('A5');
     cellR5.value = '📍 VENUE: Chamundi Vihar Stadium, Mysuru   |   📅 DATE: 31 October 2026   |   ⏰ REPORTING: 8:30 AM';
-    cellR5.font = { name: 'Arial', size: 10, bold: true, color: { argb: 'FF1E293B' } };
+    cellR5.font = { name: 'Arial', size: 9.5, bold: true, color: { argb: 'FF1E293B' } };
     cellR5.alignment = { vertical: 'middle', horizontal: 'center' };
     cellR5.fill = {
         type: 'pattern',
@@ -127,16 +126,15 @@ async function generateBeautifiedSchedule() {
 
     // Row 7: Official Schedule Banner
     const cellR7 = ws.getCell('A7');
-    cellR7.value = 'OFFICIAL EVENT SCHEDULE & TIMELINE';
-    cellR7.font = { name: 'Arial', size: 12, bold: true, color: { argb: 'FFFFFFFF' } };
+    cellR7.value = 'OFFICIAL ORDER OF EVENTS — MORNING SESSION';
+    cellR7.font = { name: 'Arial', size: 11, bold: true, color: { argb: 'FFFFFFFF' } };
     cellR7.alignment = { vertical: 'middle', horizontal: 'center' };
     cellR7.fill = {
         type: 'pattern',
         pattern: 'solid',
-        fgColor: { argb: 'FF0F273D' } // Premium Deep Navy
+        fgColor: { argb: 'FF0F273D' }
     };
 
-    // Row 8: Column Headers
     const headers = [
         'S. No.',
         'Time',
@@ -147,30 +145,33 @@ async function generateBeautifiedSchedule() {
         'Technical Officers'
     ];
 
-    const row8 = ws.getRow(8);
-    headers.forEach((h, idx) => {
-        const cell = row8.getCell(idx + 1);
-        cell.value = h;
-        cell.font = { name: 'Arial', size: 10.5, bold: true, color: { argb: 'FFFFFFFF' } };
-        cell.alignment = {
-            vertical: 'middle',
-            horizontal: idx === 2 || idx === 3 ? 'left' : 'center',
-            wrapText: true
-        };
-        cell.fill = {
-            type: 'pattern',
-            pattern: 'solid',
-            fgColor: { argb: 'FF1E3A8A' } // Royal Navy
-        };
-        cell.border = {
-            top: { style: 'medium', color: { argb: 'FF0F172A' } },
-            bottom: { style: 'medium', color: { argb: 'FF0F172A' } },
-            left: { style: 'thin', color: { argb: 'FF3B82F6' } },
-            right: { style: 'thin', color: { argb: 'FF3B82F6' } }
-        };
-    });
+    function applyHeaderRowStyle(rowObj) {
+        rowObj.height = 23;
+        headers.forEach((h, idx) => {
+            const cell = rowObj.getCell(idx + 1);
+            cell.value = h;
+            cell.font = { name: 'Arial', size: 10, bold: true, color: { argb: 'FFFFFFFF' } };
+            cell.alignment = {
+                vertical: 'middle',
+                horizontal: idx === 2 || idx === 3 ? 'left' : 'center',
+                wrapText: true
+            };
+            cell.fill = {
+                type: 'pattern',
+                pattern: 'solid',
+                fgColor: { argb: 'FF1E3A8A' }
+            };
+            cell.border = {
+                top: { style: 'medium', color: { argb: 'FF0F172A' } },
+                bottom: { style: 'medium', color: { argb: 'FF0F172A' } },
+                left: { style: 'thin', color: { argb: 'FF3B82F6' } },
+                right: { style: 'thin', color: { argb: 'FF3B82F6' } }
+            };
+        });
+    }
 
-    // Thin Border Style for data cells
+    applyHeaderRowStyle(ws.getRow(8));
+
     const thinBorder = {
         top: { style: 'thin', color: { argb: 'FFE2E8F0' } },
         bottom: { style: 'thin', color: { argb: 'FFE2E8F0' } },
@@ -178,64 +179,59 @@ async function generateBeautifiedSchedule() {
         right: { style: 'thin', color: { argb: 'FFE2E8F0' } }
     };
 
-    // 3. Populate Data Rows
+    // 3. Populate Page 1 Items (Events 1 to 24 - Morning Session)
     let currentRowNum = 9;
-    scheduleData.forEach((item, index) => {
+    const splitIndex = 24; // Items 1 to 24 on Page 1, items 25 to 43 on Page 2
+
+    for (let i = 0; i < splitIndex; i++) {
+        const item = scheduleData[i];
         const row = ws.getRow(currentRowNum);
-        row.height = 21;
+        row.height = 24;
 
-        const isEven = index % 2 === 1;
-        const bgArgb = isEven ? 'FFF8FAFC' : 'FFFFFFFF'; // subtle zebra striping
+        const isEven = i % 2 === 1;
+        const bgArgb = isEven ? 'FFF8FAFC' : 'FFFFFFFF';
 
-        // Col 1: S. No.
         const c1 = row.getCell(1);
         c1.value = item.sNo;
-        c1.font = { name: 'Arial', size: 10, bold: true, color: { argb: 'FF475569' } };
+        c1.font = { name: 'Arial', size: 9.5, bold: true, color: { argb: 'FF475569' } };
         c1.alignment = { vertical: 'middle', horizontal: 'center' };
 
-        // Col 2: Time
         const c2 = row.getCell(2);
         c2.value = item.time;
-        c2.font = { name: 'Arial', size: 10, bold: true, color: { argb: 'FF0369A1' } };
+        c2.font = { name: 'Arial', size: 9.5, bold: true, color: { argb: 'FF0369A1' } };
         c2.alignment = { vertical: 'middle', horizontal: 'center' };
 
-        // Col 3: Event
         const c3 = row.getCell(3);
         c3.value = item.event;
-        c3.font = { name: 'Arial', size: 10, bold: true, color: { argb: 'FF0F172A' } };
+        c3.font = { name: 'Arial', size: 9.5, color: { argb: 'FF0F172A' } };
         c3.alignment = { vertical: 'middle', horizontal: 'left', indent: 1 };
 
-        // Col 4: Specification
         const c4 = row.getCell(4);
         c4.value = item.spec || '—';
-        c4.font = { name: 'Arial', size: 9.5, italic: !item.spec, color: { argb: item.spec ? 'FF334155' : 'FF94A3B8' } };
+        c4.font = { name: 'Arial', size: 9, italic: !item.spec, color: { argb: item.spec ? 'FF334155' : 'FF94A3B8' } };
         c4.alignment = { vertical: 'middle', horizontal: 'left', indent: 1 };
 
-        // Col 5: Section (Badge styling)
         const c5 = row.getCell(5);
         c5.value = item.section;
         c5.alignment = { vertical: 'middle', horizontal: 'center' };
         if (item.section.startsWith('G-')) {
-            c5.font = { name: 'Arial', size: 9.5, bold: true, color: { argb: 'FFBE123C' } }; // Rose / Red for Girls
+            c5.font = { name: 'Arial', size: 9, bold: true, color: { argb: 'FFBE123C' } };
         } else if (item.section.startsWith('B-')) {
-            c5.font = { name: 'Arial', size: 9.5, bold: true, color: { argb: 'FF1D4ED8' } }; // Blue for Boys
+            c5.font = { name: 'Arial', size: 9, bold: true, color: { argb: 'FF1D4ED8' } };
         } else {
-            c5.font = { name: 'Arial', size: 9.5, bold: true, color: { argb: 'FF1E293B' } };
+            c5.font = { name: 'Arial', size: 9, bold: true, color: { argb: 'FF1E293B' } };
         }
 
-        // Col 6: Round
-        const c7 = row.getCell(6);
-        c7.value = item.round;
-        c7.font = { name: 'Arial', size: 9.5, color: { argb: 'FF1E293B' } };
+        const c6 = row.getCell(6);
+        c6.value = item.round;
+        c6.font = { name: 'Arial', size: 9, color: { argb: 'FF1E293B' } };
+        c6.alignment = { vertical: 'middle', horizontal: 'center' };
+
+        const c7 = row.getCell(7);
+        c7.value = item.techOff;
+        c7.font = { name: 'Arial', size: 9, color: { argb: item.techOff.includes('Lunch') ? 'FFB45309' : 'FF475569' }, bold: item.techOff.includes('Lunch') };
         c7.alignment = { vertical: 'middle', horizontal: 'center' };
 
-        // Col 7: Technical Officers
-        const c8 = row.getCell(7);
-        c8.value = item.techOff;
-        c8.font = { name: 'Arial', size: 9.5, color: { argb: item.techOff.includes('Lunch') ? 'FFB45309' : 'FF475569' }, bold: item.techOff.includes('Lunch') };
-        c8.alignment = { vertical: 'middle', horizontal: 'center' };
-
-        // Apply background fill and borders to all 7 cells
         for (let col = 1; col <= 7; col++) {
             const cell = row.getCell(col);
             cell.border = thinBorder;
@@ -247,46 +243,162 @@ async function generateBeautifiedSchedule() {
         }
 
         currentRowNum++;
-    });
+    }
 
-    // Footer / Notes Box (Rows after table)
+    // Explicit Page Break before Afternoon Session
+    ws.getRow(currentRowNum).addPageBreak();
+
+    // 4. Page 2 Header: Afternoon Session Banner
+    const p2BannerRow = currentRowNum;
+    ws.mergeCells(`A${p2BannerRow}:G${p2BannerRow}`);
+    const cellP2Banner = ws.getCell(`A${p2BannerRow}`);
+    cellP2Banner.value = 'OFFICIAL ORDER OF EVENTS — AFTERNOON SESSION';
+    cellP2Banner.font = { name: 'Arial', size: 11, bold: true, color: { argb: 'FFFFFFFF' } };
+    cellP2Banner.alignment = { vertical: 'middle', horizontal: 'center' };
+    cellP2Banner.fill = {
+        type: 'pattern',
+        pattern: 'solid',
+        fgColor: { argb: 'FF0F273D' }
+    };
+    ws.getRow(p2BannerRow).height = 24;
     currentRowNum++;
-    const noteRowStart = currentRowNum;
-    ws.mergeCells(`A${noteRowStart}:G${noteRowStart}`);
-    const noteTitle = ws.getCell(`A${noteRowStart}`);
-    noteTitle.value = 'IMPORTANT INSTRUCTIONS FOR PARTICIPANTS & TEAM MANAGERS';
-    noteTitle.font = { name: 'Arial', size: 10, bold: true, color: { argb: 'FF0F172A' } };
-    noteTitle.alignment = { vertical: 'middle', horizontal: 'left', indent: 1 };
-    noteTitle.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFE2E8F0' } };
-    ws.getRow(noteRowStart).height = 22;
 
-    const instructions = [
-        '1. Bib Distribution: Strictly on 30 October 2026 from 4:00 PM to 6:00 PM at Chamundi Vihar Stadium. No bibs distributed on 31st Oct.',
-        '2. Reporting: All athletes must report to the Marshalling Area 30 minutes before the scheduled time of their respective event.',
-        '3. AFI Rules & Age Verification: Age verification is mandatory. Any over-age athlete will be disqualified immediately.',
-        '4. NIDJAM Selection: Top performers possessing valid AFI UID will be selected to represent Mysore District at 20th NIDJAM 2026.'
+    // Table Header repeated on Page 2
+    const p2HeaderRow = currentRowNum;
+    applyHeaderRowStyle(ws.getRow(p2HeaderRow));
+    currentRowNum++;
+
+    // Populate Page 2 Items (Events 25 to 43 - Afternoon Session)
+    for (let i = splitIndex; i < scheduleData.length; i++) {
+        const item = scheduleData[i];
+        const row = ws.getRow(currentRowNum);
+        row.height = 24;
+
+        const isEven = i % 2 === 1;
+        const bgArgb = isEven ? 'FFF8FAFC' : 'FFFFFFFF';
+
+        const c1 = row.getCell(1);
+        c1.value = item.sNo;
+        c1.font = { name: 'Arial', size: 9.5, bold: true, color: { argb: 'FF475569' } };
+        c1.alignment = { vertical: 'middle', horizontal: 'center' };
+
+        const c2 = row.getCell(2);
+        c2.value = item.time;
+        c2.font = { name: 'Arial', size: 9.5, bold: true, color: { argb: 'FF0369A1' } };
+        c2.alignment = { vertical: 'middle', horizontal: 'center' };
+
+        const c3 = row.getCell(3);
+        c3.value = item.event;
+        c3.font = { name: 'Arial', size: 9.5, color: { argb: 'FF0F172A' } };
+        c3.alignment = { vertical: 'middle', horizontal: 'left', indent: 1 };
+
+        const c4 = row.getCell(4);
+        c4.value = item.spec || '—';
+        c4.font = { name: 'Arial', size: 9, italic: !item.spec, color: { argb: item.spec ? 'FF334155' : 'FF94A3B8' } };
+        c4.alignment = { vertical: 'middle', horizontal: 'left', indent: 1 };
+
+        const c5 = row.getCell(5);
+        c5.value = item.section;
+        c5.alignment = { vertical: 'middle', horizontal: 'center' };
+        if (item.section.startsWith('G-')) {
+            c5.font = { name: 'Arial', size: 9, bold: true, color: { argb: 'FFBE123C' } };
+        } else if (item.section.startsWith('B-')) {
+            c5.font = { name: 'Arial', size: 9, bold: true, color: { argb: 'FF1D4ED8' } };
+        } else {
+            c5.font = { name: 'Arial', size: 9, bold: true, color: { argb: 'FF1E293B' } };
+        }
+
+        const c6 = row.getCell(6);
+        c6.value = item.round;
+        c6.font = { name: 'Arial', size: 9, color: { argb: 'FF1E293B' } };
+        c6.alignment = { vertical: 'middle', horizontal: 'center' };
+
+        const c7 = row.getCell(7);
+        c7.value = item.techOff;
+        c7.font = { name: 'Arial', size: 9, color: { argb: item.techOff.includes('Lunch') ? 'FFB45309' : 'FF475569' }, bold: item.techOff.includes('Lunch') };
+        c7.alignment = { vertical: 'middle', horizontal: 'center' };
+
+        for (let col = 1; col <= 7; col++) {
+            const cell = row.getCell(col);
+            cell.border = thinBorder;
+            cell.fill = {
+                type: 'pattern',
+                pattern: 'solid',
+                fgColor: { argb: bgArgb }
+            };
+        }
+
+        currentRowNum++;
+    }
+
+    // Spacer
+    currentRowNum++;
+
+    // 5. OFFICIAL BILINGUAL INSTRUCTIONS (English & Kannada)
+    const noticeHeaderRow = currentRowNum;
+    ws.mergeCells(`A${noticeHeaderRow}:C${noticeHeaderRow}`);
+    const enTitle = ws.getCell(`A${noticeHeaderRow}`);
+    enTitle.value = 'NOTE:';
+    enTitle.font = { name: 'Arial', size: 10, bold: true, color: { argb: 'FF991B1B' } };
+    enTitle.alignment = { vertical: 'middle', horizontal: 'left', indent: 1 };
+    enTitle.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFFEE2E2' } };
+
+    ws.mergeCells(`D${noticeHeaderRow}:G${noticeHeaderRow}`);
+    const knTitle = ws.getCell(`D${noticeHeaderRow}`);
+    knTitle.value = 'ಪ್ರಮುಖ ಸೂಚನೆಗಳು:';
+    knTitle.font = { name: 'Noto Sans Kannada', size: 10, bold: true, color: { argb: 'FF991B1B' } };
+    knTitle.alignment = { vertical: 'middle', horizontal: 'left', indent: 1 };
+    knTitle.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFFEE2E2' } };
+    ws.getRow(noticeHeaderRow).height = 24;
+
+    const enPoints = [
+        '• Order of events subject to alteration',
+        '• Time may be preponed / postponed - Listen to announcement',
+        '• Athletes should not leave the stadium during competition',
+        '• Mandatory reporting: 30 minutes prior to scheduled event'
     ];
 
-    instructions.forEach((ins, i) => {
-        const rNum = noteRowStart + 1 + i;
-        ws.mergeCells(`A${rNum}:G${rNum}`);
-        const c = ws.getCell(`A${rNum}`);
-        c.value = ins;
-        c.font = { name: 'Arial', size: 9, color: { argb: 'FF334155' } };
-        c.alignment = { vertical: 'middle', horizontal: 'left', indent: 1 };
-        ws.getRow(rNum).height = 18;
-    });
+    const knPoints = [
+        '• ಸ್ಪರ್ಧೆಗಳ ಕ್ರಮದಲ್ಲಿ ಬದಲಾವಣೆ ಆಗಬಹುದು',
+        '• ಸ್ಪರ್ಧೆಯ ಸಮಯ ಮುಂದೂಡಬಹುದು ಅಥವಾ ಮೊದಲೇ ನಡೆಸಬಹುದು',
+        '• ಎಲ್ಲಾ ಮಾಹಿತಿಯನ್ನು ಅನೌನ್ಸರ್ ಮೂಲಕ ನೀಡಲಾಗುವುದು',
+        '• ಕ್ರೀಡಾಪಟುಗಳು ಸ್ಪರ್ಧೆಯ ಸಮಯದಲ್ಲಿ ಎಲ್ಲಿಗೂ ಹೋಗಬಾರದು'
+    ];
 
-    // Signature Line
-    const signRow = noteRowStart + 6;
+    for (let p = 0; p < 4; p++) {
+        const pRowNum = noticeHeaderRow + 1 + p;
+        ws.mergeCells(`A${pRowNum}:C${pRowNum}`);
+        const enCell = ws.getCell(`A${pRowNum}`);
+        enCell.value = enPoints[p];
+        enCell.font = { name: 'Arial', size: 9, bold: p === 0, color: { argb: 'FF1E293B' } };
+        enCell.alignment = { vertical: 'middle', horizontal: 'left', indent: 1 };
+        enCell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFFEF2F2' } };
+        enCell.border = thinBorder;
+
+        ws.mergeCells(`D${pRowNum}:G${pRowNum}`);
+        const knCell = ws.getCell(`D${pRowNum}`);
+        knCell.value = knPoints[p];
+        knCell.font = { name: 'Noto Sans Kannada', size: 9, bold: p === 0, color: { argb: 'FF1E293B' } };
+        knCell.alignment = { vertical: 'middle', horizontal: 'left', indent: 1 };
+        knCell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFFEF2F2' } };
+        knCell.border = thinBorder;
+
+        ws.getRow(pRowNum).height = 20;
+    }
+
+    currentRowNum = noticeHeaderRow + 5;
+
+    // 6. OFFICIAL SIGNATURE BLOCK
+    currentRowNum++;
+    const signRow = currentRowNum;
     ws.mergeCells(`E${signRow}:G${signRow}`);
     const signCell = ws.getCell(`E${signRow}`);
-    signCell.value = 'Hon. Secretary\nMysore District Athletics Association';
+    signCell.value = 'Srikanth\nSecretary\nMysore District Athletics Association';
     signCell.font = { name: 'Arial', size: 10, bold: true, color: { argb: 'FF0F172A' } };
     signCell.alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
-    ws.getRow(signRow).height = 36;
+    ws.getRow(signRow).height = 42;
 
-    // 4. EMBED LOGOS
+    // 7. EMBED LOGOS
     const kaaLogoPath = '/home/ganeshak11/Pictures/VTU/KAA.jpeg';
     const mdaaLogoPath = '/home/ganeshak11/Pictures/VTU/mdaa.png';
 
@@ -295,16 +407,12 @@ async function generateBeautifiedSchedule() {
             filename: kaaLogoPath,
             extension: 'jpeg'
         });
-        // Place KAA on top left (Col A, Rows 1-3)
-        // Original aspect ratio: 931x214 (~ 4.35 : 1)
         ws.addImage(kaaImageId, {
             tl: { col: 0.1, row: 0.3 },
             ext: { width: 140, height: 35 },
             editAs: 'oneCell'
         });
         console.log('KAA logo embedded successfully.');
-    } else {
-        console.warn('KAA logo not found at:', kaaLogoPath);
     }
 
     if (fs.existsSync(mdaaLogoPath)) {
@@ -312,61 +420,27 @@ async function generateBeautifiedSchedule() {
             filename: mdaaLogoPath,
             extension: 'png'
         });
-        // Place MDAA on top right (Col G, Rows 1-4)
-        // Original aspect ratio: 1254x1254 (1 : 1)
         ws.addImage(mdaaImageId, {
             tl: { col: 6.2, row: 0.1 },
             ext: { width: 72, height: 72 },
             editAs: 'oneCell'
         });
         console.log('MDAA logo embedded successfully.');
-    } else {
-        console.warn('MDAA logo not found at:', mdaaLogoPath);
     }
 
-    // Preserve the 'Read Me' sheet as well with clean formatting
-    const readMeWs = wb.addWorksheet('Read Me', { views: [{ showGridLines: true }] });
-    readMeWs.columns = [
-        { key: 'topic', width: 20 },
-        { key: 'details', width: 70 }
-    ];
-    readMeWs.getRow(1).height = 26;
-    readMeWs.getCell('A1').value = 'Transcription & Meet Notes';
-    readMeWs.getCell('A1').font = { name: 'Arial', size: 12, bold: true, color: { argb: 'FF0F273D' } };
-
-    const readMeData = [
-        ['Purpose', 'Official transcribed schedule for Mysore District Athletics Meet 2026.'],
-        ['Affiliation', 'Karnataka Athletics Association (KAA) & Mysore District Athletics Association (MDAA)'],
-        ['Categories', 'Under-14 (Boys & Girls) and Under-16 (Boys & Girls)'],
-        ['Meet Date', '31 October 2026 | Chamundi Vihar Stadium, Mysuru'],
-        ['NIDJAM Selection', 'Athletes selected from this meet will represent Mysore District at 20th NIDJAM 2026 at Woxsen University, Hyderabad (14–16 Nov 2026).']
-    ];
-
-    readMeData.forEach((rowVals, idx) => {
-        const r = readMeWs.getRow(idx + 3);
-        r.height = 20;
-        r.getCell(1).value = rowVals[0];
-        r.getCell(1).font = { name: 'Arial', size: 10, bold: true, color: { argb: 'FF1E3A8A' } };
-        r.getCell(2).value = rowVals[1];
-        r.getCell(2).font = { name: 'Arial', size: 9.5, color: { argb: 'FF334155' } };
-        r.getCell(1).border = thinBorder;
-        r.getCell(2).border = thinBorder;
-    });
-
+    // Write file
     await wb.xlsx.writeFile(targetFile);
-    console.log(`\nSuccessfully created beautified schedule at: ${targetFile}`);
+    console.log(`\nSuccessfully created 2-page schedule at: ${targetFile}`);
 
-    // Also copy to Downloads folder for easy user access
+    // Copy to Downloads folder as well
     const downloadsFile = path.join(process.env.HOME, 'Downloads', 'mysuru_district_athletics_meet_2026_schedule.xlsx');
     try {
         fs.copyFileSync(targetFile, downloadsFile);
         console.log(`Also updated file in Downloads: ${downloadsFile}`);
-    } catch (e) {
-        // ignore if not writable
-    }
+    } catch (e) {}
 }
 
 generateBeautifiedSchedule().catch(err => {
-    console.error('Error generating beautified schedule:', err);
+    console.error('Error generating 2-page schedule:', err);
     process.exit(1);
 });
