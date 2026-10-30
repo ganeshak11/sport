@@ -124,33 +124,33 @@ function buildTriathlonABCWorksheet(ws, wb, config) {
         right: { style: 'thin', color: { argb: 'FF94A3B8' } }
     };
 
-    // 3 Triathlon Groups: A, B, C
+    // 3 Triathlon Groups: A, B, C (clean titles as requested)
     const triGroups = [
-        { name: 'TRIATHLON - GROUP A', desc: '(60m · Long Jump · High Jump)' },
-        { name: 'TRIATHLON - GROUP B', desc: '(60m · Long Jump · Shot Put 1kg)' },
-        { name: 'TRIATHLON - GROUP C', desc: '(60m · Long Jump · 600m)' }
+        { name: 'TRIATHLON A' },
+        { name: 'TRIATHLON B' },
+        { name: 'TRIATHLON C' }
     ];
 
     const colHeaders = ['Position', 'BIB NO', 'Name/phone NO', 'AFI UID', 'School/Taluk', 'performance'];
 
-    triGroups.forEach((group) => {
-        // Space before section
-        ws.getRow(currRow).height = 8;
+    triGroups.forEach((group, idx) => {
+        // Generous spacing between tables (14pt before table)
+        ws.getRow(currRow).height = idx === 0 ? 10 : 14;
         currRow++;
 
-        // Section header banner (Group A / B / C)
+        // Section header banner: Just TRIATHLON A / B / C
         ws.mergeCells(`A${currRow}:F${currRow}`);
         const cGroup = ws.getCell(`A${currRow}`);
-        cGroup.value = `${group.name}  ${group.desc}`;
-        cGroup.font = { name: 'Arial', size: 12.5, bold: true, color: { argb: 'FFFFFFFF' } };
-        cGroup.alignment = { horizontal: 'left', vertical: 'middle', indent: 1 };
-        cGroup.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF1E40AF' } };
-        ws.getRow(currRow).height = 24;
+        cGroup.value = group.name;
+        cGroup.font = { name: 'Arial', size: 13, bold: true, color: { argb: 'FFFFFFFF' } };
+        cGroup.alignment = { horizontal: 'center', vertical: 'middle' };
+        cGroup.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF1E40AF' } }; // Bold Royal Blue
+        ws.getRow(currRow).height = 23;
         currRow++;
 
         // Column headers
         const rHeader = ws.getRow(currRow);
-        rHeader.height = 22;
+        rHeader.height = 21;
         colHeaders.forEach((h, i) => {
             const cell = rHeader.getCell(i + 1);
             cell.value = h;
@@ -164,7 +164,7 @@ function buildTriathlonABCWorksheet(ws, wb, config) {
         // 3 Data rows (Positions 1, 2, 3)
         for (let pos = 1; pos <= 3; pos++) {
             const row = ws.getRow(currRow);
-            row.height = 27; // Clean comfortable row height
+            row.height = 25; // Clean comfortable row height
             const bg = pos % 2 === 0 ? 'FFF8FAFC' : 'FFFFFFFF';
             for (let c = 1; c <= 6; c++) {
                 const cell = row.getCell(c);
@@ -186,13 +186,13 @@ function buildTriathlonABCWorksheet(ws, wb, config) {
         }
     });
 
-    // Space before signatures
-    ws.getRow(currRow).height = 16;
+    // Generous space before signatures block
+    ws.getRow(currRow).height = 18;
     currRow++;
 
     // Signatures block: Side by side across cols A-B, C-D, E-F
-    // Row: Signature line
-    ws.getRow(currRow).height = 20;
+    // Row: Tall space for physical signing above each name (height 40pt)
+    ws.getRow(currRow).height = 42;
     ws.mergeCells(`A${currRow}:B${currRow}`);
     ws.mergeCells(`C${currRow}:D${currRow}`);
     ws.mergeCells(`E${currRow}:F${currRow}`);
@@ -206,7 +206,7 @@ function buildTriathlonABCWorksheet(ws, wb, config) {
     });
     currRow++;
 
-    // Row: Names on top
+    // Row: Names on top of role
     ws.getRow(currRow).height = 22;
     ws.mergeCells(`A${currRow}:B${currRow}`);
     ws.mergeCells(`C${currRow}:D${currRow}`);
@@ -217,7 +217,7 @@ function buildTriathlonABCWorksheet(ws, wb, config) {
     [`A${currRow}`, `C${currRow}`, `E${currRow}`].forEach(addr => {
         const cell = ws.getCell(addr);
         cell.alignment = { horizontal: 'center', vertical: 'middle' };
-        cell.font = { name: 'Arial', size: 12.5, bold: true, color: { argb: 'FF0F172A' } };
+        cell.font = { name: 'Arial', size: 13, bold: true, color: { argb: 'FF0F172A' } };
     });
     currRow++;
 
@@ -232,7 +232,7 @@ function buildTriathlonABCWorksheet(ws, wb, config) {
     [`A${currRow}`, `C${currRow}`, `E${currRow}`].forEach(addr => {
         const cell = ws.getCell(addr);
         cell.alignment = { horizontal: 'center', vertical: 'middle' };
-        cell.font = { name: 'Arial', size: 11, bold: true, color: { argb: 'FF475569' } };
+        cell.font = { name: 'Arial', size: 11.5, bold: true, color: { argb: 'FF475569' } };
     });
 
     // Logo on top-left
