@@ -52,32 +52,32 @@ function buildTriathlonABCWorksheet(ws, wb, config) {
     ];
 
     let currRow = 1;
-    ws.getRow(currRow).height = 8;
+    ws.getRow(currRow).height = 6;
     currRow++;
 
     // Row 2: MDAA Header Line
     ws.mergeCells(`B${currRow}:F${currRow}`);
     const cMDAA = ws.getCell(`B${currRow}`);
     cMDAA.value = 'MYSORE DISTRICT ATHLETICS ASSOCIATION (MDAA)';
-    cMDAA.font = { name: 'Arial', size: 16, bold: true, color: { argb: 'FF1D4ED8' } };
+    cMDAA.font = { name: 'Arial', size: 16.5, bold: true, color: { argb: 'FF1D4ED8' } };
     cMDAA.alignment = { horizontal: 'center', vertical: 'middle' };
-    ws.getRow(currRow).height = 26;
+    ws.getRow(currRow).height = 28;
     currRow++;
 
     // Row 3: Meet Name
     ws.mergeCells(`B${currRow}:F${currRow}`);
     const cMeet = ws.getCell(`B${currRow}`);
     cMeet.value = 'MYSORE DISTRICT JUNIOR ATHLETICS MEET 2026';
-    cMeet.font = { name: 'Arial', size: 14.5, bold: true, color: { argb: 'FF0F172A' } };
+    cMeet.font = { name: 'Arial', size: 15, bold: true, color: { argb: 'FF0F172A' } };
     cMeet.alignment = { horizontal: 'center', vertical: 'middle' };
-    ws.getRow(currRow).height = 22;
+    ws.getRow(currRow).height = 24;
     currRow++;
 
     // Row 4: Subtitle / Selection trials
     ws.mergeCells(`B${currRow}:F${currRow}`);
     const cSub = ws.getCell(`B${currRow}`);
     cSub.value = '(Selection Trials for 20th National Inter District Junior Athletics Meet — NIDJAM 2026)';
-    cSub.font = { name: 'Arial', size: 10.5, bold: true, italic: true, color: { argb: 'FF475569' } };
+    cSub.font = { name: 'Arial', size: 11, bold: true, italic: true, color: { argb: 'FF475569' } };
     cSub.alignment = { horizontal: 'center', vertical: 'middle' };
     ws.getRow(currRow).height = 18;
     currRow++;
@@ -86,10 +86,10 @@ function buildTriathlonABCWorksheet(ws, wb, config) {
     ws.mergeCells(`A${currRow}:F${currRow}`);
     const cVenue = ws.getCell(`A${currRow}`);
     cVenue.value = '📍 VENUE: Chamundi Vihar Stadium, Mysuru   |   📅 DATE: 31 October 2026   |   ⏰ REPORTING: 9:00 AM';
-    cVenue.font = { name: 'Arial', size: 11, bold: true, color: { argb: 'FF1E293B' } };
+    cVenue.font = { name: 'Arial', size: 11.5, bold: true, color: { argb: 'FF1E293B' } };
     cVenue.alignment = { horizontal: 'center', vertical: 'middle' };
     cVenue.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFE2E8F0' } };
-    ws.getRow(currRow).height = 22;
+    ws.getRow(currRow).height = 24;
     currRow++;
 
     // Row 6: Spacing
@@ -100,7 +100,7 @@ function buildTriathlonABCWorksheet(ws, wb, config) {
     ws.mergeCells(`A${currRow}:F${currRow}`);
     const cFR = ws.getCell(`A${currRow}`);
     cFR.value = 'FINAL RESULT';
-    cFR.font = { name: 'Arial', size: 16, bold: true, color: { argb: 'FFFFFFFF' } };
+    cFR.font = { name: 'Arial', size: 16.5, bold: true, color: { argb: 'FFFFFFFF' } };
     cFR.alignment = { horizontal: 'center', vertical: 'middle' };
     cFR.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF1E3A8A' } };
     ws.getRow(currRow).height = 26;
@@ -113,7 +113,7 @@ function buildTriathlonABCWorksheet(ws, wb, config) {
     cEv.font = { name: 'Arial', size: 14, bold: true, color: { argb: 'FF1E3A8A' } };
     cEv.alignment = { horizontal: 'center', vertical: 'middle' };
     cEv.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFDBEAFE' } };
-    ws.getRow(currRow).height = 24;
+    ws.getRow(currRow).height = 25;
     currRow++;
 
     // Borders setup
@@ -134,8 +134,8 @@ function buildTriathlonABCWorksheet(ws, wb, config) {
     const colHeaders = ['Position', 'BIB NO', 'Name/phone NO', 'AFI UID', 'School/Taluk', 'performance'];
 
     triGroups.forEach((group, idx) => {
-        // Generous spacing between tables (14pt before table)
-        ws.getRow(currRow).height = idx === 0 ? 10 : 14;
+        // Generous spacing between tables (22pt)
+        ws.getRow(currRow).height = idx === 0 ? 12 : 22;
         currRow++;
 
         // Section header banner: Just TRIATHLON A / B / C
@@ -145,26 +145,26 @@ function buildTriathlonABCWorksheet(ws, wb, config) {
         cGroup.font = { name: 'Arial', size: 13, bold: true, color: { argb: 'FFFFFFFF' } };
         cGroup.alignment = { horizontal: 'center', vertical: 'middle' };
         cGroup.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF1E40AF' } }; // Bold Royal Blue
-        ws.getRow(currRow).height = 23;
+        ws.getRow(currRow).height = 24;
         currRow++;
 
         // Column headers
         const rHeader = ws.getRow(currRow);
-        rHeader.height = 21;
+        rHeader.height = 23;
         colHeaders.forEach((h, i) => {
             const cell = rHeader.getCell(i + 1);
             cell.value = h;
-            cell.font = { name: 'Arial', size: 11, bold: true, color: { argb: 'FF0F172A' } };
+            cell.font = { name: 'Arial', size: 11.5, bold: true, color: { argb: 'FF0F172A' } };
             cell.alignment = { horizontal: 'center', vertical: 'middle' };
             cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFE2E8F0' } };
             cell.border = thinBorder;
         });
         currRow++;
 
-        // 3 Data rows (Positions 1, 2, 3)
+        // 3 Data rows (Positions 1, 2, 3) with generous row height (34pt)
         for (let pos = 1; pos <= 3; pos++) {
             const row = ws.getRow(currRow);
-            row.height = 25; // Clean comfortable row height
+            row.height = 34; // Generous height for writing comfortably
             const bg = pos % 2 === 0 ? 'FFF8FAFC' : 'FFFFFFFF';
             for (let c = 1; c <= 6; c++) {
                 const cell = row.getCell(c);
@@ -172,13 +172,13 @@ function buildTriathlonABCWorksheet(ws, wb, config) {
                 cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: bg } };
                 if (c === 1) {
                     cell.value = pos;
-                    cell.font = { name: 'Arial', size: 13, bold: true, color: { argb: 'FF0F172A' } };
+                    cell.font = { name: 'Arial', size: 14, bold: true, color: { argb: 'FF0F172A' } };
                     cell.alignment = { horizontal: 'center', vertical: 'middle' };
                 } else if (c === 2 || c === 4 || c === 6) {
-                    cell.font = { name: 'Arial', size: 11, color: { argb: 'FF1E293B' } };
+                    cell.font = { name: 'Arial', size: 11.5, color: { argb: 'FF1E293B' } };
                     cell.alignment = { horizontal: 'center', vertical: 'middle' };
                 } else {
-                    cell.font = { name: 'Arial', size: 11, color: { argb: 'FF1E293B' } };
+                    cell.font = { name: 'Arial', size: 11.5, color: { argb: 'FF1E293B' } };
                     cell.alignment = { horizontal: 'left', vertical: 'middle', indent: 1 };
                 }
             }
@@ -186,13 +186,13 @@ function buildTriathlonABCWorksheet(ws, wb, config) {
         }
     });
 
-    // Generous space before signatures block
-    ws.getRow(currRow).height = 18;
+    // Space before signatures
+    ws.getRow(currRow).height = 30;
     currRow++;
 
     // Signatures block: Side by side across cols A-B, C-D, E-F
-    // Row: Tall space for physical signing above each name (height 40pt)
-    ws.getRow(currRow).height = 42;
+    // Row: Tall space for physical signing above each name (height 55pt)
+    ws.getRow(currRow).height = 55;
     ws.mergeCells(`A${currRow}:B${currRow}`);
     ws.mergeCells(`C${currRow}:D${currRow}`);
     ws.mergeCells(`E${currRow}:F${currRow}`);
@@ -207,7 +207,7 @@ function buildTriathlonABCWorksheet(ws, wb, config) {
     currRow++;
 
     // Row: Names on top of role
-    ws.getRow(currRow).height = 22;
+    ws.getRow(currRow).height = 24;
     ws.mergeCells(`A${currRow}:B${currRow}`);
     ws.mergeCells(`C${currRow}:D${currRow}`);
     ws.mergeCells(`E${currRow}:F${currRow}`);
@@ -222,7 +222,7 @@ function buildTriathlonABCWorksheet(ws, wb, config) {
     currRow++;
 
     // Row: Roles on bottom
-    ws.getRow(currRow).height = 20;
+    ws.getRow(currRow).height = 22;
     ws.mergeCells(`A${currRow}:B${currRow}`);
     ws.mergeCells(`C${currRow}:D${currRow}`);
     ws.mergeCells(`E${currRow}:F${currRow}`);
